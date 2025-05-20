@@ -1,0 +1,135 @@
+[
+    {
+        "trigger": "^(hola|buenos días|buenas tardes|buenas noches|qué tal|ey|hey)",
+        "text":[
+            "¡Hola! 🎉 Soy Masclet, tu bot fallero con chispa. ¿En qué te ayudo hoy?",
+            "¡Ey! ¿Qué tal? Soy Masclet, listo para lo que necesites.",
+            "¡Saludos! Estoy aquí para ayudarte, ¿qué ocurre?",
+            "¡Hola! ¿Cómo va todo? Soy Masclet, tu bot fallero. ¿En qué puedo ayudarte?"
+
+        ],
+        "followUp": [
+        "Dime sobre la mascletà",
+        "Cuéntame la plantà",
+        "¿Cómo nace la tradición?"
+          
+        ]
+    },
+    {
+        "trigger": "masclet[aá]",
+        "text": "¡Escucha esa potencia! 💥 La mascletà es un espectáculo diario a las 14:00h en la Plaza del Ayuntamiento.",
+        "followUp": [
+        "Qué es la plantà",
+        "Me habla de la cremà",
+        "Dónde ver la mascletà"
+        ]
+    },
+    {
+        "trigger": "plant[aá]",
+        "text": "La plantà es el momento en que se instalan los monumentos falleros la madrugada del 15 de marzo.",
+        "followUp": [
+        "Cuándo es la mascletà",
+        "Qué es la cremà",
+        "Diferencia con la ofrenda"
+        ]
+    },
+    {
+        "trigger": "crem[aá]",
+        "text": "La cremà es la noche del 19 al 20 de marzo, cuando arden todos los monumentos falleros. 🔥",
+        "followUp": [
+        "Qué es la plantà",
+        "Cómo se indulta un ninot",
+        "Horario de la cremà"
+        ]
+    },
+    {
+        "trigger": "or[ií]gen(es)?",
+        "text": "¡Chispa aquí! 🚀 Las Fallas nacen en el siglo XVIII para celebrar la llegada de la primavera.",
+        "followUp": [
+        "Historia de la Crida",
+        "Evolución del monumento",
+        "Curiosidades falleras"
+        ]
+    },
+    {
+        "trigger": "ninot[s]? indult",
+        "text": "¡Me encanta ese ninot! ✨ Cada comisión propone un ninot para indultar y salvarlo de la cremà.",
+        "followUp": [
+        "Qué es la Exposición del Ninot",
+        "Día de la votación",
+        "Ninots indultados famosos"
+        ]
+    },
+    {
+        "trigger": "crid[aá]",
+        "text": "La Crida inaugura las Fallas el último domingo de febrero desde las Torres de Serranos. 📣",
+        "followUp": [
+        "Dónde ver la Crida",
+        "Horario de la Crida",
+        "Importancia de la Crida"
+        ]
+    },
+    {
+        "trigger": "ofrenda",
+        "text": "La Ofrenda de Flores a la Virgen es el 17 y 18 de marzo: color y devoción en las calles. 🌸",
+        "followUp": [
+        "Ruta de la Ofrenda",
+        "Horarios de paso",
+        "Traje tradicional fallero"
+        ]
+    },
+    {
+        "trigger": "exposici[oó]n ninot",
+        "text": "La Exposición del Ninot muestra piezas en el Museo de las Ciencias antes de la votación popular.",
+        "followUp": [
+        "Lugar de la Exposición",
+        "Fechas de visita",
+        "Precio de entradas"
+        ]
+    },
+    {
+        "trigger": "secci[oó]n(es)?",
+        "text": "Hay 19 secciones competitivas de las Fallas según presupuesto: la 1A es la máxima. 🏆",
+        "followUp": [
+        "Qué sección es la tuya",
+        "Premios de sección",
+        "Cómo se asignan las secciones"
+        ]
+    },
+    {
+        "trigger": "premios?",
+        "text": "Los premios valoran originalidad, crítica, ingenio y estética de cada monumento.",
+        "followUp": [
+        "Ganadores recientes",
+        "Categorías de premios",
+        "Cómo votar al mejor ninot"
+        ]
+    },
+    {
+        "trigger": "traje[s]? faller[oá]s?",
+        "text": "El traje fallero es una joya cultural: cada uno tiene su historia y simbolismo. 👗👔 ",
+        "followUp": [
+        "Traje de fallera",
+        "Traje de fallero",
+        "Traje de valenciana"
+        ]
+    },
+    {
+        "trigger": "faller[oá]s?",
+        "text": "Las falleras y falleros son el alma de la fiesta: tradición, alegría y pasión por las Fallas. 🎊",
+        "followUp": [
+        "Historia de las falleras",
+        "Día de la fallera mayor",
+        "Cómo ser fallera"
+        ]
+    },
+    {
+        "trigger": "falla[s]? (grande|infantil)",
+        "text": "Las fallas grandes son monumentos de gran tamaño, mientras que las infantiles son más pequeñas y adorables. 🎈",
+        "followUp": [
+        "Diferencias entre fallas",
+        "Historia de las fallas infantiles",
+        "Premios de las fallas infantiles"
+        ]
+    }   
+]
