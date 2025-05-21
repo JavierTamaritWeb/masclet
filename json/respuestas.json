@@ -1,135 +1,182 @@
 [
     {
         "trigger": "^(hola|buenos días|buenas tardes|buenas noches|qué tal|ey|hey)",
-        "text":[
+        "text": [
             "¡Hola! 🎉 Soy Masclet, tu bot fallero con chispa. ¿En qué te ayudo hoy?",
             "¡Ey! ¿Qué tal? Soy Masclet, listo para lo que necesites.",
             "¡Saludos! Estoy aquí para ayudarte, ¿qué ocurre?",
             "¡Hola! ¿Cómo va todo? Soy Masclet, tu bot fallero. ¿En qué puedo ayudarte?"
-
         ],
         "followUp": [
-        "Dime sobre la mascletà",
-        "Cuéntame la plantà",
-        "¿Cómo nace la tradición?"
-          
+            "Dime sobre la mascletà",
+            "Cuéntame la plantà",
+            "¿Cómo nace la tradición?"
         ]
     },
     {
         "trigger": "masclet[aá]",
-        "text": "¡Escucha esa potencia! 💥 La mascletà es un espectáculo diario a las 14:00h en la Plaza del Ayuntamiento.",
+        "text": "La mascletà es un espectáculo pirotécnico diurno que encadena miles de masclets en un crescendo sonoro de pocos minutos, capaz de hacer temblar suelo y espectadores.\n\n• Se dispara diariamente del 1 al 19 de marzo, a las 14:00, en la plaza del Ayuntamiento de València, llenando el centro de estruendo y olor a pólvora.\n• El disparo se estructura en fases: arranca con traca y retenciones, acelera hasta el “terremoto” y culmina con un cierre aéreo ensordecedor.\n• La Fallera Mayor da la señal tradicional —“¡Senyor pirotècnic, pot començar la mascletà!”— desde el balcón consistorial, manteniendo el protocolo festivo oficial.\n• Las crónicas periodísticas destacan que cada pirotecnia compite en creatividad y potencia, rozando a veces el límite legal de 275 kg de pólvora por disparo.",
         "followUp": [
-        "Qué es la plantà",
-        "Me habla de la cremà",
-        "Dónde ver la mascletà"
+            "Qué es la plantà",
+            "Me habla de la cremà",
+            "Dónde ver la mascletà"
         ]
+    },
+        {
+        "trigger": "masclet(es)?",
+        "text": "Masclet es un petardo de gran tamaño y altísima potencia sonora que se dispara para generar un estruendo seco y profundo. La mascletà recibe su nombre porque encadena centenares de estos masclets unidos por una mecha, que estallan en cascada rítmica. Para conseguir el efecto, los pirotécnicos cuelgan o alinean auténticas ‘filas de masclets’, creando un muro de pólvora que marca el pulso del espectáculo. Además, la normativa los clasifica como artificios profesionales, permitiendo su manipulación únicamente a personal acreditado. Su finalidad es eminentemente acústica, buscando hacer vibrar al público con un ritmo creciente que culmina en un golpe final impactante.",
+        "followUp": [
+            "¿Cómo se organiza una fila de masclets?",
+            "Cuéntame sobre la normativa de los artificios pirotécnicos",
+            "¿Qué efecto acústico tiene la mascletà?"
+        ]
+    },
+    {
+        "trigger": "horario[s]? masclet[aá]",
+        "text": "La mascletà se dispara a las 14:00 horas del 1 al 19 de marzo en la plaza del Ayuntamiento de València. ¡No te la pierdas! ⏰",
+        "followUp": [ ]
+    },
+    {
+        "trigger": "horario[s]? plant[aá]",
+        "text": "La plantà de las fallas grandes es el 15 de marzo a las 8:00 y la de las infantiles a las 10:00. ¡A disfrutar! ⏰",
+        "followUp": [ ]
+    },
+    {
+        "trigger": "horario[s]? crem[aá]",
+        "text": "La cremà de las fallas grandes es el 19 de marzo a las 22:00 y la de las infantiles a las 20:00. ¡No te lo pierdas! ⏰",
+        "followUp": [ ]
+    },
+    {
+        "trigger": "horario[s]? crid[aá]",
+        "text": "La Crida se celebra el último domingo de febrero a las 20:00 horas desde las Torres de Serranos. ¡No faltes! ⏰",
+        "followUp": [ ]
+    },
+    {
+        "trigger": "horario[s]? ofrenda",
+        "text": "La Ofrenda de Flores a la Virgen es el 17 y 18 de marzo, comenzando a las 15:00 horas. ¡No te la pierdas! ⏰",
+        "followUp": [ ]
+    },
+    {
+        "trigger": "horario[s]? exposici[oó]n ninot",
+        "text": "La Exposición del Ninot está abierta del 1 al 15 de marzo, con horarios de 10:00 a 20:00 horas. ¡Visítala! ⏰",
+        "followUp": [ ]
+    },
+    {
+        "trigger": "horario[s]? secci[oó]n(es)?",
+        "text": "Las secciones se publican el 1 de marzo y los premios se entregan el 19 de marzo. ¡Atento! ⏰",
+        "followUp": [ ]
+    },
+    {
+        "trigger": "horario[s]? premi[oó]s?",
+        "text": "Los premios se entregan el 19 de marzo en la plaza del Ayuntamiento. ¡No te lo pierdas! ⏰",
+        "followUp": [ ]
     },
     {
         "trigger": "plant[aá]",
         "text": "La plantà es el momento en que se instalan los monumentos falleros la madrugada del 15 de marzo.",
         "followUp": [
-        "Cuándo es la mascletà",
-        "Qué es la cremà",
-        "Diferencia con la ofrenda"
+            "Cuándo es la mascletà",
+            "Qué es la cremà",
+            "Diferencia con la ofrenda"
         ]
     },
     {
         "trigger": "crem[aá]",
         "text": "La cremà es la noche del 19 al 20 de marzo, cuando arden todos los monumentos falleros. 🔥",
         "followUp": [
-        "Qué es la plantà",
-        "Cómo se indulta un ninot",
-        "Horario de la cremà"
+            "Qué es la plantà",
+            "Cómo se indulta un ninot",
+            "Horario de la cremà"
         ]
     },
     {
         "trigger": "or[ií]gen(es)?",
         "text": "¡Chispa aquí! 🚀 Las Fallas nacen en el siglo XVIII para celebrar la llegada de la primavera.",
         "followUp": [
-        "Historia de la Crida",
-        "Evolución del monumento",
-        "Curiosidades falleras"
+            "Historia de la Crida",
+            "Evolución del monumento",
+            "Curiosidades falleras"
         ]
     },
     {
         "trigger": "ninot[s]? indult",
         "text": "¡Me encanta ese ninot! ✨ Cada comisión propone un ninot para indultar y salvarlo de la cremà.",
         "followUp": [
-        "Qué es la Exposición del Ninot",
-        "Día de la votación",
-        "Ninots indultados famosos"
+            "Qué es la Exposición del Ninot",
+            "Día de la votación",
+            "Ninots indultados famosos"
         ]
     },
     {
         "trigger": "crid[aá]",
         "text": "La Crida inaugura las Fallas el último domingo de febrero desde las Torres de Serranos. 📣",
         "followUp": [
-        "Dónde ver la Crida",
-        "Horario de la Crida",
-        "Importancia de la Crida"
+            "Dónde ver la Crida",
+            "Horario de la Crida",
+            "Importancia de la Crida"
         ]
     },
     {
         "trigger": "ofrenda",
         "text": "La Ofrenda de Flores a la Virgen es el 17 y 18 de marzo: color y devoción en las calles. 🌸",
         "followUp": [
-        "Ruta de la Ofrenda",
-        "Horarios de paso",
-        "Traje tradicional fallero"
+            "Ruta de la Ofrenda",
+            "Horarios de paso",
+            "Traje tradicional fallero"
         ]
     },
     {
         "trigger": "exposici[oó]n ninot",
         "text": "La Exposición del Ninot muestra piezas en el Museo de las Ciencias antes de la votación popular.",
         "followUp": [
-        "Lugar de la Exposición",
-        "Fechas de visita",
-        "Precio de entradas"
+            "Lugar de la Exposición",
+            "Fechas de visita",
+            "Precio de entradas"
         ]
     },
     {
         "trigger": "secci[oó]n(es)?",
         "text": "Hay 19 secciones competitivas de las Fallas según presupuesto: la 1A es la máxima. 🏆",
         "followUp": [
-        "Qué sección es la tuya",
-        "Premios de sección",
-        "Cómo se asignan las secciones"
+            "Qué sección es la tuya",
+            "Premios de sección",
+            "Cómo se asignan las secciones"
         ]
     },
     {
         "trigger": "premios?",
         "text": "Los premios valoran originalidad, crítica, ingenio y estética de cada monumento.",
         "followUp": [
-        "Ganadores recientes",
-        "Categorías de premios",
-        "Cómo votar al mejor ninot"
+            "Ganadores recientes",
+            "Categorías de premios",
+            "Cómo votar al mejor ninot"
         ]
     },
     {
         "trigger": "traje[s]? faller[oá]s?",
         "text": "El traje fallero es una joya cultural: cada uno tiene su historia y simbolismo. 👗👔 ",
         "followUp": [
-        "Traje de fallera",
-        "Traje de fallero",
-        "Traje de valenciana"
+            "Traje de fallera",
+            "Traje de fallero",
+            "Traje de valenciana"
         ]
     },
     {
         "trigger": "faller[oá]s?",
         "text": "Las falleras y falleros son el alma de la fiesta: tradición, alegría y pasión por las Fallas. 🎊",
         "followUp": [
-        "Historia de las falleras",
-        "Día de la fallera mayor",
-        "Cómo ser fallera"
+            "Historia de las falleras",
+            "Día de la fallera mayor",
+            "Cómo ser fallera"
         ]
     },
     {
         "trigger": "falla[s]? (grande|infantil)",
         "text": "Las fallas grandes son monumentos de gran tamaño, mientras que las infantiles son más pequeñas y adorables. 🎈",
         "followUp": [
-        "Diferencias entre fallas",
-        "Historia de las fallas infantiles",
-        "Premios de las fallas infantiles"
+            "Diferencias entre fallas",
+            "Historia de las fallas infantiles",
+            "Premios de las fallas infantiles"
         ]
     }   
 ]

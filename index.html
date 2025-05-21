@@ -35,9 +35,6 @@
       display:flex; align-items:center; justify-content:center; position:relative;
       cursor:move; gap:8px; user-select:none;
     }
-
-    
-
     #masclet-minimize { position:absolute; right:10px; top:10px; cursor:pointer; }
     #masclet-messages { flex:1; padding:10px; background:#F5F5F5; overflow-y:auto; }
     .masclet-msg { margin-bottom:10px; }
@@ -57,13 +54,27 @@
     #masclet-input { display:flex; border-top:1px solid #DDD; }
     #masclet-input input { flex:1; padding:10px; border:none; outline:none; }
     #masclet-input button { background:#FF6F61; color:#fff; border:none; padding:0 15px; cursor:pointer; }
-        /* Añade este bloque al final de tu sección <style> en index.html */
-        /* Para dispositivos pequeños: chat minimizado en forma de círculo */
-        /* Añade este bloque al final de tu sección <style> en index.html */
     #masclet-chat.minimized #masclet-title {
       display: none;
     }
-    
+    #masclet-send {
+      background: linear-gradient(45deg, #FF6F61, #FF8A65);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    #masclet-send:hover {
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    #masclet-send:active {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transform: translateY(2px) 300ms;
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
 </head>
@@ -72,12 +83,12 @@
   <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
   <div id="chat-wrapper">
     <div id="masclet-chat">
-            <div id="masclet-header">
+      <div id="masclet-header">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bomb-icon lucide-bomb">
-            <circle cx="11" cy="13" r="9"/>
-            <path d="M14.35 4.65 16.3 2.7a2.41 2.41 0 0 1 3.4 0l1.6 1.6a2.4 2.4 0 0 1 0 3.4l-1.95 1.95"/>
-            <path d="m22 2-1.5 1.5"/>
-          </svg>
+          <circle cx="11" cy="13" r="9"/>
+          <path d="M14.35 4.65 16.3 2.7a2.41 2.41 0 0 1 3.4 0l1.6 1.6a2.4 2.4 0 0 1 0 3.4l-1.95 1.95"/>
+          <path d="m22 2-1.5 1.5"/>
+        </svg>
         <span id="masclet-title">Masclet</span>
         <span id="masclet-minimize">_</span>
       </div>
@@ -85,7 +96,10 @@
       <div id="masclet-suggestions"></div>
       <div id="masclet-input">
         <input type="text" id="masclet-text" placeholder="Escribe tu pregunta...">
-        <button id="masclet-send">💥</button>
+            <button id="masclet-send" type="button">
+          
+              💥 Enviar
+            </button>
       </div>
     </div>
   </div>
@@ -208,9 +222,13 @@
   
   // Add message
   function addMessage(text, cls) {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const timestamp = `[${hours}:${minutes}] `;
     const el = document.createElement('div');
     el.className = 'masclet-msg ' + cls;
-    el.textContent = text;
+    el.textContent = timestamp + text;
     messagesEl.appendChild(el);
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
@@ -227,8 +245,6 @@
       suggestionsEl.appendChild(btn);
     });
   }
-  
-  
   
   // Typewriter effect (con opción para mensaje instantáneo)
   function typeMessage(text, instant = false) {
@@ -250,8 +266,22 @@
       }, speed);
     }
   }
-
-    function checkScreenSize() {
+  
+  // Función showThinking agregada para mostrar un mensaje de "Pensando..."
+  function showThinking() {
+    const thinkingEl = document.createElement('div');
+    thinkingEl.className = 'masclet-msg bot-msg';
+    thinkingEl.textContent = 'Pensando...';
+    messagesEl.appendChild(thinkingEl);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return function() {
+      if (messagesEl.contains(thinkingEl)) {
+        messagesEl.removeChild(thinkingEl);
+      }
+    };
+  }
+  
+  function checkScreenSize() {
     const width = window.innerWidth;
     if (width <= 768) {
       if (!chatEl.classList.contains('minimized')) {
@@ -266,162 +296,120 @@
     }
   }
   
- // Objeto para guardar el último índice utilizado por cada trigger
-const lastResponses = {};
-
-// Objeto para contar repeticiones de una misma consulta (opcional)
-const repeatCount = {};
-
-// Objeto para almacenar el historial de conversación (consulta → { count, lastResponse })
-const conversationHistory = {};
-
-async function responder(q) {
-  // Conversión a minúsculas para el conteo de repeticiones y para la clave del historial
-  const queryKey = q.toLowerCase();
-  repeatCount[queryKey] = (repeatCount[queryKey] || 0) + 1;
+  // Objeto para guardar el último índice utilizado por cada trigger
+  const lastResponses = {};
   
-  // Buscamos coincidencias exactas en el array "respuestas"
-  for (const r of respuestas) {
-    if (r.trigger.test(q)) {
-      if (Array.isArray(r.text)) {
-        if (r.text.length === 1) {
-          return { text: r.text[0], followUp: r.followUp || [] };
+  // Objeto para contar repeticiones de una misma consulta (opcional)
+  const repeatCount = {};
+  
+  // Objeto para almacenar el historial de conversación (consulta → { count, lastResponse })
+  const conversationHistory = {};
+  
+  async function responder(q) {
+    const queryKey = q.toLowerCase();
+    repeatCount[queryKey] = (repeatCount[queryKey] || 0) + 1;
+  
+    for (const r of respuestas) {
+      if (r.trigger.test(q)) {
+        if (Array.isArray(r.text)) {
+          if (r.text.length === 1) {
+            return { text: r.text[0], followUp: r.followUp || [] };
+          }
+          const key = r.trigger.toString();
+          let randomIndex;
+          do {
+            randomIndex = Math.floor(Math.random() * r.text.length);
+          } while (lastResponses[key] === randomIndex);
+          lastResponses[key] = randomIndex;
+          let responseText = r.text[randomIndex];
+          if (repeatCount[queryKey] > 3) {
+            responseText += " (Ya me lo habías preguntado, ¡pero aquí te lo repito de otra forma!)";
+          }
+          return { text: responseText, followUp: r.followUp || [] };
+        } else {
+          return r;
         }
-        const key = r.trigger.toString();
-        let randomIndex;
-        do {
-          randomIndex = Math.floor(Math.random() * r.text.length);
-        } while (lastResponses[key] === randomIndex);
-        lastResponses[key] = randomIndex;
-        let responseText = r.text[randomIndex];
-        // Si el usuario repite varias veces la misma consulta, añadimos un matiz extra
-        if (repeatCount[queryKey] > 3) {
-          responseText += " (Ya me lo habías preguntado, ¡pero aquí te lo repito de otra forma!)";
-        }
-        return { text: responseText, followUp: r.followUp || [] };
-      } else {
-        return r;
       }
     }
-  }
-  // Si no se encuentra coincidencia exacta, se utiliza Fuse.js
-  if (fuse) {
-    const res = fuse.search(q);
-    if (res.length) {
-      const item = res[0].item;
-      if (Array.isArray(item.text)) {
-        if (item.text.length === 1) {
-          return { text: item.text[0], followUp: item.followUp || [] };
+    if (fuse) {
+      const res = fuse.search(q);
+      if (res.length) {
+        const item = res[0].item;
+        if (Array.isArray(item.text)) {
+          if (item.text.length === 1) {
+            return { text: item.text[0], followUp: item.followUp || [] };
+          }
+          const key = item.trigger ? item.trigger.toString() : JSON.stringify(item.text);
+          let randomIndex;
+          do {
+            randomIndex = Math.floor(Math.random() * item.text.length);
+          } while (lastResponses[key] === randomIndex);
+          lastResponses[key] = randomIndex;
+          return { text: item.text[randomIndex], followUp: item.followUp || [] };
         }
-        const key = item.trigger ? item.trigger.toString() : JSON.stringify(item.text);
-        let randomIndex;
-        do {
-          randomIndex = Math.floor(Math.random() * item.text.length);
-        } while (lastResponses[key] === randomIndex);
-        lastResponses[key] = randomIndex;
-        return { text: item.text[randomIndex], followUp: item.followUp || [] };
+        return { text: item.text, followUp: item.followUp || [] };
       }
-      return { text: item.text, followUp: item.followUp || [] };
     }
+    return { text: '🤔 No dispongo de info para eso.', followUp: [] };
   }
-  return { text: '🤔 No dispongo de info para eso.', followUp: [] };
-}
-
-
-// Función auxiliar para inyectar datos contextuales según la hora del día
-function addContextualData(text) {
-  const now = new Date();
-  const hour = now.getHours();
-  let saludoContextual = "";
-  if (hour < 12) {
-    saludoContextual = "¡Buenos días!";
-  } else if (hour < 18) {
-    saludoContextual = "¡Buenas tardes!";
-  } else {
-    saludoContextual = "¡Buenas noches!";
-  }
-  // Si la respuesta contiene un saludo (podrías ajustarlo según tus triggers)
-  if (/hola|salúdame/i.test(text)) {
-    return saludoContextual + " " + text;
-  }
-  return text;
-}
-
-// Handle question: Integra la memoria local sin concatenar mensajes de forma acumulativa.
-async function handleQuestion(q) {
-  suggestionsEl.innerHTML = '';
-  const stop = showThinking();
-  await new Promise(r => setTimeout(r, 800));
-  stop();
-
-  const queryKey = q.toLowerCase();
-  // Llamamos a responder para obtener una respuesta base
-  let { text, followUp } = await responder(q);
-
-  if (conversationHistory[queryKey]) {
-    // Incrementamos el contador
-    conversationHistory[queryKey].count++;
-    // Si se repite más de 3 veces, obtenemos una nueva variante
-    if (conversationHistory[queryKey].count > 3) {
-      let { text: newText, followUp: newFollowUp } = await responder(q);
-      text = `Ya me preguntaste eso (${conversationHistory[queryKey].count} veces), pero te lo recuerdo: ${newText}`;
-      conversationHistory[queryKey].baseResponse = newText; // Actualizamos la respuesta base
-      followUp = newFollowUp;
+  
+  // Función auxiliar para inyectar datos contextuales según la hora del día
+  function addContextualData(text) {
+    const now = new Date();
+    const hour = now.getHours();
+    let saludoContextual = "";
+    if (hour < 12) {
+      saludoContextual = "¡Buenos días!";
+    } else if (hour < 18) {
+      saludoContextual = "¡Buenas tardes!";
     } else {
-      // Para las primeras 3 repeticiones se usa la respuesta base original
-      text = `Ya me preguntaste eso (${conversationHistory[queryKey].count} veces), pero te lo recuerdo: ${conversationHistory[queryKey].baseResponse}`;
+      saludoContextual = "¡Buenas noches!";
     }
-  } else {
-    // Primera vez que se hace esta consulta: la guardamos en el historial
-    conversationHistory[queryKey] = {
-      count: 1,
-      baseResponse: text
-    };
+    if (/hola|salúdame/i.test(text)) {
+      return saludoContextual + " " + text;
+    }
+    return text;
   }
   
-  // Inyectamos información contextual a la respuesta
-  text = addContextualData(text);
+  // Handle question: Integra la memoria local sin concatenar mensajes de forma acumulativa.
+  async function handleQuestion(q) {
+    suggestionsEl.innerHTML = '';
+    const stop = showThinking();
+    await new Promise(r => setTimeout(r, 800));
+    stop();
   
-  try {
-    typeMessage(text);
-    if (followUp && followUp.length) {
-      setTimeout(() => showSuggestions(followUp), text.length * 25 + 200);
+    const queryKey = q.toLowerCase();
+    let { text, followUp } = await responder(q);
+  
+    if (conversationHistory[queryKey]) {
+      conversationHistory[queryKey].count++;
+      if (conversationHistory[queryKey].count > 3) {
+        let { text: newText, followUp: newFollowUp } = await responder(q);
+        text = `Ya me preguntaste eso (${conversationHistory[queryKey].count} veces), pero te lo recuerdo: ${newText}`;
+        conversationHistory[queryKey].baseResponse = newText;
+        followUp = newFollowUp;
+      } else {
+        text = `Ya me preguntaste eso (${conversationHistory[queryKey].count} veces), pero te lo recuerdo: ${conversationHistory[queryKey].baseResponse}`;
+      }
+    } else {
+      conversationHistory[queryKey] = {
+        count: 1,
+        baseResponse: text
+      };
     }
-  } catch (err) {
-    console.error(err);
-    typeMessage('¡Ups! Algo falló.');
-  }
-}
-// Actualiza la función addMessage para incluir la hora en la que se envía la pregunta
-function addMessage(text, cls) {
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const timestamp = `[${hours}:${minutes}] `;
-  const el = document.createElement('div');
-  el.className = 'masclet-msg ' + cls;
-  el.textContent = timestamp + text;
-  messagesEl.appendChild(el);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
-}
   
-  // // Handle question
-  // async function handleQuestion(q) {
-  //   suggestionsEl.innerHTML = '';
-  //   const stop = showThinking();
-  //   await new Promise(r => setTimeout(r, 800));
-  //   stop();
-  //   try {
-  //     const { text, followUp } = await responder(q);
-  //     typeMessage(text);
-  //     if (followUp && followUp.length) {
-  //       setTimeout(() => showSuggestions(followUp), text.length * 25 + 200);
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     typeMessage('¡Ups! Algo falló.');
-  //   }
-  // }
+    text = addContextualData(text);
+  
+    try {
+      typeMessage(text);
+      if (followUp && followUp.length) {
+        setTimeout(() => showSuggestions(followUp), text.length * 25 + 200);
+      }
+    } catch (err) {
+      console.error(err);
+      typeMessage('¡Ups! Algo falló.');
+    }
+  }
   
   // Eventos
   sendBtn.addEventListener('click', () => {
@@ -431,7 +419,7 @@ function addMessage(text, cls) {
     inputEl.value = '';
     handleQuestion(q);
   });
-
+  
   inputEl.addEventListener('keydown', e => {
     if (e.key === 'Enter') sendBtn.click();
   });
@@ -440,7 +428,6 @@ function addMessage(text, cls) {
   window.onload = async () => {
     inputEl.focus();
     await cargarRespuestas();
-    // Mensaje inicial (sin efecto typewriter)
     typeMessage('¡BOOM! 🎇 Soy Masclet. Salúdame con "hola".', true);
     checkScreenSize();
   };
