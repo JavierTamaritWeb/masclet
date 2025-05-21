@@ -8,22 +8,23 @@
             "¡Hola! ¿Cómo va todo? Soy Masclet, tu bot fallero. ¿En qué puedo ayudarte?"
         ],
         "followUp": [
-            "Dime sobre la mascletà",
-            "Cuéntame la plantà",
-            "¿Cómo nace la tradición?"
+            
         ]
     },
     {
         "trigger": "masclet[aá]",
         "text": "La mascletà es un espectáculo pirotécnico diurno que encadena miles de masclets en un crescendo sonoro de pocos minutos, capaz de hacer temblar suelo y espectadores.\n\n• Se dispara diariamente del 1 al 19 de marzo, a las 14:00, en la plaza del Ayuntamiento de València, llenando el centro de estruendo y olor a pólvora.\n• El disparo se estructura en fases: arranca con traca y retenciones, acelera hasta el “terremoto” y culmina con un cierre aéreo ensordecedor.\n• La Fallera Mayor da la señal tradicional —“¡Senyor pirotècnic, pot començar la mascletà!”— desde el balcón consistorial, manteniendo el protocolo festivo oficial.\n• Las crónicas periodísticas destacan que cada pirotecnia compite en creatividad y potencia, rozando a veces el límite legal de 275 kg de pólvora por disparo.",
+        "imagen": "img/mascleta.png",
+        
         "followUp": [
+            
             "Qué es la plantà",
             "Me habla de la cremà",
             "Dónde ver la mascletà"
         ]
     },
         {
-        "trigger": "masclet(es)?",
+        "trigger": "masclet[s]?",
         "text": "Masclet es un petardo de gran tamaño y altísima potencia sonora que se dispara para generar un estruendo seco y profundo. La mascletà recibe su nombre porque encadena centenares de estos masclets unidos por una mecha, que estallan en cascada rítmica. Para conseguir el efecto, los pirotécnicos cuelgan o alinean auténticas ‘filas de masclets’, creando un muro de pólvora que marca el pulso del espectáculo. Además, la normativa los clasifica como artificios profesionales, permitiendo su manipulación únicamente a personal acreditado. Su finalidad es eminentemente acústica, buscando hacer vibrar al público con un ritmo creciente que culmina en un golpe final impactante.",
         "followUp": [
             "¿Cómo se organiza una fila de masclets?",
