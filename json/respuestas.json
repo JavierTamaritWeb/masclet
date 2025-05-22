@@ -7,25 +7,26 @@
             "¡Saludos! Estoy aquí para ayudarte, ¿qué ocurre?",
             "¡Hola! ¿Cómo va todo? Soy Masclet, tu bot fallero. ¿En qué puedo ayudarte?"
         ],
-        "followUp": [
-            
-        ]
+        "followUp": []
     },
     {
         "trigger": "masclet[aá]",
         "text": "La mascletà es un espectáculo pirotécnico diurno que encadena miles de masclets en un crescendo sonoro de pocos minutos, capaz de hacer temblar suelo y espectadores.\n\n• Se dispara diariamente del 1 al 19 de marzo, a las 14:00, en la plaza del Ayuntamiento de València, llenando el centro de estruendo y olor a pólvora.\n• El disparo se estructura en fases: arranca con traca y retenciones, acelera hasta el “terremoto” y culmina con un cierre aéreo ensordecedor.\n• La Fallera Mayor da la señal tradicional —“¡Senyor pirotècnic, pot començar la mascletà!”— desde el balcón consistorial, manteniendo el protocolo festivo oficial.\n• Las crónicas periodísticas destacan que cada pirotecnia compite en creatividad y potencia, rozando a veces el límite legal de 275 kg de pólvora por disparo.",
-        "imagen": "img/mascleta.png",
         
         "followUp": [
-            
             "Qué es la plantà",
             "Me habla de la cremà",
             "Dónde ver la mascletà"
         ]
     },
-        {
+    {
         "trigger": "masclet[s]?",
-        "text": "Masclet es un petardo de gran tamaño y altísima potencia sonora que se dispara para generar un estruendo seco y profundo. La mascletà recibe su nombre porque encadena centenares de estos masclets unidos por una mecha, que estallan en cascada rítmica. Para conseguir el efecto, los pirotécnicos cuelgan o alinean auténticas ‘filas de masclets’, creando un muro de pólvora que marca el pulso del espectáculo. Además, la normativa los clasifica como artificios profesionales, permitiendo su manipulación únicamente a personal acreditado. Su finalidad es eminentemente acústica, buscando hacer vibrar al público con un ritmo creciente que culmina en un golpe final impactante.",
+        "text": "Masclet es un petardo de gran tamaño y altísima potencia sonora que se dispara para generar un estruendo seco y profundo.\n• La mascletà recibe su nombre porque encadena centenares de estos masclets unidos por una mecha, que estallan en cascada rítmica.\n• Para conseguir el efecto, los pirotécnicos cuelgan o alinean auténticas ‘filas de masclets’, creando un muro de pólvora que marca el pulso del espectáculo.\n• Además, la normativa los clasifica como artificios profesionales, permitiendo su manipulación únicamente a personal acreditado.\n• Su finalidad es eminentemente acústica, buscando hacer vibrar al público con un ritmo creciente que culmina en un golpe final impactante.",
+        "imagen":[ "../img/masclet.png" ],
+        "video": [
+            "https://www.youtube.com/watch?v=1g0v2x3X4Y8"
+           
+        ],
         "followUp": [
             "¿Cómo se organiza una fila de masclets?",
             "Cuéntame sobre la normativa de los artificios pirotécnicos",
@@ -35,42 +36,42 @@
     {
         "trigger": "horario[s]? masclet[aá]",
         "text": "La mascletà se dispara a las 14:00 horas del 1 al 19 de marzo en la plaza del Ayuntamiento de València. ¡No te la pierdas! ⏰",
-        "followUp": [ ]
+        "followUp": []
     },
     {
         "trigger": "horario[s]? plant[aá]",
         "text": "La plantà de las fallas grandes es el 15 de marzo a las 8:00 y la de las infantiles a las 10:00. ¡A disfrutar! ⏰",
-        "followUp": [ ]
+        "followUp": []
     },
     {
         "trigger": "horario[s]? crem[aá]",
         "text": "La cremà de las fallas grandes es el 19 de marzo a las 22:00 y la de las infantiles a las 20:00. ¡No te lo pierdas! ⏰",
-        "followUp": [ ]
+        "followUp": []
     },
     {
         "trigger": "horario[s]? crid[aá]",
         "text": "La Crida se celebra el último domingo de febrero a las 20:00 horas desde las Torres de Serranos. ¡No faltes! ⏰",
-        "followUp": [ ]
+        "followUp": []
     },
     {
         "trigger": "horario[s]? ofrenda",
         "text": "La Ofrenda de Flores a la Virgen es el 17 y 18 de marzo, comenzando a las 15:00 horas. ¡No te la pierdas! ⏰",
-        "followUp": [ ]
+        "followUp": []
     },
     {
         "trigger": "horario[s]? exposici[oó]n ninot",
         "text": "La Exposición del Ninot está abierta del 1 al 15 de marzo, con horarios de 10:00 a 20:00 horas. ¡Visítala! ⏰",
-        "followUp": [ ]
+        "followUp": []
     },
     {
         "trigger": "horario[s]? secci[oó]n(es)?",
         "text": "Las secciones se publican el 1 de marzo y los premios se entregan el 19 de marzo. ¡Atento! ⏰",
-        "followUp": [ ]
+        "followUp": []
     },
     {
         "trigger": "horario[s]? premi[oó]s?",
         "text": "Los premios se entregan el 19 de marzo en la plaza del Ayuntamiento. ¡No te lo pierdas! ⏰",
-        "followUp": [ ]
+        "followUp": []
     },
     {
         "trigger": "plant[aá]",
@@ -179,5 +180,5 @@
             "Historia de las fallas infantiles",
             "Premios de las fallas infantiles"
         ]
-    }   
+    }
 ]
