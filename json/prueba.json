@@ -1,0 +1,406 @@
+[
+
+    {
+        "redNeuronal":{
+            "vestimenta":{
+                "mujer":[
+                        {
+                            "trigger": "vestimenta[s]? faller[aá]s?",
+                            "text": "La vestimenta fallera es una tradición rica en historia y simbolismo, con trajes únicos para cada género. 👗👔 ",
+                            "followUp": [
+                                "Traje de fallera",
+                                "Traje de valenciana"
+                            ]
+
+                        },
+                        {
+                            "trigger": "traje[s]? faller[aá]s?",
+                            "text": "El traje fallero es una joya cultural: cada uno tiene su historia y simbolismo. 👗👔 ",
+                            "followUp": [
+                                "Traje de fallera",
+                                "Traje de valenciana"
+                            ]
+                        },
+                        {
+                            "trigger": "traje[s]? valencian[aá]s?",
+                            "text": "El traje valenciano es una expresión de la cultura local, lleno de colores y detalles. 🌼",
+                            "followUp": [
+                                "Traje de fallera"
+                            ]
+                        },
+                        {
+                            "trigger": "traje[s]? regionales? valenciana",
+                            "text": "Los trajes regionales reflejan la diversidad cultural de España, cada uno con su encanto. 🇪🇸",
+                            "followUp": [
+                                "Historia del traje de fallera",
+                                "Cómo se confecciona un traje de fallera",
+                                "Diferencias entre trajes de fallera"
+                            ]
+                        },
+                        {
+                            "trigger": "traje[s]? tradicional? fallera?",
+                            "text": "El traje de fallera es un símbolo de la tradición y la cultura valenciana, con detalles únicos. 👗",
+                            "followUp": [
+                                "Historia del traje de fallera",
+                                "Cómo se confecciona un traje de fallera",
+                                "Diferencias entre trajes de fallera"
+                            ]
+                        },
+                        {
+                            "trigger": "pendiente[s]? faller[aá]s?",
+                            "text": "Los pendientes falleros son joyas tradicionales que complementan el traje de fallera, con diseños únicos. 💎" ,
+                            "followUp": [
+                                "Tipos de pendientes falleros",
+                                "Dónde comprar pendientes falleros",
+                                "Historia de los pendientes falleros"
+                            ]   
+                        },
+                        {
+                            "trigger": "peineta[s]?",
+                            "text": " La peineta es un accesorio tradicional que adorna el cabello de las falleras, simbolizando elegancia y tradición. 💇‍♀️",
+                            "followUp": [
+                                "Tipos de peinetas",
+                                "Cómo se coloca una peineta",
+                                "Historia de la peineta en las Fallas"
+                            ]
+                        }
+
+
+                    ],
+            "hombre":[
+                        {
+                            "trigger": "vestimenta[s]? faller[oá]s?",
+                            "text": "La vestimenta fallera es una tradición rica en historia y simbolismo, con trajes únicos para cada género. 👗👔 ",
+                            "followUp": [
+                                "Traje de fallera",
+                                "Traje de fallero",
+                                "Traje de valenciana"
+                            ]
+                        },
+                        {
+                            "trigger": "traje[s]? faller[oá]s?",
+                            "text": "El traje fallero es una joya cultural: cada uno tiene su historia y simbolismo. 👗👔 ",
+                            "followUp": [
+                                "Traje de fallera",
+                                "Traje de fallero",
+                                "Traje de valenciana"
+                            ]
+                        },
+                        {
+                            "trigger": "traje[s]? valencian[oá]s?",
+                            "text": "El traje valenciano es una expresión de la cultura local, lleno de colores y detalles. 🌼",
+                            "followUp": [
+                                "Traje de fallera",
+                                "Traje de fallero",
+                                "Traje de valenciana"
+                            ]
+                        },
+                        {
+                            "trigger": "traje[s]? regionales?",
+                            "text": "Los trajes regionales reflejan la diversidad cultural de España, cada uno con su encanto. 🇪🇸",
+                            "followUp": [
+                                "Traje andaluz",
+                                "Traje gallego",
+                                "Traje catalán"
+                            ]
+                        }
+                    ]
+            },
+            "comidaTipica":{
+            
+                "dulce":[
+                    {
+                        "trigger": "comida[s]? faller[aá]s?",
+                        "text": "La comida típica de las Fallas incluye platos como la paella, buñuelos y churros con chocolate. 🍽️",
+                        "followUp": [
+                            "Receta de paella",
+                            "Dónde comer buñuelos",
+                            "Churros con chocolate"
+                        ]
+                    },
+                    {
+                        "trigger": "plato[s]? valencian[oá]s?",
+                        "text": "La gastronomía valenciana es rica y variada, destacando la paella como plato estrella. 🍲",
+                        "followUp": [
+                            "Historia de la paella",
+                            "Platos típicos de Valencia",
+                            "Restaurantes recomendados"
+                        ]
+                    },
+                    {
+                        "trigger": "dulce[s]? faller[oá]s?",
+                        "text": "Los dulces típicos de las Fallas incluyen los buñuelos y los pasteles de boniato. 🍩",
+                        "followUp": [
+                            "Receta de buñuelos",
+                            "Dónde comprar pasteles de boniato",
+                            "Dulces tradicionales"
+                        ]
+                    }
+                ],
+                "salado":[
+                    {
+                        "trigger": "comida[s]? faller[oá]s?",
+                        "text": "La comida típica de las Fallas incluye platos como la paella, buñuelos y churros con chocolate. 🍽️",
+                        "followUp": [
+                            "Receta de paella",
+                            "Dónde comer buñuelos",
+                            "Churros con chocolate"
+                        ]
+                    },
+                    {
+                        "trigger": "plato[s]? valencian[oá]s?",
+                        "text": "La gastronomía valenciana es rica y variada, destacando la paella como plato estrella. 🍲",
+                        "followUp": [
+                            "Historia de la paella",
+                            "Platos típicos de Valencia",
+                            "Restaurantes recomendados"
+                        ]
+                    },
+                    {
+                        "trigger": "dulce[s]? faller[oá]s?",
+                        "text": "Los dulces típicos de las Fallas incluyen los buñuelos y los pasteles de boniato. 🍩",
+                        "followUp": [
+                            "Receta de buñuelos",
+                            "Dónde comprar pasteles de boniato",
+                            "Dulces tradicionales"
+                        ]
+                    }
+                ]
+            },
+            "festejosReligiosos":{
+                "patrones":[
+                    {
+                        "trigger": "festejos? religiosos?",
+                        "text": "Los festejos religiosos en las Fallas incluyen la Ofrenda de Flores a la Virgen y la Crida. 🙏",
+                        "followUp": [
+                            "Ofrenda de Flores",
+                            "Crida",
+                            "Procesiones"
+                        ]
+                    },
+                    {
+                        "trigger": "ofrenda de flores",
+                        "text": "La Ofrenda de Flores es un acto emotivo donde se rinde homenaje a la Virgen de los Desamparados. 🌸",
+                        "followUp": [
+                            "Horario de la Ofrenda",
+                            "Ruta de la Ofrenda",
+                            "Historia de la Ofrenda"
+                        ]
+                    },
+                    {
+                        "trigger": "crida",
+                        "text": "La Crida es el acto inaugural de las Fallas, donde se da inicio a las festividades. 🎉",
+                        "followUp": [
+                            "Dónde ver la Crida",
+                            "Horario de la Crida",
+                            "Importancia de la Crida"
+                        ]
+                    }
+                ],
+                "procesiones":[
+                    {
+                        "trigger": "procesiones?",
+                        "text": "Las procesiones son parte integral de las Fallas, destacando la devoción a la Virgen. 🚶‍♀️🚶‍♂️",
+                        "followUp": [
+                            "Fechas de las procesiones",
+                            "Ruta de las procesiones",
+                            "Importancia de las procesiones"
+                        ]
+                    },
+                    {
+                        "trigger": "virgen de los desamparados",
+                        "text": "La Virgen de los Desamparados es la patrona de Valencia y recibe una ofrenda floral especial. 🌹",
+                        "followUp": [
+                            "Historia de la Virgen",
+                            "Eventos en honor a la Virgen",
+                            "Cómo participar en la ofrenda"
+                        ]
+                    }
+                ],
+                "ofrendas":[
+                    {
+                        "trigger": "ofrenda[s]?",
+                        "text": "Las ofrendas son actos de devoción donde se rinden homenajes a la Virgen y a los patrones de las Fallas. 🙏",
+                        "followUp": [
+                            "Ofrenda de Flores",
+                            "Ofrenda de Pan",
+                            "Ofrenda de Luz"
+                        ]
+                    },
+                    {
+                        "trigger": "ofrenda de pan",
+                        "text": "La Ofrenda de Pan es una tradición donde se ofrecen productos típicos como símbolo de gratitud. 🍞",
+                        "followUp": [
+                            "Historia de la Ofrenda de Pan",
+                            "Productos típicos ofrecidos",
+                            "Cómo participar en la Ofrenda de Pan"
+                        ]
+                    },
+                    {
+                        "trigger": "ofrenda de luz",
+                        "text": "La Ofrenda de Luz es un acto simbólico que representa la esperanza y la fe. 💡",
+                        "followUp": [
+                            "Historia de la Ofrenda de Luz",
+                            "Cómo participar en la Ofrenda de Luz",
+                            "Importancia de la Ofrenda de Luz"
+                        ]
+                    }
+                ]
+            },
+            "festejosPopulares":{
+                "tradiciones":[
+                    {
+                        "trigger": "festejos? populares?",
+                        "text": "Los festejos populares de las Fallas incluyen la plantà, la cremà y las mascletàs. 🎊",
+                        "followUp": [
+                            "Plantà",
+                            "Cremà",
+                            "Mascletàs"
+                        ]
+                    },
+                    {
+                        "trigger": "plantà",
+                        "text": "La plantà es el momento en que se instalan los monumentos falleros la madrugada del 15 de marzo. 🌟",
+                        "followUp": [
+                            "Cuándo es la plantà",
+                            "Horario de la plantà",
+                            "Importancia de la plantà"
+                        ]
+                    },
+                    {
+                        "trigger": "cremà",
+                        "text": "La cremà es la noche del 19 al 20 de marzo, cuando arden todos los monumentos falleros. 🔥",
+                        "followUp": [
+                            "Qué es la plantà",
+                            "Cómo se indulta un ninot",
+                            "Horario de la cremà"
+                        ]
+                    }
+                ],
+                "artificiosPirotecnicos":[
+                    {
+                        "trigger": "art[ií]f[ií]cios? pirot[eé]cnicos?",
+                        "text": "Los artificios pirotécnicos son espectáculos de fuegos artificiales que iluminan el cielo durante las Fallas. 🎆",
+                        "followUp": [
+                            "Tipos de fuegos artificiales",
+                            "Horarios de los espectáculos",
+                            "Mejores lugares para verlos"
+                        ]
+                    },
+                    {
+                        "trigger": "masclet[aá]",
+                        "text": "La mascletà es un espectáculo pirotécnico que se celebra diariamente en la Plaza del Ayuntamiento. 🎇",
+                        "followUp": [
+                            "Horario de la mascletà",
+                            "Historia de la mascletà",
+                            "Cómo se organiza una mascletà"
+                        ]
+                    }
+                ],
+                "musica":[
+                    {
+                        "trigger": "música[s]?",
+                        "text": "La música es una parte esencial de las Fallas, con bandas que tocan pasodobles y canciones tradicionales. 🎶",
+                        "followUp": [
+                            "Bandas de música",
+                            "Canciones típicas",
+                            "Eventos musicales"
+                        ]
+                    },
+                    {
+                        "trigger": "pasod[oó]ble[s]?",
+                        "text": "El pasodoble es un género musical muy popular en las Fallas, interpretado por numerosas bandas. 🎺",
+                        "followUp": [
+                            "Historia del pasodoble",
+                            "Mejores pasodobles falleros",
+                            "Cómo se baila el pasodoble"
+                        ]
+                    }
+                ],
+                "baile":[
+                    {
+                        "trigger": "baile[s]?",
+                        "text": "El baile es una parte importante de las Fallas, con danzas tradicionales y eventos de baile. 💃🕺",
+                        "followUp": [
+                            "Danzas tradicionales",
+                            "Eventos de baile",
+                            "Cómo aprender a bailar"
+                        ]
+                    },
+                    {
+                        "trigger": "danzas? tradicionales?",
+                        "text": "Las danzas tradicionales son una expresión cultural que se celebra en las Fallas. 🕺",
+                        "followUp": [
+                            "Tipos de danzas",
+                            "Historia de las danzas",
+                            "Cómo participar en las danzas"
+                        ]
+                    }
+                ]
+            },
+
+            "monumentos":[
+                {
+                    "trigger": "monumentos? faller[oá]s?",
+                    "text": "Los monumentos falleros son obras de arte efímeras que se instalan en las calles de Valencia. 🏛️",
+                    "followUp": [
+                        "Historia de los monumentos",
+                        "Tipos de monumentos",
+                        "Monumentos más famosos"
+                    ]
+                },
+                {
+                    "trigger": "ninot[s]? indult",
+                    "text": "¡Me encanta ese ninot! ✨ Cada comisión propone un ninot para indultar y salvarlo de la cremà.",
+                    "followUp": [
+                        "Qué es la Exposición del Ninot",
+                        "Día de la votación",
+                        "Ninots indultados famosos"
+                    ]
+                },
+                {
+                    "trigger": "exposici[oó]n ninot",
+                    "text": "La Exposición del Ninot muestra piezas en el Museo de las Ciencias antes de la votación popular. 🖼️",
+                    "followUp": [
+                        "Dónde ver la exposición",
+                        "Horario de la exposición",
+                        "Ninots destacados"
+                    ]
+                }
+            ],
+            "puestosPersonal":[
+                {
+                    "trigger": "puestos? personal",
+                    "text": "Los puestos de personal en las Fallas incluyen roles como fallera mayor, presidente de la comisión y artistas falleros. 👩‍🎤👨‍🎨",
+                    "followUp": [
+                        "Qué hace una fallera mayor",
+                        "Funciones del presidente de comisión",
+                        "Artistas falleros destacados"
+                    ]
+                },
+                {
+                    "trigger": "fallera mayor",
+                    "text": "La fallera mayor es la representante de la fiesta, elegida por su belleza y compromiso con las tradiciones. 👑",
+                    "followUp": [
+                        "Cómo se elige la fallera mayor",
+                        "Historia de la fallera mayor",
+                        "Eventos de la fallera mayor"
+                    ]
+                },
+                {
+                    "trigger": "presidente de comisi[oó]n",
+                    "text": "El presidente de comisión organiza y coordina todas las actividades de su falla. 🗂️",
+                    "followUp": [
+                        "Funciones del presidente",
+                        "Cómo se elige al presidente",
+                        "Importancia del presidente en las Fallas"
+                    ]
+                }
+            ]
+        }
+        
+
+    }
+
+
+]

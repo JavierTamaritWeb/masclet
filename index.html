@@ -26,6 +26,11 @@
       z-index: 1000;
       font-family: sans-serif;
     }
+    #masclet-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0;
+    }
     #masclet-chat.minimized { width: fit-content; height: fit-content; }
     #masclet-chat.minimized > *:not(#masclet-header) { display: none; }
     #masclet-header {
@@ -37,7 +42,7 @@
       justify-content: center;
       position: relative;
       cursor: move;
-      gap: 8px;
+      gap: 4px;
       user-select: none;
     }
     #masclet-minimize {
@@ -113,12 +118,8 @@
   <div id="chat-wrapper">
     <div id="masclet-chat">
       <div id="masclet-header">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bomb-icon">
-          <circle cx="11" cy="13" r="9"/>
-          <path d="M14.35 4.65 16.3 2.7a2.41 2.41 0 0 1 3.4 0l1.6 1.6a2.4 2.4 0 0 1 0 3.4l-1.95 1.95"/>
-          <path d="m22 2-1.5 1.5"/>
-        </svg>
-        <span id="masclet-title">Masclet</span>
+        <img src="img/masclet.png" alt="masclet-icon" style="width: 60px; height: 60px; margin-right: 2px;">
+        <span id="masclet-title" style="font-size: 1.2em; font-weight: bold;">Masclet Bot</span>
         <span id="masclet-minimize">_</span>
       </div>
       <div id="masclet-messages"></div>
@@ -223,14 +224,30 @@
         const resp = await fetch('json/respuestas.json');
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
-        respuestas = data.map(item => ({
+        // data es un array con un objeto con la propiedad redNeuronal
+        let respuestasPlanas = [];
+        const rn = data[0].redNeuronal;
+        for (const key in rn) {
+          const value = rn[key];
+          if (Array.isArray(value)) {
+            respuestasPlanas.push(...value);
+          } else if (typeof value === 'object') {
+            for (const subKey in value) {
+              const arr = value[subKey];
+              if (Array.isArray(arr)) {
+                respuestasPlanas.push(...arr);
+              }
+            }
+          }
+        }
+        respuestas = respuestasPlanas.map(item => ({
           trigger: new RegExp(item.trigger, 'i'),
           text: item.text,
           imagen: item.imagen || null,
           video: item.video || null,
           followUp: item.followUp || []
         }));
-        fuse = new Fuse(data, { keys: ['text'], threshold: 0.4 });
+        fuse = new Fuse(respuestasPlanas, { keys: ['text'], threshold: 0.4 });
       } catch (err) {
         console.error('Error cargando JSON:', err);
         typeMessage('¡Uy! No he podido cargar mis respuestas.');
