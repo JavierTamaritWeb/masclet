@@ -25,6 +25,82 @@
             ]
           },
           {
+            
+            "trigger": "partes\\s+traje\\s+fallera",
+            "text": "Visit Valencia enumera: corpiño, falda de seda, manteletas bordadas, delantal, medias caladas y enaguas almidonadas.",
+            "followUp": []
+
+          },
+          {
+            "trigger": "traje\\s+fallera\\s+oficial",
+            "text": "La JCF recuerda que para actos protocolarios el traje oficial debe ser de seda natural con dibujo valenciano y talle a la cintura.",
+            "followUp": []
+          },
+          {
+            "trigger": "vestir\\s+como\\s+fallera",
+            "text": "Levante-EMV aconseja probar el traje completo al menos dos veces antes de la Ofrenda para ajustar dobladillos y corsé.",
+            "followUp": []
+          },
+          {
+            "trigger": "alquilar\\s+traje\\s+fallera",
+            "text": "Actualidad Fallera sitúa el alquiler de un traje completo entre 180 y 250 € el fin de semana, aderezo aparte.",
+            "followUp": []
+          },
+          {
+            "trigger": "peso\\s+traje\\s+fallera",
+            "text": "Hablemos de Fallas calcula que un traje con enaguas, joyas y moños puede pesar hasta 12 kg; conviene practicar caminar con él.",
+            "followUp": []
+          },
+          {
+            "trigger": "peineta\\s+fallera",
+            "text": "Las Provincias explica que la peineta se funde en latón dorado o plateado y se graba a mano con motivos florales.",
+            "followUp": []
+          },
+         
+          {
+            
+            "trigger": "manteleta\\s+tradicional",
+            "text": "La JCF detalla que la manteleta de hilo se borda con seda o canutillo y se sujeta al corpiño con alfileres de plata.",
+            "followUp": []
+          },
+          {
+            
+            "trigger": "corpiño\\s+fallera",
+            "text": "Visit Valencia aconseja elegir corpiño entallado con manga al codo para actos de día y manga larga para noche.",
+            "followUp": []
+          },
+          {
+            "trigger": "calzado\\s+fallera",
+            "text": "Actualidad Fallera recuerda que los zapatos se forran en la misma seda del traje y suelen llevar tacón medio de madera.",
+            "followUp": []
+          },
+          {
+            "trigger": "origen\\s+traje\\s+fallera",
+            "text": "Levante-EMV sitúa el origen en la indumentaria de labradora pudiente del siglo XVIII, adaptada luego a la moda isabelina.",
+            "followUp": []
+          },
+          {
+            "trigger": "evoluci[oó]n\\s+indumentaria\\s+fallera",
+            "text": "Visit Valencia destaca que a finales del XIX el corpiño se acortó y la falda perdió volumen por influencia parisina.",
+            "followUp": []
+          },
+          {
+            "trigger": "significado\\s+colores\\s+traje",
+            "text": "Cendra Digital señala que el azul y el burdeos eran símbolos de estatus porque los tintes naturales eran más caros.",
+            "followUp": []
+          },
+          {
+            "trigger": "influencia\\s+borb[oó]nica\\s+traje\\s+fallera",
+            "text": "Las Provincias explica que con la corte borbónica llegó la seda de Lyon, clave para los dibujos que hoy llamamos ‘espolinados’.",
+            "followUp": []
+
+          },
+          {
+            "trigger": "moda\\s+siglo\\s+xix\\s+traje\\s+valenciano",
+            "text": "Actualidad Fallera detalla que en 1860 aparecieron los primeros aderezos de oro de filigrana y las puntillas francesas.",
+            "followUp": []
+          },
+          {
             "trigger": "traje[s]?\\s+valencian[aá]s?",
             "text": "El traje valenciano femenino es una expresión cultural llena de colorido y tradición. 🌼",
             "followUp": [
@@ -39,6 +115,42 @@
               "Cómo se coloca",
               "Tipos de peinetas"
             ]
+          },
+          {
+              "trigger": "traje[s]? regionales? valenciana",
+              "text": "Los trajes regionales reflejan la diversidad cultural de España, cada uno con su encanto. 🇪🇸",
+              "followUp": [
+                  "Historia del traje de fallera",
+                  "Cómo se confecciona un traje de fallera",
+                  "Diferencias entre trajes de fallera"
+              ]
+          },
+          {
+              "trigger": "traje[s]? tradicional? fallera?",
+              " text": "El traje de fallera es un símbolo de la tradición y la cultura valenciana, con detalles únicos. 👗",
+              "followUp": [
+                  "Historia del traje de fallera",
+                  "Cómo se confecciona un traje de fallera",
+                  "Diferencias entre trajes de fallera"
+              ]
+          },
+          {
+              "trigger": "pendiente[s]? faller[aá]s?",
+              "text": "Los pendientes falleros son joyas tradicionales que complementan el traje de fallera, con diseños únicos. 💎" ,
+              "followUp": [
+                  "Tipos de pendientes falleros",
+                  "Dónde comprar pendientes falleros",
+                  "Historia de los pendientes falleros"
+              ]   
+          },
+          {
+              "trigger": "peineta[s]?",
+              "text": " La peineta es un accesorio tradicional que adorna el cabello de las falleras, simbolizando elegancia y tradición. 💇‍♀️",
+              "followUp": [
+                  "Tipos de peinetas",
+                  "Cómo se coloca una peineta",
+                  "Historia de la peineta en las Fallas"
+              ]
           }
         ],
         "hombre": [
@@ -78,23 +190,269 @@
               "Pasteles tradicionales",
               "Dulces destacados"
             ]
+          },
+          {
+            "trigger": "receta\\s+buñuelos\\s+calabaza",
+            "text": "Según Actualidad Fallera, mezcla 250 g de puré de calabaza asada, 250 g de harina, 20 g de levadura fresca y una pizca de sal; agrega agua templada hasta lograr masa pegajosa, reposa 30 min y fríe a 180 °C.",
+            "followUp": []
+          
+          },
+          {
+            "trigger": "pasteler[ií]a\\s+fallera\\s+t[íi]pica",
+            "text": "Las Provincias destaca obradores como Daniel o Fartons Polo que, en marzo, ofrecen coquetes de almendra, pastelitos de calabaza y los clásicos pasteles de boniato.",
+            "followUp": []
+    
+          },
+          {
+            "trigger": "dulces\\s+t[íi]picos\\s+fallas",
+            "text": "Visit Valencia hace su top-5: 1) Buñuelos de calabaza, 2) Churros de anís, 3) Pasteles de boniato, 4) Coca cristina y 5) Rosquilletas dulces bañadas en chocolate.",
+            "followUp": []
+   
+          },
+          
+          
+          {
+              "trigger": "dulce[s]? faller[oá]s?",
+              "text": "Los dulces típicos de las Fallas incluyen los buñuelos y los pasteles de boniato. 🍩",
+              "followUp": [
+                  "Receta de buñuelos",
+                  "Dónde comprar pasteles de boniato",
+                  "Dulces tradicionales"
+              ]
+          },
+          {
+            "trigger": "comprar\\s+pasteles\\s+de\\s+boniato",
+            "text": "Las Provincias recomienda las pastelerías Daniel (Alboraya) y Casa Piloto (calle San Vicente) como los puntos imprescindibles para pasteles de boniato recién horneados en marzo.",
+            "followUp": []
+    
+          },
+          {
+            "trigger": "dulces\\s+tradicionales\\s+fallas",
+            "text": "Visit Valencia destaca este top: 1) Buñuelos de calabaza, 2) Churros de anís, 3) Pasteles de boniato, 4) Coca cristina y 5) Porras bañadas en chocolate.",
+            "followUp": []
+    
+          },
+          {
+            "trigger": "receta\\s+buñuelos\\s+calabaza",
+            "text": "Según Actualidad Fallera, mezcla 250 g de puré de calabaza asada, 250 g de harina, 20 g de levadura fresca, una pizca de sal y agua templada hasta obtener masa pegajosa. Deja reposar 30 min, fríe a 180 °C y espolvorea azúcar.",
+            "followUp": [
+              
+            ]
+          },
+          {
+            "trigger": "dulces\\s+t[íi]picos\\s+fallas",
+            "text": "Visit Valencia hace ranking: 1) Buñuelos de calabaza, 2) Churros de anís, 3) Pasteles de boniato, 4) Coca cristina y 5) Rosquilletas dulces con chocolate.",
+            "followUp": [
+              
+            ]
+          
           }
         ],
         "salado": [
+              {
+                "trigger": "plato[s]?\\s+valencian[oó]s?",
+                "text": "La gastronomía salada de Valencia brilla con la paella y otros platos tradicionales. 🍲",
+                "followUp": [
+                  "Receta de paella",
+                  "Restaurantes recomendados",
+                  "Platos emblemáticos"
+                ]
+              },
+              {
+                "trigger": "restaurantes\\s+paella\\s+valencia",
+                "text": "Visit Valencia recomienda La Riuà, El Forcat y Casa Carmela para probar paella de leña sin ‘menús turista’.",
+                "followUp": []
+      
+              },
+              {
+                "trigger": "d[oó]nde\\s+comer\\s+paella\\s+aut[éé]ntica",
+                "text": "Las Provincias aconseja ir a la Malvarrosa temprano: Casa Isabel y L’Estimat sirven paella con vistas al Mediterráneo.",
+                "followUp": []
+      
+              },
+              {
+                "trigger": "mejores\\s+arrocer[ií]as\\s+valencia",
+                "text": "Actualidad Fallera destaca Nou Racó en la Albufera por su arroz seco y el entorno natural incomparable.",
+                "followUp": []
+        
+              },
+              {
+                "trigger": "comida[s]? faller[oá]s?",
+                "text": "La comida típica de las Fallas incluye platos como la paella, buñuelos y churros con chocolate. 🍽️",
+                "followUp": [
+                    "Receta de paella"
+                ]
+            },
+            {
+                "trigger": "plato[s]? valencian[oá]s?",
+                "text": "La gastronomía valenciana es rica y variada, destacando la paella como plato estrella. 🍲",
+                "followUp": [
+                    "Historia de la paella",
+                    "Platos típicos de Valencia",
+                    "Restaurantes recomendados"
+                ]
+            },
+            {
+                "trigger": "historia\\s+paella\\s+valenciana",
+                "text": "Visit Valencia explica que la paella nació a orillas de l’Albufera en el siglo XIX, cuando los labradores cocinaban arroz con conejo, pollo y verduras de la huerta para el almuerzo de campo.",
+                "followUp": []
+      
+            },
+            {
+              
+              "trigger": "origen\\s+de\\s+la\\s+paella",
+              "text": "Levante-EMV recuerda que el término «paella» se refiere a la sartén ancha donde se cocina; con el tiempo el nombre pasó a identificar el plato en sí.",
+              "followUp": []
+            },
+            {
+              
+              "trigger": "qu[eé]\\s+significa\\s+paella",
+              "text": "Según Actualidad Fallera, «paella» proviene del latín ‘patella’, una bandeja metálica; la palabra evolucionó en valenciano hasta definir la típica cazuela sin asas.",
+              "followUp": []
+            },
+            {
+              "trigger": "primera\\s+receta\\s+paella",
+              "text": "Las Provincias cita un recetario de 1857 como el documento más antiguo donde aparece la paella con ingredientes casi idénticos a los actuales.",
+              "followUp": []
+            },
+            {
+            
+              "trigger": "evoluci[oó]n\\s+paella\\s+tradicional",
+              "text": "Cendra Digital resume que la paella pasó de cocinarse con rama de naranjo a usar gas en los 60, aunque hoy muchos restaurantes vuelven al fuego de leña por sabor y autenticidad.",
+              "followUp": []
+            },
+            {
+              "trigger": "platos\\s+t[íi]picos\\s+valencia",
+              "text": "Visit Valencia enumera los imprescindibles: paella, all i pebre, fideuà, esgarraet, arroz al horno y clóchinas al vapor en temporada."
+            },
+            {
+              "trigger": "comida\\s+tradicional\\s+valenciana",
+              "text": "Levante-EMV añade la coca de llanda y la olla valenciana como dos guisos caseros que resurgen en fallas para combatir el fresco de marzo."
+            },
+            {
+              "trigger": "gastronom[ií]a\\s+valencia\\s+imperdibles",
+              "text": "Actualidad Fallera destaca el esgarraet —pimiento asado y bacalao desmigado— como tapa estrella en los casales después de la mascletà."
+            },
+            {
+              "trigger": "top\\s+5\\s+platos\\s+valencianos",
+              "text": "Las Provincias propone este ranking fallero: 1) Paella, 2) Arroz al horno, 3) Fideuà, 4) All i pebre, 5) Titaina del Cabanyal.",
+              "followUp": []
+            },
+            {
+              "trigger": "qu[eé]\\s+comer\\s+en\\s+valencia\\s+fallas",
+              "text": "Cendra Digital recuerda que en marzo tampoco faltan buñuelos de calabaza ni churros con chocolate, perfectos para cerrar una ruta de monumentos.",
+              "followUp": []
+            },
+            {
+              "trigger": "comida[s]? faller[aá]s?",
+              "text": "La comida típica de las Fallas incluye platos como la paella, buñuelos y churros con chocolate. 🍽️",
+              "followUp": [
+                  "Receta de paella"
+                 
+              ]
+          },
           {
-            "trigger": "plato[s]?\\s+valencian[oó]s?",
-            "text": "La gastronomía salada de Valencia brilla con la paella y otros platos tradicionales. 🍲",
-            "followUp": [
-              "Receta de paella",
-              "Restaurantes recomendados",
-              "Platos emblemáticos"
-            ]
+            "trigger": "receta\\s+paella\\s+valenciana",
+            "text": "Visit Valencia detalla la receta clásica: pollo y conejo, garrofó, ferradura, tomate rallado, pimentón, azafrán y arroz bomba que se cuece 18 min a fuego vivo y 3 min a fuego suave para conseguir el socarrat.",
+            "followUp": []
+    
+          },
+          {
+            "trigger": "ingredientes\\s+paella\\s+aut[éé]ntica",
+            "text": "Según la JCF, una paella “de concurso” nunca lleva chorizo ni guisantes; el pimentón y el romero son los únicos toques aromáticos permitidos.",
+            "followUp": []
+   
+          },
+          {
+            "trigger": "ingredientes\\s+paella\\s+fallera",
+            "text": "Levante-EMV recalca que los ingredientes ‘de libro’ son: pollo, conejo, judía verde plana, garrofó, tomate, aceite, agua, sal, azafrán y, opcionalmente, caracoles y romero.",
+            "followUp": []
+    
+          },
+          {
+            "trigger": "d[oó]nde\\s+comer\\s+buñuelos\\s+fallas",
+            "text": "Levante-EMV recomienda los puestos de la plaza de la Reina y el histórico ‘Casa Piloto’ en la calle San Vicente, donde fríen buñuelos de calabaza desde 1945.",
+            "followUp": []
+   
+          },
+          {
+            "trigger": "restaurantes\\s+paella\\s+recomendados",
+            "text": "Visit Valencia sugiere Casa Carmela (Malvarrosa), La Riuà (centro) y Nou Racó (Albufera) para degustar paella a leña sin menú-trampa.",
+            "followUp": []
+          },
+          {
+            
+            "trigger": "d[oó]nde\\s+comer\\s+paella\\s+valencia",
+            "text": "Las Provincias aconseja llegar temprano a L’Estimat o Casa Isabel en la playa para disfrutar arroz junto al Mediterráneo.",
+            "followUp": []
+          },
+          {
+            "trigger": "mejores\\s+arrocer[ií]as\\s+valencia",
+            "text": "Levante-EMV destaca El Palmar como zona de arrozales con locales como Bon Aire, ganador de varios concursos internacionales.",
+            "followUp": []
+          },
+          {
+            "trigger": "restaurante\\s+valencia\\s+tradicional",
+            "text": "Actualidad Fallera recomienda Navarro en la calle Arzobispo Mayoral: paella de mediodía y ‘all i pebre’ por encargo.",
+            "followUp": []
+          },
+          {
+            "trigger": "d[oó]nde\\s+cenar\\s+en\\s+fallas",
+            "text": "Hablemos de Fallas propone casales con menú popular: Cuba-Literato Azorín ofrece arroces alicantinos y ambiente festivo hasta las 2 a.m.",
+            "followUp": []
           }
         ]
       },
       "festejosReligiosos": {
-        "patrones": [],
-        "procesiones": [],
+        "patrones": [
+          {
+              "trigger": "festejos? religiosos?",
+              "text": "Los festejos religiosos en las Fallas incluyen la Ofrenda de Flores a la Virgen y la Crida. 🙏",
+              "followUp": [
+                  "Ofrenda de Flores",
+                  "Crida",
+                  "Procesiones"
+              ]
+          },
+          {
+              "trigger": "ofrenda de flores",
+              "text": "La Ofrenda de Flores es un acto emotivo donde se rinde homenaje a la Virgen de los Desamparados. 🌸",
+              "followUp": [
+                  "Horario de la Ofrenda",
+                  "Ruta de la Ofrenda",
+                  "Historia de la Ofrenda"
+              ]
+          },
+          {
+              "trigger": "crida",
+              "text": "La Crida es el acto inaugural de las Fallas, donde se da inicio a las festividades. 🎉",
+              "followUp": [
+                  "Dónde ver la Crida",
+                  "Horario de la Crida",
+                  "Importancia de la Crida"
+              ]
+          }
+        ],
+        "procesiones": [
+           {
+              "trigger": "procesiones?",
+              "text": "Las procesiones son parte integral de las Fallas, destacando la devoción a la Virgen. 🚶‍♀️🚶‍♂️",
+              "followUp": [
+                  "Fechas de las procesiones",
+                  "Ruta de las procesiones",
+                  "Importancia de las procesiones"
+              ]
+          },
+          {
+              "trigger": "virgen de los desamparados",
+              "text": "La Virgen de los Desamparados es la patrona de Valencia y recibe una ofrenda floral especial. 🌹",
+              "followUp": [
+                  "Historia de la Virgen",
+                  "Eventos en honor a la Virgen",
+                  "Cómo participar en la ofrenda"
+              ]
+          }
+        ],
         "ofrendas": [
            {
                 "trigger": "horarios?\\s+(?:de\\s+paso\\s+)?(?:de\\s+la\\s+)?ofrenda",
@@ -118,6 +476,33 @@
               "Horarios de paso",
               "Traje tradicional fallero"
             ]
+          },
+          {
+              "trigger": "ofrenda[s]?",
+              "text": "Las ofrendas son actos de devoción donde se rinden homenajes a la Virgen y a los patrones de las Fallas. 🙏",
+              "followUp": [
+                  "Ofrenda de Flores",
+                  "Ofrenda de Pan",
+                  "Ofrenda de Luz"
+              ]
+          },
+          {
+              "trigger": "ofrenda de pan",
+              "text": "La Ofrenda de Pan es una tradición donde se ofrecen productos típicos como símbolo de gratitud. 🍞",
+              "followUp": [
+                  "Historia de la Ofrenda de Pan",
+                  "Productos típicos ofrecidos",
+                  "Cómo participar en la Ofrenda de Pan"
+              ]
+          },
+          {
+              "trigger": "ofrenda de luz",
+              "text": "La Ofrenda de Luz es un acto simbólico que representa la esperanza y la fe. 💡",
+              "followUp": [
+                  "Historia de la Ofrenda de Luz",
+                  "Cómo participar en la Ofrenda de Luz",
+                  "Importancia de la Ofrenda de Luz"
+              ]
           }
         
         ]
@@ -174,6 +559,33 @@
               "Evolución del monumento",
               "Curiosidades falleras"
             ]
+          },
+          {
+              "trigger": "festejos? populares?",
+              "text": "Los festejos populares de las Fallas incluyen la plantà, la cremà y las mascletàs. 🎊",
+              "followUp": [
+                  "Plantà",
+                  "Cremà",
+                  "Mascletàs"
+              ]
+          },
+          {
+              "trigger": "plantà",
+              "text": "La plantà es el momento en que se instalan los monumentos falleros la madrugada del 15 de marzo. 🌟",
+              "followUp": [
+                  "Cuándo es la plantà",
+                  "Horario de la plantà",
+                  "Importancia de la plantà"
+              ]
+          },
+          {
+              "trigger": "cremà",
+              "text": "La cremà es la noche del 19 al 20 de marzo, cuando arden todos los monumentos falleros. 🔥",
+              "followUp": [
+                  "Qué es la plantà",
+                  "Cómo se indulta un ninot",
+                  "Horario de la cremà"
+              ]
           }
         ],
         "artificiosPirotecnicos": [
@@ -202,8 +614,48 @@
             ]
           }
         ],
-        "musica": [],
-        "baile": []
+        "musica": [
+          {
+            "trigger": "música[s]?",
+            "text": "La música es una parte esencial de las Fallas, con bandas que tocan pasodobles y canciones tradicionales. 🎶",
+            "followUp": [
+                "Bandas de música",
+                "Canciones típicas",
+                "Eventos musicales"
+            ]
+        },
+        {
+            "trigger": "pasod[oó]ble[s]?",
+            "text": "El pasodoble es un género musical muy popular en las Fallas, interpretado por numerosas bandas. 🎺",
+            "followUp": [
+                "Historia del pasodoble",
+                "Mejores pasodobles falleros",
+                "Cómo se baila el pasodoble"
+            ]
+        }
+        ],
+        "baile": [
+          
+          {
+              "trigger": "baile[s]?",
+              "text": "El baile es una parte importante de las Fallas, con danzas tradicionales y eventos de baile. 💃🕺",
+              "followUp": [
+                  "Danzas tradicionales",
+                  "Eventos de baile",
+                  "Cómo aprender a bailar"
+              ]
+          },
+          {
+              "trigger": "danzas? tradicionales?",
+              "text": "Las danzas tradicionales son una expresión cultural que se celebra en las Fallas. 🕺",
+              "followUp": [
+                  "Tipos de danzas",
+                  "Historia de las danzas",
+                  "Cómo participar en las danzas"
+              ]
+          }
+
+        ]
       },
       "monumentos": [
         {
