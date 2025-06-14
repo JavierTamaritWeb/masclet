@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Masclet Bot Fallero</title>
   <style>
+    /* Contenedor principal del chatbot */
     #chat-wrapper {
       max-width: 1400px; /* ancho máximo de 1400px */
       margin: 0 auto;    /* centra el contenedor */
       position: relative; /* contenedor de posicionamiento */
       height: 100vh; /* limita la zona vertical */
     }
+    /* Modal del chatbot */
     #masclet-chat {
       position: absolute;
       bottom: 20px;
@@ -32,10 +34,11 @@
       font-weight: bold;
       margin: 0;
     }
+    /* Estado minimizado */
     #masclet-chat.minimized { width: fit-content; height: fit-content; }
     #masclet-chat.minimized > *:not(#masclet-header) { display: none; }
+    /* Cabecera */
     #masclet-header {
-      background: #FF6F61;
       background: rgba(255,255,255,0.2);
       color: #ff6f61;
       padding: 10px 40px 10px 10px;
@@ -53,6 +56,7 @@
       top: 10px;
       cursor: pointer;
     }
+    /* Área de mensajes */
     #masclet-messages {
       flex: 1;
       padding: 10px;
@@ -66,6 +70,7 @@
       white-space: pre-wrap;
       word-wrap: break-word;
     }
+    /* Sugerencias */
     #masclet-suggestions {
       padding: 8px;
       display: flex;
@@ -85,6 +90,7 @@
       transition: background 0.2s;
     }
     .suggestion-btn:hover { background: #d69d2e; }
+    /* Área de input y botones */
     #masclet-input { display: flex; border-top: 1px solid #DDD; }
     #masclet-input input { flex: 1; padding: 10px; border: none; outline: none; }
     #masclet-input button {
@@ -95,6 +101,7 @@
       cursor: pointer;
     }
     #masclet-chat.minimized #masclet-title { display: none; }
+    /* Botón Enviar */
     #masclet-send {
       background: linear-gradient(45deg, #FF6F61, #FF8A65);
       color: #fff;
@@ -111,7 +118,7 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       transform: translateY(2px);
     }
-
+    /* Animación para mensajes */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -125,8 +132,8 @@
     .masclet-msg {
       animation: fadeIn 0.5s ease;
     }
-    /* Botón para reiniciar conversación */
-   #reset-btn {
+    /* Botón Reset (copia del estilo de "Enviar") */
+    #reset-btn {
       background: linear-gradient(45deg, #FF6F61, #FF8A65);
       color: #fff;
       border: none;
@@ -150,29 +157,34 @@
 <body>
   <h1>Masclet Bot Fallero</h1>
   <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
-    
   <div id="chat-wrapper">
     <div id="masclet-chat">
       <div id="masclet-header">
-        <img src="img/masclet.png" alt="masclet-icon" style="width: 60px; height: 60px; margin-right: 2px;">
+        <img alt="masclet-icon" src="img/masclet.png" style="width: 60px; height: 60px; margin-right: 2px;"/>
         <span id="masclet-title" style="font-size: 1.2em; font-weight: bold;">Masclet Bot</span>
         <span id="masclet-minimize">_</span>
       </div>
       <div id="masclet-messages"></div>
       <div id="masclet-suggestions"></div>
-      <!-- El botón de reset se encuentra aquí, dentro del modal -->
-      
+      <!-- Área de input y botones (incluyendo reset) -->
       <div id="masclet-input">
-        <input type="text" id="masclet-text" placeholder="Escribe tu pregunta...">
+        <input id="masclet-text" placeholder="Escribe tu pregunta..." type="text"/>
         <button id="masclet-send" type="button">Enviar</button>
-        <button id="reset-btn"><svg fill="#ffffff" width="25px" height="25px" viewBox="-192 -192 2304.00 2304.00" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" stroke-width="0" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M960 0v112.941c467.125 0 847.059 379.934 847.059 847.059 0 467.125-379.934 847.059-847.059 847.059-467.125 0-847.059-379.934-847.059-847.059 0-267.106 126.607-515.915 338.824-675.727v393.374h112.94V112.941H0v112.941h342.89C127.058 407.38 0 674.711 0 960c0 529.355 430.645 960 960 960s960-430.645 960-960S1489.355 0 960 0" fill-rule="evenodd"></path> </g></svg></button>
+        <button id="reset-btn">
+          <svg fill="#ffffff" height="25px" stroke="#ffffff" stroke-width="0" transform="rotate(0)" viewBox="-192 -192 2304.00 2304.00" width="25px" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path d="M960 0v112.941c467.125 0 847.059 379.934 847.059 847.059 0 467.125-379.934 847.059-847.059 847.059-467.125 0-847.059-379.934-847.059-847.059 0-267.106 126.607-515.915 338.824-675.727v393.374h112.94V112.941H0v112.941h342.89C127.058 407.38 0 674.711 0 960c0 529.355 430.645 960 960 960s960-430.645 960-960S1489.355 0 960 0" fill-rule="evenodd"></path>
+            </g>
+          </svg>
+        </button>
       </div>
     </div>
     <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
     <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
     <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
   </div>
-  
   <script>
     // Función para convertir links de YouTube a formato embed
     function convertYoutube(url) {
@@ -189,9 +201,10 @@
     const suggestionsEl = document.getElementById('masclet-suggestions');
     const inputEl = document.getElementById('masclet-text');
     const sendBtn = document.getElementById('masclet-send');
+    const resetBtn = document.getElementById('reset-btn');
     const wrapper = document.getElementById('chat-wrapper');
     
-    // Agregamos artículos y preposiciones comunes adicionales
+    // Lista de palabras comunes
     const stopWordsList = [
       "el", "la", "los", "las", "de", "del", "y", "a", "en",
       "con", "para", "por", "al", "ante", "bajo", "cabe", "desde",
@@ -202,7 +215,6 @@
       const pattern = '\\b(' + list.join('|') + ')\\b';
       return new RegExp(pattern, 'gi');
     }
-    
     const stopWords = createStopWordsRegex(stopWordsList);
     
     // Función para eliminar acentos
@@ -285,14 +297,16 @@
     }
     window.addEventListener('resize', checkScreenSize);
     
+    // Variables globales para respuestas
+    let respuestas = [], fuse, respuestasPlanas = [];
+    
     // Cargar respuestas desde el JSON
-    let respuestas = [], fuse;
     async function cargarRespuestas() {
       try {
         const resp = await fetch('json/respuestas.json');
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
-        let respuestasPlanas = [];
+        respuestasPlanas = [];
         const rn = data[0].redNeuronal;
         for (const key in rn) {
           const value = rn[key];
@@ -393,12 +407,8 @@
       repeatCount[queryKey] = (repeatCount[queryKey] || 0) + 1;
       for (const r of respuestas) {
         if (r.trigger.test(q)) {
-          console.log("Respuesta:", { text: r.text, imagen: r.imagen, video: r.video, followUp: r.followUp || [] });
+          const key = r.trigger.toString();
           if (Array.isArray(r.text)) {
-            if (r.text.length === 1) {
-              return { text: r.text[0], followUp: r.followUp || [], imagen: r.imagen || null, video: r.video || null };
-            }
-            const key = r.trigger.toString();
             let randomIndex;
             do { randomIndex = Math.floor(Math.random() * r.text.length); }
             while (lastResponses[key] === randomIndex);
@@ -408,33 +418,37 @@
               responseText += " (Ya me lo habías preguntado, ¡pero aquí te lo repito de otra forma!)";
             }
             return { text: responseText, followUp: r.followUp || [], imagen: r.imagen || null, video: r.video || null };
-          } else {
-            return { text: r.text, followUp: r.followUp || [], imagen: r.imagen || null, video: r.video || null };
           }
+          return { text: r.text, followUp: r.followUp || [], imagen: r.imagen || null, video: r.video || null };
         }
       }
+    
       if (fuse) {
         const res = fuse.search(q);
         if (res.length) {
-          const item = res[0].item;
-          if (Array.isArray(item.text)) {
-            if (item.text.length === 1) {
-              return { text: item.text[0], followUp: item.followUp || [], imagen: item.imagen || null, video: item.video || null };
-            }
-            const key = item.trigger ? item.trigger.toString() : JSON.stringify(item.text);
+          const mejor = res[0].item;
+          if (res[0].score > 0.45) {
+            const msg = sugerenciasExtendidas(q);
+            return { text: msg || '¿Puedes reformular la pregunta?', followUp: [], imagen: null, video: null };
+          }
+          if (Array.isArray(mejor.text)) {
+            const key = mejor.trigger ? mejor.trigger.toString() : JSON.stringify(mejor.text);
             let randomIndex;
-            do { randomIndex = Math.floor(Math.random() * item.text.length); }
+            do { randomIndex = Math.floor(Math.random() * mejor.text.length); }
             while (lastResponses[key] === randomIndex);
             lastResponses[key] = randomIndex;
-            return { text: item.text[randomIndex], followUp: item.followUp || [], imagen: item.imagen || null, video: item.video || null };
+            return { text: mejor.text[randomIndex], followUp: mejor.followUp || [], imagen: mejor.imagen || null, video: mejor.video || null };
           }
-          return { text: item.text, followUp: item.followUp || [], imagen: item.imagen || null, video: item.video || null };
+          return { text: mejor.text, followUp: mejor.followUp || [], imagen: mejor.imagen || null, video: mejor.video || null };
+        } else {
+          showSuggestions(["Plantà", "Cremà", "Traje fallera", "Buñuelos"]);
+          return { text: "No encontré nada exacto, pero aquí tienes sugerencias.", followUp: [], imagen: null, video: null };
         }
       }
-      return { text: '🤔 No dispongo de info para eso.', followUp: [], imagen: null, video: null };
+    
+      return { text: "🤔 No encontré ninguna respuesta para eso.", followUp: [], imagen: null, video: null };
     }
     
-    // Función handleQuestion que procesa la consulta, muestra el mensaje y luego (con retardo) las imágenes y videos
     async function handleQuestion(q) {
       suggestionsEl.innerHTML = '';
       const stop = showThinking();
@@ -528,6 +542,36 @@
     });
     inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendBtn.click(); });
     
+    // Potencia máxima con Fuse.js
+    const respuestasNormalizadas = respuestasPlanas.map(item => ({
+      ...item,
+      normalized: cleanText(item.text),
+      followUpStr: (item.followUp || []).join(" "),
+      combo: cleanText(item.text + ' ' + (item.followUp || []).join(" "))
+    }));
+    
+    fuse = new Fuse(respuestasNormalizadas, {
+      keys: [
+        { name: 'combo', weight: 0.6 },
+        { name: 'normalized', weight: 0.3 },
+        { name: 'followUpStr', weight: 0.1 }
+      ],
+      threshold: 0.35,
+      includeScore: true,
+      ignoreLocation: true,
+      minMatchCharLength: 2
+    });
+    
+    function sugerenciasExtendidas(query) {
+      const resultados = fuse.search(query);
+      if (resultados.length && resultados[0].score > 0.4) {
+        const top = resultados.slice(0, 3);
+        showSuggestions(top.map(r => r.item.text));
+        return "No encontré algo exacto, pero esto podría interesarte:";
+      }
+      return null;
+    }
+    
     window.onload = async () => {
       inputEl.focus();
       await cargarRespuestas();
@@ -547,11 +591,12 @@
     }
     
     // Botón para reiniciar la conversación
-    const resetBtn = document.getElementById('reset-btn');
     resetBtn.addEventListener('click', () => {
-      document.getElementById('masclet-messages').innerHTML = '';
+      messagesEl.innerHTML = '';
+      suggestionsEl.innerHTML = ''; // Limpiar las sugerencias antiguas
       Object.keys(conversationHistory).forEach(key => delete conversationHistory[key]);
       typeMessage('Conversación reiniciada. ¿Qué deseas saber ahora?', true);
+      inputEl.focus(); // Enfocar el campo de entrada
     });
   </script>
 </body>
