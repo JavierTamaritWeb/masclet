@@ -22,9 +22,8 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      background: #fff;
+      background: rgba(255,255,255,0.2);
       border: 3px solid #fff;
-      background:rgba(255,255,255,.2);
       z-index: 1000;
       font-family: sans-serif;
     }
@@ -37,9 +36,8 @@
     #masclet-chat.minimized > *:not(#masclet-header) { display: none; }
     #masclet-header {
       background: #FF6F61;
-      background:rgba(255,255,255,.20);
+      background: rgba(255,255,255,0.2);
       color: #ff6f61;
-
       padding: 10px 40px 10px 10px;
       display: flex;
       align-items: center;
@@ -64,7 +62,7 @@
     .masclet-msg { margin-bottom: 10px; }
     .user-msg { text-align: right; }
     .bot-msg {
-      text-align: justify; /* Texto justificado */
+      text-align: justify;
       white-space: pre-wrap;
       word-wrap: break-word;
     }
@@ -102,7 +100,7 @@
       color: #fff;
       border: none;
       padding: 15px 25px;
-      font-size: 1em;
+      font-size: .9rem;
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -113,12 +111,46 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       transform: translateY(2px);
     }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .masclet-msg {
+      animation: fadeIn 0.5s ease;
+    }
+    /* Botón para reiniciar conversación */
+   #reset-btn {
+      background: linear-gradient(45deg, #FF6F61, #FF8A65);
+      color: #fff;
+      border: none;
+      padding: 15px 25px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    #reset-btn:hover {
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    #reset-btn:active {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transform: translateY(2px);
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
 </head>
 <body>
   <h1>Masclet Bot Fallero</h1>
   <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
+    
   <div id="chat-wrapper">
     <div id="masclet-chat">
       <div id="masclet-header">
@@ -128,14 +160,17 @@
       </div>
       <div id="masclet-messages"></div>
       <div id="masclet-suggestions"></div>
+      <!-- El botón de reset se encuentra aquí, dentro del modal -->
+      
       <div id="masclet-input">
         <input type="text" id="masclet-text" placeholder="Escribe tu pregunta...">
-        <button id="masclet-send" type="button">💥 Enviar</button>
+        <button id="masclet-send" type="button">Enviar</button>
+        <button id="reset-btn"><svg fill="#ffffff" width="25px" height="25px" viewBox="-192 -192 2304.00 2304.00" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" stroke-width="0" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M960 0v112.941c467.125 0 847.059 379.934 847.059 847.059 0 467.125-379.934 847.059-847.059 847.059-467.125 0-847.059-379.934-847.059-847.059 0-267.106 126.607-515.915 338.824-675.727v393.374h112.94V112.941H0v112.941h342.89C127.058 407.38 0 674.711 0 960c0 529.355 430.645 960 960 960s960-430.645 960-960S1489.355 0 960 0" fill-rule="evenodd"></path> </g></svg></button>
       </div>
     </div>
     <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
-     <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
-      <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
+    <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
+    <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
   </div>
   
   <script>
@@ -155,7 +190,33 @@
     const inputEl = document.getElementById('masclet-text');
     const sendBtn = document.getElementById('masclet-send');
     const wrapper = document.getElementById('chat-wrapper');
-
+    
+    // Agregamos artículos y preposiciones comunes adicionales
+    const stopWordsList = [
+      "el", "la", "los", "las", "de", "del", "y", "a", "en",
+      "con", "para", "por", "al", "ante", "bajo", "cabe", "desde",
+      "durante", "excepto", "mediante", "según", "sin", "tras"
+    ];
+    
+    function createStopWordsRegex(list) {
+      const pattern = '\\b(' + list.join('|') + ')\\b';
+      return new RegExp(pattern, 'gi');
+    }
+    
+    const stopWords = createStopWordsRegex(stopWordsList);
+    
+    // Función para eliminar acentos
+    function removeDiacritics(str) {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+    
+    function cleanText(text) {
+      let cleaned = removeDiacritics(text).toLowerCase();
+      cleaned = cleaned.replace(stopWords, '');
+      cleaned = cleaned.replace(/\s+/g, ' ').trim();
+      return cleaned;
+    }
+    
     // Drag & Drop para mover el chat
     let dragging = false, dx = 0, dy = 0;
     headerEl.addEventListener('mousedown', e => {
@@ -231,7 +292,6 @@
         const resp = await fetch('json/respuestas.json');
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
-        // data es un array con un objeto con la propiedad redNeuronal
         let respuestasPlanas = [];
         const rn = data[0].redNeuronal;
         for (const key in rn) {
@@ -327,11 +387,10 @@
     const repeatCount = {};
     const conversationHistory = {};
     
-    // Función para obtener la respuesta correspondiente, incluyendo posibles imagenes y videos
+    // Función para obtener la respuesta correspondiente, incluyendo imágenes y videos
     async function responder(q) {
       const queryKey = q.toLowerCase();
       repeatCount[queryKey] = (repeatCount[queryKey] || 0) + 1;
-    
       for (const r of respuestas) {
         if (r.trigger.test(q)) {
           console.log("Respuesta:", { text: r.text, imagen: r.imagen, video: r.video, followUp: r.followUp || [] });
@@ -341,9 +400,8 @@
             }
             const key = r.trigger.toString();
             let randomIndex;
-            do {
-              randomIndex = Math.floor(Math.random() * r.text.length);
-            } while (lastResponses[key] === randomIndex);
+            do { randomIndex = Math.floor(Math.random() * r.text.length); }
+            while (lastResponses[key] === randomIndex);
             lastResponses[key] = randomIndex;
             let responseText = r.text[randomIndex];
             if (repeatCount[queryKey] > 3) {
@@ -365,9 +423,8 @@
             }
             const key = item.trigger ? item.trigger.toString() : JSON.stringify(item.text);
             let randomIndex;
-            do {
-              randomIndex = Math.floor(Math.random() * item.text.length);
-            } while (lastResponses[key] === randomIndex);
+            do { randomIndex = Math.floor(Math.random() * item.text.length); }
+            while (lastResponses[key] === randomIndex);
             lastResponses[key] = randomIndex;
             return { text: item.text[randomIndex], followUp: item.followUp || [], imagen: item.imagen || null, video: item.video || null };
           }
@@ -377,16 +434,15 @@
       return { text: '🤔 No dispongo de info para eso.', followUp: [], imagen: null, video: null };
     }
     
-    // Función handleQuestion que procesa la consulta, muestra el mensaje y luego (con retardo) las imagenes y vídeos
+    // Función handleQuestion que procesa la consulta, muestra el mensaje y luego (con retardo) las imágenes y videos
     async function handleQuestion(q) {
       suggestionsEl.innerHTML = '';
       const stop = showThinking();
       await new Promise(r => setTimeout(r, 800));
       stop();
-    
+      
       const queryKey = q.toLowerCase();
       let { text, followUp, imagen, video } = await responder(q);
-    
       if (conversationHistory[queryKey]) {
         conversationHistory[queryKey].count++;
         if (conversationHistory[queryKey].count > 3) {
@@ -402,16 +458,11 @@
       } else {
         conversationHistory[queryKey] = { count: 1, baseResponse: text };
       }
-    
       text = addContextualData(text);
-    
       try {
-        // Mostrar el mensaje de texto con efecto de máquina de escribir
         typeMessage(text);
-        // Calcular el tiempo de espera basado en el efecto (velocidad=25 ms por carácter + 250ms extra)
         const delay = text.length * 25 + 250;
         setTimeout(() => {
-          // Mostrar la(s) imagen(es) después de que el texto se haya mostrado
           if (imagen) {
             if (Array.isArray(imagen)) {
               imagen.forEach(url => {
@@ -432,7 +483,6 @@
             }
             messagesEl.scrollTop = messagesEl.scrollHeight;
           }
-          // Mostrar los vídeos después de las imágenes
           if (video) {
             if (Array.isArray(video)) {
               video.forEach(url => {
@@ -469,7 +519,6 @@
       }
     }
     
-    // Eventos para enviar queries
     sendBtn.addEventListener('click', () => {
       const q = inputEl.value.trim();
       if (!q) return;
@@ -477,11 +526,8 @@
       inputEl.value = '';
       handleQuestion(q);
     });
-    inputEl.addEventListener('keydown', e => {
-      if (e.key === 'Enter') sendBtn.click();
-    });
+    inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendBtn.click(); });
     
-    // Inicialización
     window.onload = async () => {
       inputEl.focus();
       await cargarRespuestas();
@@ -489,23 +535,24 @@
       checkScreenSize();
     };
     
-    // Función auxiliar para agregar datos de contexto (hora del día)
     function addContextualData(text) {
       const now = new Date();
       const hour = now.getHours();
       let saludoContextual = "";
-      if (hour < 12) {
-        saludoContextual = "¡Buenos días!";
-      } else if (hour < 18) {
-        saludoContextual = "¡Buenas tardes!";
-      } else {
-        saludoContextual = "¡Buenas noches!";
-      }
-      if (/hola|salúdame/i.test(text)) {
-        return saludoContextual + " " + text;
-      }
+      if (hour < 12) { saludoContextual = "¡Buenos días!"; }
+      else if (hour < 18) { saludoContextual = "¡Buenas tardes!"; }
+      else { saludoContextual = "¡Buenas noches!"; }
+      if (/hola|salúdame/i.test(text)) { return saludoContextual + " " + text; }
       return text;
     }
+    
+    // Botón para reiniciar la conversación
+    const resetBtn = document.getElementById('reset-btn');
+    resetBtn.addEventListener('click', () => {
+      document.getElementById('masclet-messages').innerHTML = '';
+      Object.keys(conversationHistory).forEach(key => delete conversationHistory[key]);
+      typeMessage('Conversación reiniciada. ¿Qué deseas saber ahora?', true);
+    });
   </script>
 </body>
 </html>

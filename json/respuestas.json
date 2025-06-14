@@ -358,6 +358,12 @@
     
           },
           {
+            "trigger": "receta\\s+(de\\s+)?(la\\s+)?paella",
+            "text": "Visit Valencia detalla la receta clásica: pollo y conejo, garrofó, ferradura, tomate rallado, pimentón, azafrán y arroz bomba que se cuece 18 min a fuego vivo y 3 min a fuego suave para conseguir el socarrat.",
+            "followUp": []
+    
+          },
+          {
             "trigger": "ingredientes\\s+paella\\s+aut[éé]ntica",
             "text": "Según la JCF, una paella “de concurso” nunca lleva chorizo ni guisantes; el pimentón y el romero son los únicos toques aromáticos permitidos.",
             "followUp": []
