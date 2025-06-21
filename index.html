@@ -1,16 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Masclet Bot Fallero</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Masclet Bot Fallero</title>
+<style>
     /* Contenedor principal del chatbot */
     #chat-wrapper {
       max-width: 1400px; /* ancho máximo de 1400px */
       margin: 0 auto;    /* centra el contenedor */
       position: relative; /* contenedor de posicionamiento */
       height: 100vh; /* limita la zona vertical */
+      background-color: #898585; /* color de fondo */
     }
     /* Modal del chatbot */
     #masclet-chat {
@@ -41,7 +43,7 @@
     #masclet-header {
       background: rgba(255,255,255,0.2);
       color: #ff6f61;
-      padding: 10px 40px 10px 10px;
+      padding: 0px 40px 0px 0px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -151,41 +153,86 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       transform: translateY(2px);
     }
+
+
+
+    /* Asegúrate de que el header esté en position: relative */
+#masclet-header {
+  position: relative;
+}
+
+/* Ajustes al botón de minimizar */
+#masclet-minimize {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2em;               /* Doble tamaño */
+  line-height: 1;               /* Evita desfases extra */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  /* Para que la animación no cambie su punto de anclaje: */
+  transform-origin: center center;
+}
+
+/* Animación “fantástica”: un pulso suave al hacer hover */
+@keyframes pulse {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    transform: translateY(-50%) scale(1.2);
+  }
+}
+
+#masclet-minimize:hover {
+  animation: pulse 0.8s ease-in-out infinite;
+}
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
-</head>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script src="https://unpkg.com/compromise"></script></head>
 <body>
-  <h1>Masclet Bot Fallero</h1>
-  <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
-  <div id="chat-wrapper">
-    <div id="masclet-chat">
-      <div id="masclet-header">
-        <img alt="masclet-icon" src="img/masclet.png" style="width: 60px; height: 60px; margin-right: 2px;"/>
-        <span id="masclet-title" style="font-size: 1.2em; font-weight: bold;">Masclet Bot</span>
-        <span id="masclet-minimize">_</span>
-      </div>
-      <div id="masclet-messages"></div>
-      <div id="masclet-suggestions"></div>
-      <!-- Área de input y botones (incluyendo reset) -->
-      <div id="masclet-input">
-        <input id="masclet-text" placeholder="Escribe tu pregunta..." type="text"/>
-        <button id="masclet-send" type="button">Enviar</button>
-        <button id="reset-btn">
-          <svg fill="#ffffff" height="25px" stroke="#ffffff" stroke-width="0" transform="rotate(0)" viewBox="-192 -192 2304.00 2304.00" width="25px" xmlns="http://www.w3.org/2000/svg">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-              <path d="M960 0v112.941c467.125 0 847.059 379.934 847.059 847.059 0 467.125-379.934 847.059-847.059 847.059-467.125 0-847.059-379.934-847.059-847.059 0-267.106 126.607-515.915 338.824-675.727v393.374h112.94V112.941H0v112.941h342.89C127.058 407.38 0 674.711 0 960c0 529.355 430.645 960 960 960s960-430.645 960-960S1489.355 0 960 0" fill-rule="evenodd"></path>
-            </g>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
-    <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
-    <p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
-  </div>
-  <script>
+<h1>Masclet Bot Fallero</h1>
+<p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
+<div id="chat-wrapper">
+<div id="masclet-chat">
+<div id="masclet-header">
+<img alt="masclet-icon" src="img/masclet.png" style="width: 60px; height: 60px; margin-right: 2px;"/>
+<span id="masclet-title" style="font-size: 1.2em; font-weight: bold;">Masclet Bot</span>
+<span id="masclet-minimize">_</span>
+</div>
+<div id="masclet-messages"></div>
+<div id="masclet-suggestions"></div>
+<!-- Área de input y botones (incluyendo reset) -->
+<div id="masclet-input">
+<input id="masclet-text" placeholder="Escribe tu pregunta..." type="text"/>
+<button id="masclet-send" type="button">Enviar</button>
+<button id="reset-btn">
+<svg fill="#ffffff" height="25px" stroke="#ffffff" stroke-width="0" transform="rotate(0)" viewbox="-192 -192 2304.00 2304.00" width="25px" xmlns="http://www.w3.org/2000/svg">
+<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+<g id="SVGRepo_iconCarrier">
+<path d="M960 0v112.941c467.125 0 847.059 379.934 847.059 847.059 0 467.125-379.934 847.059-847.059 847.059-467.125 0-847.059-379.934-847.059-847.059 0-267.106 126.607-515.915 338.824-675.727v393.374h112.94V112.941H0v112.941h342.89C127.058 407.38 0 674.711 0 960c0 529.355 430.645 960 960 960s960-430.645 960-960S1489.355 0 960 0" fill-rule="evenodd"></path>
+</g>
+</svg>
+</button>
+</div>
+</div>
+<p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
+<p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
+<p>¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
+</div>
+<script>
+function analizarConsultaCompromise(q) {
+  const doc = nlp(q);
+  const nouns = doc.nouns().out('array');
+  const verbs = doc.verbs().out('array');
+  const topics = [...nouns, ...verbs].join(' ');
+  console.log("🔎 Análisis semántico:", topics);
+  return topics || q;
+}
+
     // Función para convertir links de YouTube a formato embed
     function convertYoutube(url) {
       const regExp = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/;
@@ -401,53 +448,91 @@
     const repeatCount = {};
     const conversationHistory = {};
     
-    // Función para obtener la respuesta correspondiente, incluyendo imágenes y videos
-    async function responder(q) {
-      const queryKey = q.toLowerCase();
-      repeatCount[queryKey] = (repeatCount[queryKey] || 0) + 1;
-      for (const r of respuestas) {
-        if (r.trigger.test(q)) {
-          const key = r.trigger.toString();
-          if (Array.isArray(r.text)) {
-            let randomIndex;
-            do { randomIndex = Math.floor(Math.random() * r.text.length); }
-            while (lastResponses[key] === randomIndex);
-            lastResponses[key] = randomIndex;
-            let responseText = r.text[randomIndex];
-            if (repeatCount[queryKey] > 3) {
-              responseText += " (Ya me lo habías preguntado, ¡pero aquí te lo repito de otra forma!)";
-            }
-            return { text: responseText, followUp: r.followUp || [], imagen: r.imagen || null, video: r.video || null };
-          }
-          return { text: r.text, followUp: r.followUp || [], imagen: r.imagen || null, video: r.video || null };
-        }
-      }
+  async function responder(q) {
     
-      if (fuse) {
-        const res = fuse.search(q);
-        if (res.length) {
-          const mejor = res[0].item;
-          if (res[0].score > 0.45) {
-            const msg = sugerenciasExtendidas(q);
-            return { text: msg || '¿Puedes reformular la pregunta?', followUp: [], imagen: null, video: null };
-          }
-          if (Array.isArray(mejor.text)) {
-            const key = mejor.trigger ? mejor.trigger.toString() : JSON.stringify(mejor.text);
-            let randomIndex;
-            do { randomIndex = Math.floor(Math.random() * mejor.text.length); }
-            while (lastResponses[key] === randomIndex);
-            lastResponses[key] = randomIndex;
-            return { text: mejor.text[randomIndex], followUp: mejor.followUp || [], imagen: mejor.imagen || null, video: mejor.video || null };
-          }
-          return { text: mejor.text, followUp: mejor.followUp || [], imagen: mejor.imagen || null, video: mejor.video || null };
-        } else {
-          showSuggestions(["Plantà", "Cremà", "Traje fallera", "Buñuelos"]);
-          return { text: "No encontré nada exacto, pero aquí tienes sugerencias.", followUp: [], imagen: null, video: null };
-        }
-      }
     
-      return { text: "🤔 No encontré ninguna respuesta para eso.", followUp: [], imagen: null, video: null };
+        // Validación para "en que fecha estamos" (o variantes)
+    if (/^(?:en\s+que\s+fecha\s+estamos\??)$/i.test(q)) {
+      const now = new Date();
+      const days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+      const dayName = days[now.getDay()];
+      const dayNumber = now.getDate();
+      const monthName = now.toLocaleString('default', { month: 'long' });
+      const year = now.getFullYear();
+      return { text: `Hoy es ${dayName}, ${dayNumber} de ${monthName} del ${year}.`, followUp: [], imagen: null, video: null };
     }
+    // Validación para "en que año estamos" (o variantes)
+    if (/^(?:en\s+que\s+año\s+estamos\??)$/i.test(q)) {
+      const year = new Date().getFullYear();
+      return { text: `Estamos en ${year}.`, followUp: [], imagen: null, video: null };
+    }
+    // Validación para "qué hora es" (o "que hora es")
+    if (/^(?:qué|que)\s+hora\s+es\??$/i.test(q)) {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      return { text: `La hora actual es ${hours}:${minutes}.`, followUp: [], imagen: null, video: null };
+    }
+  
+    // Validación para "qué día es" (incluyendo el día de la semana y también el día del mes)
+    if (/^(?:qué|que)\s+dia\s+es\??$/i.test(q)) {
+      const now = new Date();
+      const days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+      const dayName = days[now.getDay()];
+      const dayNumber = now.getDate();
+      const monthName = now.toLocaleString('default', { month: 'long' });
+      return { text: `Hoy es ${dayName}, ${dayNumber} de ${monthName}.`, followUp: [], imagen: null, video: null };
+    }
+    
+    // Resto de la lógica existente...
+    const queryKey = q.toLowerCase();
+    repeatCount[queryKey] = (repeatCount[queryKey] || 0) + 1;
+    for (const r of respuestas) {
+      if (r.trigger.test(q)) {
+        const key = r.trigger.toString();
+        if (Array.isArray(r.text)) {
+          let randomIndex;
+          do { randomIndex = Math.floor(Math.random() * r.text.length); }
+          while (lastResponses[key] === randomIndex);
+          lastResponses[key] = randomIndex;
+          let responseText = r.text[randomIndex];
+          if (repeatCount[queryKey] > 3) {
+            responseText += " (Ya me lo habías preguntado, ¡pero aquí te lo repito de otra forma!)";
+          }
+          return { text: responseText, followUp: r.followUp || [], imagen: r.imagen || null, video: r.video || null };
+        }
+        return { text: r.text, followUp: r.followUp || [], imagen: r.imagen || null, video: r.video || null };
+      }
+    }
+  
+        if (fuse) {
+      const fuseResults = fuse.search(q);
+      // Elimina duplicados basados en el texto de la respuesta
+      const uniqueResults = _.uniqBy(fuseResults, r => r.item.text);
+      // Ordena los resultados de menor score (mejor coincidencia) a mayor
+      const sortedResults = _.orderBy(uniqueResults, ['score'], ['asc']);
+      
+      if (sortedResults.length) {
+        const mejor = sortedResults[0].item;
+        if (sortedResults[0].score > 0.45) {
+          const msg = sugerenciasExtendidas(q);
+          return { text: msg || '¿Puedes reformular la pregunta?', followUp: [], imagen: null, video: null };
+        }
+        if (Array.isArray(mejor.text)) {
+          const key = mejor.trigger ? mejor.trigger.toString() : JSON.stringify(mejor.text);
+          let randomIndex;
+          do { randomIndex = Math.floor(Math.random() * mejor.text.length); }
+          while (lastResponses[key] === randomIndex);
+          lastResponses[key] = randomIndex;
+          return { text: mejor.text[randomIndex], followUp: mejor.followUp || [], imagen: mejor.imagen || null, video: mejor.video || null };
+        }
+        return { text: mejor.text, followUp: mejor.followUp || [], imagen: mejor.imagen || null, video: mejor.video || null };
+      } else {
+        showSuggestions(["Plantà", "Cremà", "Traje fallera", "Buñuelos"]);
+        return { text: "No encontré nada exacto, pero aquí tienes sugerencias.", followUp: [], imagen: null, video: null };
+      }
+    }
+  }
     
     async function handleQuestion(q) {
       suggestionsEl.innerHTML = '';
@@ -542,37 +627,31 @@
     });
     inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendBtn.click(); });
     
-    // Potencia máxima con Fuse.js
-    const respuestasNormalizadas = respuestasPlanas.map(item => ({
-      ...item,
-      normalized: cleanText(item.text),
-      followUpStr: (item.followUp || []).join(" "),
-      combo: cleanText(item.text + ' ' + (item.followUp || []).join(" "))
-    }));
+ 
     
-    fuse = new Fuse(respuestasNormalizadas, {
-      keys: [
-        { name: 'combo', weight: 0.6 },
-        { name: 'normalized', weight: 0.3 },
-        { name: 'followUpStr', weight: 0.1 }
-      ],
-      threshold: 0.35,
-      includeScore: true,
-      ignoreLocation: true,
-      minMatchCharLength: 2
-    });
     
-    function sugerenciasExtendidas(query) {
-      const resultados = fuse.search(query);
-      if (resultados.length && resultados[0].score > 0.4) {
-        const top = resultados.slice(0, 3);
-        showSuggestions(top.map(r => r.item.text));
-        return "No encontré algo exacto, pero esto podría interesarte:";
-      }
-      return null;
-    }
+// === MEJORAS FUSE.JS: combo + pesos ===
+
+const respuestasNormalizadas = respuestasPlanas.map(item => ({
+  ...item,
+  normalized: cleanText(item.text),
+  followUpStr: (item.followUp || []).join(" "),
+  combo: cleanText(item.text + ' ' + (item.followUp || []).join(" "))
+}));
+
+fuse = new Fuse(respuestasNormalizadas, {
+  keys: [
+    { name: 'combo', weight: 0.6 },
+    { name: 'normalized', weight: 0.3 },
+    { name: 'followUpStr', weight: 0.1 }
+  ],
+  threshold: 0.35,
+  includeScore: true,
+  ignoreLocation: true,
+  minMatchCharLength: 2
+});
     
-    window.onload = async () => {
+window.onload = async () => {
       inputEl.focus();
       await cargarRespuestas();
       typeMessage('¡BOOM! 🎇 Soy Masclet. Salúdame con "hola".', true);
@@ -595,9 +674,26 @@
       messagesEl.innerHTML = '';
       suggestionsEl.innerHTML = ''; // Limpiar las sugerencias antiguas
       Object.keys(conversationHistory).forEach(key => delete conversationHistory[key]);
-      typeMessage('Conversación reiniciada. ¿Qué deseas saber ahora?', true);
+      typeMessage('¡Aquí estoy de nueno! ¿Qué necesitas?', true);
       inputEl.focus(); // Enfocar el campo de entrada
     });
-  </script>
+  
+function mostrarAgrupados(agrupados) {
+  const chat = document.getElementById("chat");
+  for (const categoria in agrupados) {
+    const titulo = document.createElement("h4");
+    titulo.textContent = "📂 " + categoria;
+    titulo.style.marginTop = "20px";
+    chat.appendChild(titulo);
+
+    agrupados[categoria].forEach(res => {
+      const respuesta = document.createElement("p");
+      respuesta.textContent = "🔹 " + res.item.text;
+      respuesta.style.marginLeft = "10px";
+      chat.appendChild(respuesta);
+    });
+  }
+}
+</script>
 </body>
 </html>
