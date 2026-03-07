@@ -1,0 +1,38 @@
+// ============================================================
+// COMPONENTE: suggestions (BEM) – Botones de sugerencia
+// ============================================================
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ---- Bloque .suggestions ----
+.suggestions {
+  padding: $spacing-8 $spacing-12;
+  display: flex;
+  gap: $spacing-6;
+  flex-wrap: wrap;
+  background: $color-surface;
+  border-top: 1px solid $color-border-light;
+
+  // .suggestions__btn
+  &__btn {
+    background: $gradient-accent;
+    color: $color-bg-dark;
+    border: none;
+    padding: 5px $spacing-12;
+    border-radius: $radius-xl;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    cursor: pointer;
+    @include smooth-transition(transform, box-shadow);
+    @include focus-visible($color-accent);
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: $shadow-accent;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

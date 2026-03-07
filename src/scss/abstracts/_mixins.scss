@@ -1,0 +1,69 @@
+// ============================================================
+// MIXINS – Masclet Bot Fallero
+// ============================================================
+@use 'sass:list';
+@use 'variables' as *;
+
+// ---- Responsive breakpoint ----
+@mixin respond-to($bp) {
+  @media (max-width: $bp) {
+    @content;
+  }
+}
+
+// ---- Focus visible accesible ----
+@mixin focus-visible($color: $color-primary) {
+  &:focus-visible {
+    outline: 2px solid $color;
+    outline-offset: 2px;
+  }
+}
+
+// ---- Transición suave multi-propiedad ----
+@mixin smooth-transition($props...) {
+  $result: ();
+
+  @each $prop in $props {
+    $result: list.append($result, $prop 250ms $ease-standard, comma);
+  }
+
+  transition: $result;
+}
+
+// ---- Screen reader only (accesibilidad) ----
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ---- Flex center ----
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// ---- Botón base (compartido entre Enviar y Reset) ----
+@mixin btn-action {
+  background: $gradient-send;
+  color: $color-white;
+  border: none;
+  cursor: pointer;
+  @include smooth-transition(box-shadow, transform);
+  @include focus-visible;
+
+  &:hover {
+    box-shadow: $shadow-btn;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}

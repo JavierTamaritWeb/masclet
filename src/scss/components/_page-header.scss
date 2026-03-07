@@ -1,0 +1,33 @@
+// ============================================================
+// COMPONENTE: page-header (BEM)
+// ============================================================
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.page-header {
+  text-align: center;
+  padding: $spacing-30 $spacing-20 $spacing-10;
+  width: 100%;
+  max-width: 1400px;
+
+  // .page-header__title
+  &__title {
+    font-size: $font-size-title;
+    font-weight: $font-weight-bold;
+    background: $gradient-title;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: $spacing-6;
+
+    @include respond-to($bp-mobile) {
+      font-size: 1.4rem;
+    }
+  }
+
+  // .page-header__subtitle
+  &__subtitle {
+    font-size: $font-size-md;
+    color: $color-text-muted;
+  }
+}

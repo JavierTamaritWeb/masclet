@@ -1,0 +1,19 @@
+// ============================================================
+// MAIN.SCSS – Punto de entrada SCSS
+// Masclet Bot Fallero
+// ============================================================
+
+// ---- Abstracts (no generan CSS por sí solos) ----
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
+@use 'abstracts/animations';
+
+// ---- Base ----
+@use 'base/reset';
+
+// ---- Componentes BEM ----
+@use 'components/page-header';
+@use 'components/chatbot';
+@use 'components/message';
+@use 'components/suggestions';
+@use 'components/input-area';

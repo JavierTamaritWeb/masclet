@@ -1,0 +1,52 @@
+// ============================================================
+// COMPONENTE: message (BEM) – Burbujas de chat
+// ============================================================
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/animations';
+
+// ---- Bloque .message ----
+.message {
+  margin-bottom: $spacing-10;
+  padding: $spacing-8 $spacing-12;
+  border-radius: $radius-md;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  max-width: 85%;
+  animation: fadeIn 0.4s $ease-smooth;
+
+  // .message--user
+  &--user {
+    background: $gradient-send;
+    color: $color-white;
+    margin-left: auto;
+    text-align: right;
+    border-bottom-right-radius: $radius-xs;
+  }
+
+  // .message--bot
+  &--bot {
+    background: $color-surface-light;
+    color: $color-text;
+    text-align: left;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-bottom-left-radius: $radius-xs;
+  }
+
+  // .message__image (imágenes en respuestas)
+  &__image {
+    max-width: 100%;
+    margin-top: $spacing-10;
+    border-radius: $radius-sm;
+  }
+
+  // .message__video (iframes de YouTube)
+  &__video {
+    width: 100%;
+    height: 200px;
+    margin-top: $spacing-10;
+    border: none;
+    border-radius: $radius-sm;
+  }
+}

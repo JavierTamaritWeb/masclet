@@ -1,0 +1,139 @@
+// ============================================================
+// COMPONENTE: chatbot (BEM) – Widget principal
+// ============================================================
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/animations';
+
+// ---- Wrapper (container de posicionamiento) ----
+.chat-wrapper {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+// ---- Bloque .chatbot ----
+.chatbot {
+  position: absolute;
+  bottom: $spacing-20;
+  right: $spacing-20;
+  width: $chatbot-width;
+  max-height: $chatbot-max-height;
+  box-shadow: $shadow-chat;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  z-index: 1000;
+  font-family: $font-family;
+  animation: slideUp 0.4s $ease-smooth;
+  @include smooth-transition(width, max-height, border-radius, opacity, transform);
+
+  // ── .chatbot--minimized ──
+  &--minimized {
+    width: fit-content;
+    max-height: fit-content;
+    border-radius: $radius-pill;
+
+    // Ocultar todos los hijos excepto el header
+    > *:not(.chatbot__header) {
+      display: none;
+    }
+
+    .chatbot__title {
+      display: none;
+    }
+  }
+
+  // ── .chatbot__header ──
+  &__header {
+    background: $gradient-primary;
+    color: $color-white;
+    padding: $spacing-10 50px $spacing-10 $spacing-12;
+    display: flex;
+    align-items: center;
+    gap: $spacing-8;
+    position: relative;
+    cursor: move;
+    user-select: none;
+  }
+
+  // ── .chatbot__avatar ──
+  &__avatar {
+    width: $avatar-size;
+    height: $avatar-size;
+    border-radius: $radius-circle;
+    border: 2px solid $color-overlay-strong;
+    object-fit: cover;
+  }
+
+  // ── .chatbot__title ──
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-white;
+  }
+
+  // ── .chatbot__toggle (botón minimizar) ──
+  &__toggle {
+    position: absolute;
+    right: $spacing-14;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    line-height: 1;
+    cursor: pointer;
+    color: $color-white;
+    width: $toggle-size;
+    height: $toggle-size;
+    @include flex-center;
+    border-radius: $radius-circle;
+    border: none;
+    background: $color-overlay-light;
+    @include smooth-transition(background);
+    @include focus-visible($color-white);
+
+    &:hover {
+      background: $color-overlay-mid;
+      animation: pulse 0.8s ease-in-out infinite;
+    }
+  }
+
+  // ── .chatbot__body (área de mensajes) ──
+  &__body {
+    flex: 1;
+    padding: $spacing-14;
+    background: $color-surface-alt;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+
+    // Scrollbar personalizada
+    &::-webkit-scrollbar {
+      width: $scrollbar-width;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $color-overlay-light;
+      border-radius: 3px;
+    }
+  }
+
+  // ── Responsive ──
+  @include respond-to($bp-mobile) {
+    width: calc(100% - $spacing-16);
+    right: $spacing-8;
+    bottom: $spacing-8;
+    max-height: $chatbot-mobile-max-h;
+    border-radius: $radius-md;
+  }
+}

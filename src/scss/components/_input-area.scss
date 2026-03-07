@@ -1,0 +1,54 @@
+// ============================================================
+// COMPONENTE: input-area (BEM) – Zona de entrada de texto
+// ============================================================
+@use 'sass:color';
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ---- Bloque .input-area ----
+.input-area {
+  display: flex;
+  border-top: 1px solid $color-border-light;
+  background: $color-surface;
+
+  // .input-area__field
+  &__field {
+    flex: 1;
+    padding: $spacing-12 $spacing-14;
+    border: none;
+    outline: none;
+    font-size: $font-size-base;
+    font-family: $font-family;
+    background: $color-surface-alt;
+    color: $color-text;
+    @include smooth-transition(background);
+
+    &::placeholder {
+      color: $color-text-placeholder;
+    }
+
+    &:focus {
+      background: color.adjust($color-surface-alt, $lightness: 3%);
+    }
+  }
+
+  // .input-area__send
+  &__send {
+    @include btn-action;
+    padding: $spacing-12 $spacing-18;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+  }
+
+  // .input-area__reset
+  &__reset {
+    @include btn-action;
+    padding: $spacing-10 $spacing-14;
+    @include flex-center;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "masclet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp",
+    "build": "gulp build",
+    "sass": "gulp sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JavierTamaritWeb/masclet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JavierTamaritWeb/masclet/issues"
+  },
+  "homepage": "https://github.com/JavierTamaritWeb/masclet#readme",
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "gulp": "^5.0.1",
+    "gulp-autoprefixer": "^9.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-rename": "^2.1.0",
+    "gulp-sass": "^6.0.1",
+    "sass": "^1.97.3"
+  }
+}

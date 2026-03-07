@@ -1,0 +1,98 @@
+// ============================================================
+// DESIGN TOKENS – Masclet Bot Fallero
+// ============================================================
+
+// ---- Colores ----
+$color-bg-dark: #1a1a2e;
+$color-bg-mid: #16213e;
+$color-bg-deep: #0f3460;
+$color-surface: #1e1e2f;
+$color-surface-alt: #252538;
+$color-surface-light: #2e2e44;
+$color-text: #e0e0e0;
+$color-text-muted: #aaa;
+$color-text-placeholder: #777;
+$color-primary: #ff6f61;
+$color-primary-dark: #e74c3c;
+$color-primary-light: #ff8a65;
+$color-accent: #f1c40f;
+$color-accent-dark: #e0a800;
+$color-white: #fff;
+$color-border: rgba(255, 255, 255, 0.08);
+$color-border-light: rgba(255, 255, 255, 0.06);
+$color-overlay-light: rgba(255, 255, 255, 0.15);
+$color-overlay-mid: rgba(255, 255, 255, 0.3);
+$color-overlay-strong: rgba(255, 255, 255, 0.4);
+
+// ---- Gradientes ----
+$gradient-bg: linear-gradient(
+  135deg,
+  $color-bg-dark 0%,
+  $color-bg-mid 50%,
+  $color-bg-deep 100%
+);
+$gradient-primary: linear-gradient(135deg, $color-primary, $color-primary-dark);
+$gradient-send: linear-gradient(45deg, $color-primary, $color-primary-light);
+$gradient-accent: linear-gradient(135deg, $color-accent, $color-accent-dark);
+$gradient-title: linear-gradient(90deg, $color-primary, $color-accent);
+
+// ---- Tipografía ----
+$font-family: "Inter", sans-serif;
+$font-size-xs: 0.8em;
+$font-size-sm: 0.85rem;
+$font-size-base: 0.9em;
+$font-size-md: 1rem;
+$font-size-lg: 1.1em;
+$font-size-xl: 1.6em;
+$font-size-title: 2rem;
+$font-weight-normal: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// ---- Espaciado ----
+$spacing-2: 2px;
+$spacing-4: 4px;
+$spacing-6: 6px;
+$spacing-8: 8px;
+$spacing-10: 10px;
+$spacing-12: 12px;
+$spacing-14: 14px;
+$spacing-16: 16px;
+$spacing-18: 18px;
+$spacing-20: 20px;
+$spacing-30: 30px;
+
+// ---- Border radius ----
+$radius-xs: 4px;
+$radius-sm: 6px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 20px;
+$radius-pill: 50px;
+$radius-circle: 50%;
+
+// ---- Breakpoints ----
+$bp-mobile: 480px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+// ---- Sombras ----
+$shadow-chat: 0 8px 32px rgba(0, 0, 0, 0.35);
+$shadow-btn: 0 4px 12px rgba(255, 111, 97, 0.4);
+$shadow-accent: 0 3px 8px rgba(241, 196, 15, 0.35);
+
+// ---- Transiciones ----
+$ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+$transition-fast: 150ms $ease-standard;
+$transition-normal: 250ms $ease-standard;
+$transition-smooth: 350ms $ease-smooth;
+
+// ---- Tamaños del chatbot ----
+$chatbot-width: 380px;
+$chatbot-max-height: 520px;
+$chatbot-mobile-max-h: 70vh;
+$toggle-size: 28px;
+$avatar-size: 44px;
+$scrollbar-width: 6px;
