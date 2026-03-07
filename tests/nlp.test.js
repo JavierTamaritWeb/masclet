@@ -5,6 +5,7 @@ const {
   buildFuseDataset,
   actualizarFuse,
   buscarConFuse,
+  findDirectResponse,
   getTemporalAnswer,
   resolveFuseRuntimeConfig,
   buildFuseDebugEntry,
@@ -139,6 +140,61 @@ describe('NLP Engine & Three-Layer Search', () => {
 
     expect(strategy.mode).toBe('direct');
     expect(strategy.item.text).toBe('Hola directa');
+  });
+
+  test('identity queries should resolve directly as Masclet', () => {
+    const flat = flattenKnowledgeBase(kb.es);
+    const directResponses = flat
+      .map((item) => {
+        const triggers = buildRegexTriggers(item.trigger);
+        if (!triggers.length) return null;
+
+        return {
+          trigger: triggers.length === 1 ? triggers[0] : triggers,
+          text: item.answer || item.text,
+          followUp: item.followUps || item.followUp || [],
+        };
+      })
+      .filter(Boolean);
+
+    const directMatch = findDirectResponse('como te llamas', directResponses);
+    const responseText = Array.isArray(directMatch?.text)
+      ? directMatch.text.join(' ')
+      : String(directMatch?.text || '');
+
+    expect(directMatch).toBeDefined();
+    expect(cleanText(responseText)).toContain('masclet');
+    expect(cleanText(responseText)).not.toContain('masclet bot');
+  });
+
+  test('cremà date queries should resolve directly across phrasing variants', () => {
+    const flat = flattenKnowledgeBase(kb.es);
+    const directResponses = flat
+      .map((item) => {
+        const triggers = buildRegexTriggers(item.trigger);
+        if (!triggers.length) return null;
+
+        return {
+          trigger: triggers.length === 1 ? triggers[0] : triggers,
+          text: item.answer || item.text,
+          followUp: item.followUps || item.followUp || [],
+        };
+      })
+      .filter(Boolean);
+
+    [
+      'que dia es la cremá',
+      'cuándo es la cremà',
+      'qué noche es la crema',
+    ].forEach((query) => {
+      const directMatch = findDirectResponse(query, directResponses);
+      const responseText = Array.isArray(directMatch?.text)
+        ? directMatch.text.join(' ')
+        : String(directMatch?.text || '');
+
+      expect(directMatch).not.toBeNull();
+      expect(cleanText(responseText)).toContain('19 marzo');
+    });
   });
 
   test('Fuse search should use keywords for free-form queries', () => {

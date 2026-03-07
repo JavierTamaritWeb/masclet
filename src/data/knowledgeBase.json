@@ -46,8 +46,8 @@
       {
         "trigger": "^(?:hola\\s+bot|hola,\\s+bot)\\b",
         "answer": [
-          "¡Hola! Soy Masclet Bot, ¿cómo puedo asistirte hoy?",
-          "¡Ey! Aquí Masclet Bot, listo para ayudarte."
+          "¡Hola! Soy Masclet, ¿cómo puedo asistirte hoy?",
+          "¡Ey! Aquí Masclet, listo para ayudarte."
         ],
         "followUps": [
           "¿Qué te gustaría saber?",
@@ -152,10 +152,11 @@
         "followUps": ["¿Quieres detalles sobre alguna tradición en particular?"]
       },
       {
-        "trigger": "^(?:cu[aá]l\\s+es\\s+tu\\s+nombre)\\b",
+        "trigger": ["cuál es tu nombre", "cual es tu nombre", "cómo te llamas", "como te llamas"],
+        "keywords": ["nombre del chatbot", "como se llama el bot", "identidad de masclet", "quien eres", "nombre del asistente"],
         "answer": [
-          "Soy Masclet Bot, tu asistente fallero. ¿En qué puedo ayudarte?",
-          "Mi nombre es Masclet Bot, listo para orientarte sobre las Fallas."
+          "Soy Masclet, tu asistente fallero. ¿En qué puedo ayudarte?",
+          "Me llamo Masclet y estoy listo para orientarte sobre las Fallas."
         ],
         "followUps": ["¿Necesitas información sobre un tema específico?"]
       },
@@ -245,6 +246,12 @@
         "keywords": ["ropa tradicional valenciana hombre", "indumentaria masculina valenciana", "barretina", "faja fallera", "chaleco fallero"],
         "answer": "El traje de fallero incluye camisa blanca, chaleco, faja, pantalón negro, alpargatas y barretina. Es una vestimenta tradicional valenciana elegante y cómoda.",
         "followUps": ["¿Qué es la barretina?", "¿Cómo se ata la faja?", "¿Hay variaciones del traje?"]
+      },
+      {
+        "trigger": "^(?:(?:qu[eé]\\s+(?:d[ií]a|noche)\\s+es|cu[aá]ndo\\s+es)\\s+la\\s+crem[aàá])\\s*[?¿!¡.]*$",
+        "keywords": ["fecha de la crema", "dia de la crema", "cuando es la crema", "noche de la crema", "19 de marzo"],
+        "answer": "La cremà es la noche del 19 de marzo, día de San José.",
+        "followUps": ["¿A qué hora comienza?", "¿Cuál se quema primero?", "¿Qué se salva del fuego?"]
       },
       {
         "trigger": ["paella", "paella valenciana", "arroz", "comida valenciana"],
@@ -1123,8 +1130,8 @@
         {
             "trigger": "^(hola\\s+bot|hola,\\s+bot)\\b",
             "answer": [
-            "Hola! Sóc Masclet Bot, com puc ajudar-te avui?",
-            "Ei! Ací Masclet Bot, preparat per ajudar-te."
+          "Hola! Sóc Masclet, com puc ajudar-te avui?",
+          "Ei! Ací Masclet, preparat per ajudar-te."
             ],
             "followUps": [
             "Què t'agradaria saber?",
