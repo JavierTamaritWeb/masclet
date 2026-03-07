@@ -19,6 +19,8 @@
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" defer></script>
   <script src="https://unpkg.com/compromise" defer></script>
+  <!-- Iconos (Lucide) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
@@ -33,16 +35,21 @@
   <main class="chat-wrapper">
 
     <!-- ========== WIDGET CHATBOT ========== -->
-    <section class="chatbot" aria-label="Chat con Masclet Bot" role="complementary">
+    <section class="chatbot chatbot--minimized" aria-label="Chat con Masclet Bot" role="complementary">
 
       <!-- Cabecera (arrastrable) -->
       <div class="chatbot__header" role="banner">
-        <img class="chatbot__avatar" src="img/masclet.png" alt="Masclet Bot avatar" />
+        <div class="chatbot__avatar-wrapper">
+          <img class="chatbot__avatar" src="img/masclet.png" alt="Masclet Bot avatar" />
+          <span class="chatbot__status-indicator" aria-hidden="true"></span>
+        </div>
         <span class="chatbot__title">Masclet Bot</span>
         <button class="chatbot__toggle"
                 type="button"
                 aria-label="Minimizar chat"
-                aria-expanded="true">_</button>
+                aria-expanded="false">
+          <i data-lucide="message-circle"></i>
+        </button>
       </div>
 
       <!-- Área de mensajes -->
@@ -66,16 +73,14 @@
                placeholder="Escribe tu pregunta..."
                type="text"
                autocomplete="off" />
-        <button class="input-area__send" type="button">Enviar</button>
+        <button class="input-area__send" type="button" aria-label="Enviar mensaje">
+          <i data-lucide="send" width="18" height="18"></i>
+        </button>
         <button class="input-area__reset"
                 type="button"
                 title="Reiniciar conversación"
                 aria-label="Reiniciar conversación">
-          <svg fill="#ffffff" height="25" width="25" viewBox="-192 -192 2304 2304"
-               xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-            <path d="M960 0v112.941c467.125 0 847.059 379.934 847.059 847.059 0 467.125-379.934 847.059-847.059 847.059-467.125 0-847.059-379.934-847.059-847.059 0-267.106 126.607-515.915 338.824-675.727v393.374h112.94V112.941H0v112.941h342.89C127.058 407.38 0 674.711 0 960c0 529.355 430.645 960 960 960s960-430.645 960-960S1489.355 0 960 0"
-                  fill-rule="evenodd" />
-          </svg>
+          <i data-lucide="rotate-ccw" width="18" height="18"></i>
         </button>
       </div>
 
@@ -84,6 +89,10 @@
 
   <!-- JS principal -->
   <script src="js/app.js" defer></script>
+  <!-- Inicializar iconos -->
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 
 </html>

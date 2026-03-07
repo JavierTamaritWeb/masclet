@@ -2,7 +2,7 @@
 // MIXINS – Masclet Bot Fallero
 // ============================================================
 @use 'sass:list';
-@use 'variables' as *;
+@use 'variables' as v;
 
 // ---- Responsive breakpoint ----
 @mixin respond-to($bp) {
@@ -12,7 +12,7 @@
 }
 
 // ---- Focus visible accesible ----
-@mixin focus-visible($color: $color-primary) {
+@mixin focus-visible($color: v.$color-primary) {
   &:focus-visible {
     outline: 2px solid $color;
     outline-offset: 2px;
@@ -24,7 +24,7 @@
   $result: ();
 
   @each $prop in $props {
-    $result: list.append($result, $prop 250ms $ease-standard, comma);
+    $result: list.append($result, $prop 250ms v.$ease-standard, comma);
   }
 
   transition: $result;
@@ -52,15 +52,15 @@
 
 // ---- Botón base (compartido entre Enviar y Reset) ----
 @mixin btn-action {
-  background: $gradient-send;
-  color: $color-white;
+  background: v.$gradient-send;
+  color: v.$color-white;
   border: none;
   cursor: pointer;
   @include smooth-transition(box-shadow, transform);
   @include focus-visible;
 
   &:hover {
-    box-shadow: $shadow-btn;
+    box-shadow: v.$shadow-btn;
   }
 
   &:active {

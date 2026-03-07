@@ -1,0 +1,1759 @@
+{
+  "es": {
+    "knowledgeBase": [
+      {
+        "trigger": "^\\s*[¿]?\\s*c[oó]mo\\s+est[aáà]s?\\s*[?¿]*\\s*$",
+        "answer": [
+          "Estoy genial, ¡gracias por preguntar!",
+          "Muy bien, listo para compartir la mejor información sobre las Fallas."
+        ],
+        "followUps": []
+      },
+      {
+        "trigger": "^\\s*[¿]?\\s*qu[eé]\\s+tal\\s*[?¿]*\\s*$",
+        "answer": [
+          "¡Todo bien! ¿Y tú qué tal?",
+          "Muy bien, gracias. ¿En qué puedo ayudarte?"
+        ],
+        "followUps": ["¿Te interesa algún tema en particular?"]
+      },
+
+       {
+        "trigger": "^(hola|buenos\\s+d[ií]a[s]?|buenas\\s+tardes|buenas\\s+noches|ey|hey)\\b",
+          "keywords": ["saludo fallero", "bienvenida fallas", "iniciar conversacion", "asistente de fallas", "hola masclet"],
+        "answer": [
+          "¡Hola! 🎉 Soy Masclet, tu bot fallero con chispa. ¿En qué te ayudo hoy?",
+          "¡Ey! ¿Qué tal? Soy Masclet, listo para lo que necesites.",
+          "¡Saludos! Estoy aquí para ayudarte, ¿qué ocurre?",
+          "¡Hola! ¿Cómo va todo? Soy Masclet, tu bot fallero. ¿En qué puedo ayudarte?"
+        ],
+        "followUps": [
+          "¿Sobre qué tema quieres hablar?",
+          "¿Te interesa conocer algún dato de las Fallas?"
+        ]
+      },
+      {
+        "trigger": "^(?:[¿]?sobre\\s+qué\\s+tema\\s+quieres\\s+hablar\\??)$",
+        "answer": "Cuéntame, ¿te interesa hablar acerca de cultura, gastronomía, vestimenta o eventos falleros?",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:[¿]?te\\s+interesa\\s+conocer\\s+alg[uú]n\\s+dato\\s+de\\s+las\\s+Fallas\\??)$",
+        "keywords": ["curiosidades falleras", "datos de las fallas", "historia valenciana", "tradiciones falleras", "saber mas de fallas"],
+        "answer": "Puedo contarte desde la historia, tradiciones y curiosidades de las Fallas. ¿Qué te gustaría saber?",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:hola\\s+bot|hola,\\s+bot)\\b",
+        "answer": [
+          "¡Hola! Soy Masclet Bot, ¿cómo puedo asistirte hoy?",
+          "¡Ey! Aquí Masclet Bot, listo para ayudarte."
+        ],
+        "followUps": [
+          "¿Qué te gustaría saber?",
+          "¿Quieres recomendaciones sobre eventos falleros?"
+        ]
+      },
+            {
+        "trigger": "^(?:[¿]?qué\\s+te\\s+gustaría\\s+saber\\??)$",
+        "answer": "Puedes preguntarme sobre cultura, gastronomía, tradiciones o cualquier aspecto relacionado con las Fallas. ¿Sobre qué tema te gustaría información en específico?",
+        "followUps": ["cultura", "gastronomía", "tradiciones", "eventos falleros"]
+      },
+      {
+        "trigger": "^(?:[¿]?quieres\\s+recomendaciones\\s+sobre\\s+eventos\\s+falleros\\??)$",
+        "answer": "Te puedo recomendar algunos eventos destacados de las Fallas, desde la mascletà hasta la cremà. ¿Te gustaría saber cuál es el más relevante?",
+        "followUps": []
+      },
+
+      {
+        "trigger": "^(?:buenas)\\b",
+        "answer": [
+          "¡Buenas! ¿En qué puedo asistirte hoy?",
+          "Buenas, soy Masclet. ¿Qué tema te interesa?"
+        ],
+        "followUps": ["¿Cultura fallera, gastronomía o tradiciones?"]
+      },
+            {
+        "trigger": "^(?:[¿]?cultura\\s+fallera,\\s+gastronom[ií]a\\s+o\\s+tradiciones\\??)$",
+        "answer": "Puedes preguntarme sobre cultura fallera, gastronomía o tradiciones. ¿Qué tema te interesa?",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:saludos)\\b",
+        "answer": [
+          "¡Saludos! Soy Masclet, encantado de verte. ¿Qué necesitas?",
+          "Saludos, ¿en qué puedo ayudarte hoy?"
+        ],
+        "followUps": ["¿Quieres información sobre eventos o historia fallera?"]
+      },
+      {
+        "trigger": "^(?:qué\\s+pasa)\\b",
+        "answer": [
+          "Todo va genial por aquí, ¿y tú?",
+          "Aquí todo en marcha. ¿Con qué tema te puedo ayudar?"
+        ],
+        "followUps": ["¿Te interesa saber sobre la cultura o la comida fallera?"]
+      },
+      {
+        "trigger": "^(?:todo\\s+bien)\\b",
+        "answer": [
+          "Me alegro de que estés bien. ¿En qué tema puedo ayudarte?",
+          "¡Perfecto! Cuéntame, ¿sobre qué te gustaría saber más?"
+        ],
+        "followUps": ["¿Cultura, gastronomía o vestimenta fallera?"]
+      },
+      {
+        "trigger": "^(?:necesito\\s+ayuda)\\b",
+        "answer": [
+          "¡Claro! Estoy aquí para ayudarte. ¿Qué necesitas saber?",
+          "Dime, ¿en qué área requieres mayor información? (vestimenta, comida, eventos...)"
+        ],
+        "followUps": ["¿Te interesa la historia o los detalles técnicos de algún tema?"]
+      },
+      {
+        "trigger": "^(?:ay[úu]dame)\\b",
+        "answer": [
+          "Por supuesto, ¿cuál es tu duda?",
+          "Estoy aquí para asistirte, cuéntame lo que necesitas."
+        ],
+        "followUps": ["¿Podría ser sobre tradiciones o recetas falleras?"]
+      },
+      {
+        "trigger": "^(?:dime\\s+algo)\\b",
+        "answer": [
+          "¡Con gusto! ¿Qué te gustaría saber?",
+          "Te ofrezco información sobre cultura, comida y eventos. ¿Qué tema te llama la atención?"
+        ],
+        "followUps": ["¿Quizás sobre vestimenta típica o historia de las Fallas?"]
+      },
+      {
+        "trigger": "^(?:cu[eé]ntame)\\b",
+        "answer": [
+          "Cuéntame, ¿sobre qué aspecto de las Fallas te interesaría saber?",
+          "Estoy listo para compartir datos interesantes, ¿qué tema prefieres?"
+        ],
+        "followUps": ["¿Vestimenta, gastronomía o fiestas?"]
+      },
+      {
+        "trigger": "^(?:info)\\b",
+        "answer": [
+          "Puedo ofrecerte info variada: desde tradición y eventos hasta recetas y vestimenta.",
+          "La información sobre las Fallas es muy amplia. ¿Qué te interesa en particular?"
+        ],
+        "followUps": ["¿Cultura, gastronomía o festividades?"]
+      },
+      {
+        "trigger": "^(?:informaci[oó]n)\\b",
+        "keywords": ["ayuda general", "informacion de fallas", "consultas falleras", "datos sobre valencia", "asistente cultural"],
+        "answer": [
+          "Tengo información completa sobre las Fallas: historia, comida, vestimenta y mucho más.",
+          "Si buscas datos interesantes, dime en qué área te gustaría profundizar."
+        ],
+        "followUps": ["¿Quieres detalles sobre alguna tradición en particular?"]
+      },
+      {
+        "trigger": "^(?:cu[aá]l\\s+es\\s+tu\\s+nombre)\\b",
+        "answer": [
+          "Soy Masclet Bot, tu asistente fallero. ¿En qué puedo ayudarte?",
+          "Mi nombre es Masclet Bot, listo para orientarte sobre las Fallas."
+        ],
+        "followUps": ["¿Necesitas información sobre un tema específico?"]
+      },
+      {
+        "trigger": "^(?:qu[eé]\\s+tal\\s+si\\s+hablamos\\s+de)\\b",
+        "answer": [
+          "Esa es una buena idea. ¿Sobre qué tema te gustaría conversar?",
+          "Perfecto, dime el tema y te cuento lo que sé."
+        ],
+        "followUps": ["¿Quizás sobre gastronomía o tradiciones falleras?"]
+      },
+      {
+        "trigger": "^(?:quiero\\s+saber\\s+de\\s+las\\s+fallas)\\b",
+        "keywords": ["conocer las fallas", "fiesta valenciana", "aprender sobre fallas", "informacion fallera", "tradicion de valencia"],
+        "answer": [
+          "Las Fallas son una fiesta de ingenio y tradición. ¿Cuál aspecto te interesa?",
+          "Puedo contarte desde historia hasta gastronomía y vestimenta de las Fallas. ¿Qué prefieres?"
+        ],
+        "followUps": ["¿Historia? ¿Eventos? ¿Recetas tradicionales?"]
+      },
+      {
+        "trigger": "^(?:dime\\s+sobre)\\b",
+        "answer": [
+          "¡Claro! ¿Sobre qué tema específico necesitas información?",
+          "Puedes preguntarme sobre cualquier aspecto de las Fallas. ¿Qué te llama la atención?"
+        ],
+        "followUps": ["¿Cultura, recetas o festividades?"]
+      },
+      {
+        "trigger": "^(?:hoy)\\b",
+        "answer": [
+          "Hoy es un día ideal para celebrar las tradiciones falleras. ¿Quieres saber qué eventos se realizan?",
+          "Si te interesa, puedo contarte más sobre las actividades de hoy en las Fallas."
+        ],
+        "followUps": ["¿Qué te gustaría conocer: gastronomía, vestimenta o eventos?"]
+      },
+      {
+        "trigger": "^(?:qu[eé]\\s+me\\s+recomiendas)\\b",
+        "answer": [
+          "Te recomiendo explorar nuestros contenidos sobre vestimenta y gastronomía, dos pilares de la cultura fallera.",
+          "Si buscas algo especial, ¿qué tal conocer los platos típicos o los trajes tradicionales?"
+        ],
+        "followUps": ["¿Trajes de fallera o recetas de paella?"]
+      },
+      {
+        "trigger": "^(?:sugiere)\\b",
+        "answer": [
+          "Te sugiero que empieces por una visita virtual a los monumentos fallers o que explores recetas tradicionales.",
+          "Considera revisar nuestras secciones de cultura y gastronomía para una visión completa."
+        ],
+        "followUps": ["¿Por cuál tema te gustaría empezar?"]
+      },
+      {
+        "trigger": "^(?:plan\\s+para\\s+el\\s+d[ií]a)\\b",
+        "answer": [
+          "Hoy te recomiendo conocer el calendario de eventos y disfrutar de la auténtica paella valenciana.",
+          "Un buen plan es informarte de las actividades y deleitarte con la gastronomía local."
+        ],
+        "followUps": ["¿Te interesa saber sobre los eventos o los platos típicos?"]
+      },
+      {
+        "trigger": ["banda", "musica", "música", "banda de musica", "banda musical", "conjunto musical"],
+        "keywords": ["bandas valencianas", "pasodobles", "musica de casal", "desfiles musicales", "marcha fallera"],
+        "answer": "Las bandas de música acompañan todos los actos falleros. Tocan pasodobles, himnos y marchas tradicionales valencianas que dan vida a las celebraciones.",
+        "followUps": ["¿Qué canciones son tradicionales?", "¿Cómo unirse a una banda?", "¿Cuándo actúan?"]
+      },
+      {
+        "trigger": ["dulces", "dulce", "buñuelos", "pasteles", "reposteria", "repostería"],
+        "keywords": ["postres falleros", "reposteria valenciana", "meriendas de fallas", "churros con chocolate", "dulce tipico valenciano"],
+        "answer": "Los dulces típicos de las Fallas incluyen buñuelos de calabaza, pasteles de boniato, churros con chocolate y fartons. Son una parte esencial de la tradición fallera.",
+        "followUps": ["¿Cómo hacer buñuelos?", "¿Dónde comprar pasteles de boniato?", "¿Qué son los fartons?"]
+      },
+      {
+        "trigger": ["buñuelos de calabaza", "buñuelos de viento", "bunyols"],
+        "keywords": ["masa frita", "calabaza frita", "dulce de feria", "meriendas falleras", "bunyols de carabassa"],
+        "answer": "Los buñuelos de calabaza son el dulce tradicional de las Fallas. Se hacen con puré de calabaza asada, harina, levadura y se fríen hasta dorarse. Se espolvorean con azúcar.",
+        "followUps": ["¿Receta completa de buñuelos?", "¿Dónde comprar los mejores?", "¿Cuándo se comen tradicionalmente?"]
+      },
+      {
+        "trigger": ["traje de fallera", "vestido fallero", "vestimenta fallera", "ropa fallera"],
+        "keywords": ["ropa tradicional valenciana mujer", "indumentaria valenciana", "vestido regional valenciano", "falda de seda", "corpiño"],
+        "answer": "El traje de fallera es una vestimenta tradicional valenciana muy elaborada. Consta de corpiño, falda de seda, delantal, pañuelo de Manila, joyas tradicionales como pendientes y collares, y peineta.",
+        "followUps": ["¿Qué tipo de telas se usan?", "¿Cuáles son las joyas tradicionales?", "¿Cómo se hace el peinado?"]
+      },
+      {
+        "trigger": ["traje de fallero", "vestido de fallero", "vestimenta fallero"],
+        "keywords": ["ropa tradicional valenciana hombre", "indumentaria masculina valenciana", "barretina", "faja fallera", "chaleco fallero"],
+        "answer": "El traje de fallero incluye camisa blanca, chaleco, faja, pantalón negro, alpargatas y barretina. Es una vestimenta tradicional valenciana elegante y cómoda.",
+        "followUps": ["¿Qué es la barretina?", "¿Cómo se ata la faja?", "¿Hay variaciones del traje?"]
+      },
+      {
+        "trigger": ["paella", "paella valenciana", "arroz", "comida valenciana"],
+        "keywords": ["arroz valenciano", "plato tipico valenciano", "socarrat", "pollo y conejo", "comida tradicional valenciana"],
+        "answer": "La paella valenciana es el plato más emblemático de Valencia. Los ingredientes tradicionales son: arroz bomba, pollo, conejo, judía verde plana, garrofó, tomate, pimentón, azafrán y aceite de oliva.",
+        "followUps": ["¿Cómo se hace paso a paso?", "¿Dónde comer la mejor paella?", "¿Qué es el socarrat?"]
+      },
+      {
+        "trigger": ["fartons", "horchata", "horchata y fartons"],
+        "keywords": ["bolleria valenciana", "desayuno valenciano", "chufa", "merienda valenciana", "panecillos para horchata"],
+        "answer": "Los fartons son panecillos alargados y esponjosos, perfectos para mojar en horchata. Son típicos de Valencia y se disfrutan especialmente en primavera durante las Fallas.",
+        "followUps": ["¿Cómo se hace la horchata?", "¿Dónde comprar los mejores fartons?", "¿Hay otras formas de comerlos?"]
+      },
+      {
+        "trigger": ["que es una mascleta", "que es la mascleta", "mascleta sin acento", "que es una mascletà", "que es la mascletà", "mascletà con acento", "la mascleta", "la mascletà"],
+        "keywords": ["pirotecnia diurna", "petardos", "plaza del ayuntamiento", "disparo de fallas", "ruido fallero"],
+        "answer": "La mascletà es un espectáculo pirotécnico diurno que se celebra a las 14:00 en la Plaza del Ayuntamiento. Es famosa por su ritmo y estruendo ensordecedor que hace vibrar toda la ciudad.",
+        "followUps": ["¿Desde cuándo existe?", "¿Quién la dispara?", "¿Cuál es la mejor ubicación para verla?"]
+      },
+      {
+        "trigger": ["fallera mayor", "que hace la fallera mayor", "quien es la fallera mayor"],
+        "keywords": ["representante de las fallas", "reina de las fallas", "cargo fallero", "embajadora fallera", "maxima representante"],
+        "answer": "La Fallera Mayor es la máxima representante de las fiestas. Preside actos oficiales, procesiones y es embajadora de la cultura fallera durante todo su reinado.",
+        "followUps": ["¿Cómo se elige?", "¿Cuánto dura el cargo?", "¿Qué requisitos hay?"]
+      },
+      {
+        "trigger": ["ofrenda", "ofrenda de flores", "ofrenda a la virgen"],
+        "keywords": ["flores a la virgen", "virgen de los desamparados", "manto floral", "acto religioso fallero", "procesion de flores"],
+        "answer": "La ofrenda de flores a la Virgen de los Desamparados es uno de los actos más emotivos. Miles de falleras y falleros depositan flores formando un manto gigante.",
+        "followUps": ["¿Qué flores se usan?", "¿Cuánto dura la ofrenda?", "¿Cómo inscribirse?"]
+      },
+      {
+        "trigger": ["vestimenta fallero", "vestimenta fallera masculina", "traje hombre fallero"],
+        "keywords": ["ropa tradicional valenciana hombre", "indumentaria masculina", "espardenyes", "faixa", "barretina valenciana"],
+        "answer": "La vestimenta fallera masculina es igualmente rica en historia y se complementa con trajes y accesorios únicos. Incluye camisa blanca, chaleco, faja, pantalón negro, alpargatas y barretina.",
+        "followUps": ["¿Qué es la barretina?", "¿Cómo se ata la faja?", "¿Hay variaciones del traje?"]
+      },
+      {
+        "trigger": ["dulces falleros", "dulces tradicionales", "repostería fallera", "postres"],
+        "keywords": ["postres valencianos", "pasteles de boniato", "chocolate con churros", "meriendas tipicas", "reposteria de fallas"],
+        "answer": "Los dulces típicos de las Fallas incluyen buñuelos de calabaza, pasteles de boniato, churros con chocolate y fartons. Son una parte esencial de la tradición fallera que endulza las celebraciones.",
+        "followUps": ["¿Cómo hacer buñuelos?", "¿Dónde comprar pasteles de boniato?", "¿Qué son los fartons?"]
+      },
+      {
+        "trigger": ["peineta", "peineta fallera", "tocado fallera", "adorno cabello"],
+        "keywords": ["aderezo fallero", "complemento del traje", "peinado fallera", "joyeria fallera", "tocado tradicional valenciano"],
+        "answer": "La peineta es un adorno fundamental del traje de fallera. Se fabrica en latón dorado o plateado, se graba a mano con motivos florales y simboliza elegancia y tradición valenciana.",
+        "followUps": ["¿Cómo se coloca la peineta?", "¿Qué tipos de peinetas hay?", "¿Dónde se compran?"]
+      },
+      {
+        "trigger": ["vestimenta fallera", "vestimenta fallera femenina", "traje mujer fallera"],
+        "keywords": ["ropa tradicional valenciana mujer", "manteletas", "aderezo", "indumentaria fallera femenina", "vestido regional de valencia"],
+        "answer": "La vestimenta fallera para mujer es una tradición rica en historia y simbolismo, con trajes únicos y llenos de detalles. Incluye corpiño, falda de seda, manteletas bordadas, delantal, medias caladas y enaguas almidonadas.",
+        "followUps": ["¿Qué tipo de telas se usan?", "¿Cómo se hace el peinado?", "¿Cuáles son las joyas tradicionales?"]
+      },
+      {
+        "trigger": ["crema", "cremà", "quemar fallas", "fuego", "final fallas", "19 marzo"],
+        "keywords": ["quemar monumentos", "noche de san jose", "arder fallas", "final de fiesta", "fuego fallero"],
+        "answer": "La cremà es el acto final donde se queman todos los monumentos falleros la noche del 19 de marzo, día de San José. Es el momento más emotivo de las fiestas donde el fuego purifica y renueva.",
+        "followUps": ["¿A qué hora comienza?", "¿Cuál se quema primero?", "¿Qué se salva del fuego?"]
+      }
+      
+    ],
+    "defaultFollowUps": [
+      "Como funciona este chatbot?"
+    ],
+    "vestimenta": {
+      "mujeres": [
+
+      {
+        "trigger": "^(?:vestimenta[s]?\\s+faller[aá]s?)\\b",
+        "keywords": ["indumentaria fallera mujer", "ropa tradicional valenciana", "vestido de fallera", "traje regional femenino", "manteletas y aderezos"],
+        "answer": "La vestimenta fallera para mujer es una tradición rica en historia y simbolismo, con trajes únicos y llenos de detalles. 👗",
+        "followUps": [
+          "Traje de fallera",
+          "Accesorios tradicionales",
+          "Historia del traje"
+        ]
+      },
+      {
+        "trigger": "^(?:partes\\s+traje\\s+fallera)\\b",
+        "keywords": ["componentes del traje", "corpiño y falda", "piezas de indumentaria", "manteletas", "enaguas"],
+        "answer": "Visit Valencia enumera: corpiño, falda de seda, manteletas bordadas, delantal, medias caladas y enaguas almidonadas.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:traje\\s+fallera\\s+oficial)\\b",
+        "answer": "La JCF recuerda que para actos protocolarios el traje oficial debe ser de seda natural con dibujo valenciano y talle a la cintura.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:vestir\\s+como\\s+fallera)\\b",
+        "answer": "Levante-EMV aconseja probar el traje completo al menos dos veces antes de la Ofrenda para ajustar dobladillos y corsé.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:alquilar\\s+traje\\s+fallera)\\b",
+        "answer": "Actualidad Fallera sitúa el alquiler de un traje completo entre 180 y 250 € el fin de semana, aderezo aparte.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:peso\\s+traje\\s+fallera)\\b",
+        "answer": "Hablemos de Fallas calcula que un traje con enaguas, joyas y moños puede pesar hasta 12 kg; conviene practicar caminar con él.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:peineta\\s+fallera)\\b",
+        "answer": "Las Provincias explica que la peineta se funde en latón dorado o plateado y se graba a mano con motivos florales.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:manteleta\\s+tradicional)\\b",
+        "answer": "La JCF detalla que la manteleta de hilo se borda con seda o canutillo y se sujeta al corpiño con alfileres de plata.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:corpiño\\s+fallera)\\b",
+        "answer": "Visit Valencia aconseja elegir corpiño entallado con manga al codo para actos de día y manga larga para noche.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:calzado\\s+fallera)\\b",
+        "answer": "Actualidad Fallera recuerda que los zapatos se forran en la misma seda del traje y suelen llevar tacón medio de madera.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:origen\\s+traje\\s+fallera)\\b",
+        "answer": "Levante-EMV sitúa el origen en la indumentaria de labradora pudiente del siglo XVIII, adaptada luego a la moda isabelina.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:evoluci[oó]n\\s+indumentaria\\s+fallera)\\b",
+        "answer": "Visit Valencia destaca que a finales del XIX el corpiño se acortó y la falda perdió volumen por influencia parisina.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:significado\\s+colores\\s+traje)\\b",
+        "answer": "Cendra Digital señala que el azul y el burdeos eran símbolos de estatus porque los tintes naturales eran más caros.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:influencia\\s+borb[oó]nica\\s+traje\\s+fallera)\\b",
+        "answer": "Las Provincias explica que con la corte borbónica llegó la seda de Lyon, clave para los dibujos que hoy llamamos ‘espolinados’.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:moda\\s+siglo\\s+xix\\s+traje\\s+valenciano)\\b",
+        "answer": "Actualidad Fallera detalla que en 1860 aparecieron los primeros aderezos de oro de filigrana y las puntillas francesas.",
+        "followUps": []
+      },
+      {
+        "trigger": "^(?:traje[s]?\\s+valencian[aá]s?)\\b",
+        "answer": "El traje valenciano femenino es una expresión cultural llena de colorido y tradición. 🌼",
+        "followUps": [
+          "Detalles del traje",
+          "Historia del traje"
+        ]
+      },
+      {
+        "trigger": "^(?:peineta[s]?)\\b",
+        "keywords": ["peinado de fallera", "aderezo de cabello", "tocado valenciano", "ornamento fallero", "moños de fallera"],
+        "answer": "La peineta adorna el cabello de las falleras y simboliza elegancia y tradición. 💇‍♀️",
+        "followUps": [
+          "Cómo se coloca",
+          "Tipos de peinetas"
+        ]
+      },
+      {
+        "trigger": "^(?:traje[s]?\\s+regionales?\\s+valenciana)\\b",
+        "answer": "Los trajes regionales reflejan la diversidad cultural de España, cada uno con su encanto. 🇪🇸",
+        "followUps": [
+          "Historia del traje de fallera",
+          "Cómo se confecciona un traje de fallera",
+          "Diferencias entre trajes de fallera"
+        ]
+      },
+      {
+        "trigger": "^(?:traje[s]?\\s+tradicional?\\s+fallera?)\\b",
+        "answer": "El traje de fallera es un símbolo de la tradición y la cultura valenciana, con detalles únicos. 👗",
+        "followUps": [
+          "Historia del traje de fallera",
+          "Cómo se confecciona un traje de fallera",
+          "Diferencias entre trajes de fallera"
+        ]
+      },
+      {
+        "trigger": "^(?:pendiente[s]?\\s+faller[aá]s?)\\b",
+        "answer": "Los pendientes falleros son joyas tradicionales que complementan el traje de fallera, con diseños únicos. 💎",
+        "followUps": [
+          "Tipos de pendientes falleros",
+          "Dónde comprar pendientes falleros",
+          "Historia de los pendientes falleros"
+        ]
+      },  
+      {
+        "trigger": ["^(?:vestido|traje|ropa)\\s+de\\s+fallera$", "^(?:como)\\s+se\\s+viste\\s+una\\s+fallera$"],
+        "answer": "El traje de fallera es una vestimenta tradicional valenciana muy elaborada. Consta de corpiño, falda, delantal, pañuelo de Manila y joyas tradicionales como pendientes y collares.",
+        "followUps": ["¿Qué tipo de telas se usan?", "¿Cuáles son las joyas tradicionales?", "¿Hay diferencias regionales?"]
+      },
+      {
+        "trigger": ["^(?:joyas|ornamentos)\\s+de\\s+fallera$", "^(?:complementos)\\s+tradicionales$"],
+        "answer": "Las joyas de fallera incluyen pendientes de oro, collares, pulseras y broches. El pañuelo de Manila bordado es fundamental, así como la peineta y las flores en el peinado.",
+        "followUps": ["¿Cómo se hace el peinado?", "¿Qué simbolizan las joyas?", "¿Dónde se compran?"]
+      }
+       
+      ],
+      "hombres": [
+        {
+          "trigger": "^(?:vestimenta[s]?\\s+faller[oó]s?)\\b",
+          "keywords": ["indumentaria fallero", "ropa tradicional valenciana hombre", "traje masculino fallero", "chaleco y faja", "barretina"],
+          "answer": "La vestimenta fallera masculina es igualmente rica en historia y se complementa con trajes y accesorios únicos. 👔",
+          "followUps": [
+            "Traje de fallero",
+            "Accesorios tradicionales"
+          ]
+        },
+        {
+          "trigger": "^(?:traje[s]?\\s+valencian[oó]s?)\\b",
+          "answer": "El traje valenciano masculino destaca por su elegancia y tradición. 🌼",
+          "followUps": [
+            "Características del traje",
+            "Historia del traje"
+          ]
+        },
+        {
+          "trigger": "^(?:traje[s]?\\s+regionales?)\\b",
+          "answer": "Los trajes regionales para hombre reflejan la diversidad cultural de España. 🇪🇸",
+          "followUps": [
+            "Ejemplos de trajes",
+            "Historia cultural"
+          ]
+        },
+        {
+          "trigger": ["^(?:vestido|traje|ropa)\\s+de\\s+fallero$", "^(?:como)\\s+se\\s+viste\\s+un\\s+fallero$"],
+          "answer": "El traje de fallero incluye camisa blanca, chaleco, faja, pantalón negro, alpargatas y barretina. Es una vestimenta tradicional valenciana elegante y cómoda.",
+          "followUps": ["¿Qué es la barretina?", "¿Cómo se ata la faja?", "¿Hay variaciones del traje?"]
+        }
+      ]
+    },
+    "comidaTipica": {
+      "dulce": [
+        {
+          "trigger": "^(?:dulce[s]?\\s+faller[aá]s?)\\b",
+          "keywords": ["reposteria de fallas", "postres tradicionales", "meriendas falleras", "bunyols y churros", "dulce valenciano"],
+          "answer": "Los dulces típicos de las Fallas, como los buñuelos y pasteles de boniato, endulzan la tradición. 🍩",
+          "followUps": [
+            "Receta de buñuelos",
+            "Pasteles tradicionales",
+            "Dulces destacados"
+          ]
+        },
+        {
+          "trigger": "^(?:receta\\s+buñuelos\\s+calabaza)\\b",
+          "answer": "Según Actualidad Fallera, mezcla 250 g de puré de calabaza asada, 250 g de harina, 20 g de levadura fresca y una pizca de sal; agrega agua templada hasta lograr masa pegajosa, reposa 30 min y fríe a 180 °C.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:pasteler[ií]a\\s+fallera\\s+t[íi]pica)\\b",
+          "keywords": ["obradores de fallas", "pasteles de boniato", "confiteria valenciana", "dulces tipicos de marzo", "pastelerias recomendadas"],
+          "answer": "Las Provincias destaca obradores como Daniel o Fartons Polo que, en marzo, ofrecen coquetes de almendra, pastelitos de calabaza y los clásicos pasteles de boniato.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:dulces\\s+t[íi]picos\\s+fallas)\\b",
+          "answer": "Visit Valencia hace su top-5: 1) Buñuelos de calabaza, 2) Churros de anís, 3) Pasteles de boniato, 4) Coca cristina y 5) Rosquilletas dulces bañadas en chocolate.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:dulce[s]?\\s+faller[oá]s?)\\b",
+          "answer": "Los dulces típicos de las Fallas incluyen los buñuelos y los pasteles de boniato. 🍩",
+          "followUps": [
+            "Receta de buñuelos",
+            "Dónde comprar pasteles de boniato",
+            "Dulces tradicionales"
+          ]
+        },
+        {
+          "trigger": "^(?:comprar\\s+pasteles\\s+de\\s+boniato)\\b",
+          "keywords": ["donde comprar dulces valencianos", "moniato", "pastelerias tradicionales", "reposteria local", "pasteles tipicos"],
+          "answer": "Las Provincias recomienda las pastelerías Daniel (Alboraya) y Casa Piloto (calle San Vicente) como los puntos imprescindibles para pasteles de boniato recién horneados en marzo.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:dulces\\s+tradicionales\\s+fallas)\\b",
+          "answer": "Visit Valencia destaca este top: 1) Buñuelos de calabaza, 2) Churros de anís, 3) Pasteles de boniato, 4) Coca cristina y 5) Porras bañadas en chocolate.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:receta\\s+buñuelos\\s+calabaza)\\b",
+          "answer": "Según Actualidad Fallera, mezcla 250 g de puré de calabaza asada, 250 g de harina, 20 g de levadura fresca, una pizca de sal y agua templada hasta obtener masa pegajosa. Deja reposar 30 min, fríe a 180 °C y espolvorea azúcar.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:dulces\\s+t[íi]picos\\s+fallas)\\b",
+          "answer": "Visit Valencia hace ranking: 1) Buñuelos de calabaza, 2) Churros de anís, 3) Pasteles de boniato, 4) Coca cristina y 5) Rosquilletas dulces con chocolate.",
+          "followUps": []
+        },
+        {
+          "trigger": ["^(?:buñuelos)\\s+de\\s+viento$", "^(?:dulces)\\s+falleros$"],
+          "answer": "Los buñuelos de viento son el dulce tradicional de las Fallas. Se hacen con masa frita y se espolvorean con azúcar. Son imprescindibles durante las fiestas falleras.",
+          "followUps": ["¿Cómo se hacen los buñuelos?", "¿Qué otros dulces hay?", "¿Cuándo se comen tradicionalmente?"]
+        },
+                {
+          "trigger": ["^(?:fartons)$", "^(?:horchata)\\s+y\\s+fartons$"],
+          "answer": "Los fartons son panecillos alargados y esponjosos, perfectos para mojar en horchata. Son típicos de Valencia y se disfrutan especialmente en primavera.",
+          "followUps": ["¿Cómo se hace la horchata?", "¿Dónde comprar los mejores fartons?", "¿Hay otras formas de comerlos?"]
+        }
+      ],
+      "salada": [
+        {
+          "trigger": "^(?:plato[s]?\\s+valencian[oó]s?)\\b",
+          "keywords": ["gastronomia valenciana", "comida salada tradicional", "arroces valencianos", "platos tipicos", "cocina de valencia"],
+          "answer": "La gastronomía salada de Valencia brilla con la paella y otros platos tradicionales. 🍲",
+          "followUps": [
+            "Receta de paella",
+            "Restaurantes recomendados",
+            "Platos emblemáticos"
+          ]
+        },
+        {
+          "trigger": "^(?:restaurantes\\s+paella\\s+valencia)\\b",
+          "keywords": ["donde comer paella", "arrocerias recomendadas", "restaurantes tradicionales", "paella de leña", "comer en valencia"],
+          "answer": "Visit Valencia recomienda La Riuà, El Forcat y Casa Carmela para probar paella de leña sin 'menús turista'.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:d[oó]nde\\s+comer\\s+paella\\s+aut[éé]ntica)\\b",
+          "answer": "Las Provincias aconseja ir a la Malvarrosa temprano: Casa Isabel y L'Estimat sirven paella con vistas al Mediterráneo.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:mejores\\s+arrocer[ií]as\\s+valencia)\\b",
+          "answer": "Actualidad Fallera destaca Nou Racó en la Albufera por su arroz seco y el entorno natural incomparable.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:comida[s]?\\s+faller[oá]s?)\\b",
+          "answer": "La comida típica de las Fallas incluye platos como la paella, buñuelos y churros con chocolate. 🍽️",
+          "followUps": [
+            "Receta de paella"
+          ]
+        },
+        {
+          "trigger": "^(?:plato[s]?\\s+valencian[oá]s?)\\b",
+          "answer": "La gastronomía valenciana es rica y variada, destacando la paella como plato estrella. 🍲",
+          "followUps": [
+            "Historia de la paella",
+            "Platos típicos de Valencia",
+            "Restaurantes recomendados"
+          ]
+        },
+        {
+          "trigger": "^(?:historia\\s+paella\\s+valenciana)\\b",
+          "keywords": ["origen de la paella", "nacimiento del arroz valenciano", "tradicion arrocera", "albufera y paella", "historia gastronomica"],
+          "answer": "Visit Valencia explica que la paella nació a orillas de l'Albufera en el siglo XIX, cuando los labradores cocinaban arroz con conejo, pollo y verduras de la huerta para el almuerzo de campo.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:origen\\s+de\\s+la\\s+paella)\\b",
+          "answer": "Levante-EMV recuerda que el término «paella» se refiere a la sartén ancha donde se cocina; con el tiempo el nombre pasó a identificar el plato en sí.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:qu[eé]\\s+significa\\s+paella)\\b",
+          "answer": "Según Actualidad Fallera, «paella» proviene del latín 'patella', una bandeja metálica; la palabra evolucionó en valenciano hasta definir la típica cazuela sin asas.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:primera\\s+receta\\s+paella)\\b",
+          "answer": "Las Provincias cita un recetario de 1857 como el documento más antiguo donde aparece la paella con ingredientes casi idénticos a los actuales.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:evoluci[oó]n\\s+paella\\s+tradicional)\\b",
+          "answer": "Cendra Digital resume que la paella pasó de cocinarse con rama de naranjo a usar gas en los 60, aunque hoy muchos restaurantes vuelven al fuego de leña por sabor y autenticidad.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:platos\\s+t[íi]picos\\s+valencia)\\b",
+          "answer": "Visit Valencia enumera los imprescindibles: paella, all i pebre, fideuà, esgarraet, arroz al horno y clóchinas al vapor en temporada.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:comida\\s+tradicional\\s+valenciana)\\b",
+          "answer": "Levante-EMV añade la coca de llanda y la olla valenciana como dos guisos caseros que resurgen en fallas para combatir el fresco de marzo.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:gastronom[ií]a\\s+valencia\\s+imperdibles)\\b",
+          "answer": "Actualidad Fallera destaca el esgarraet —pimiento asado y bacalao desmigado— como tapa estrella en los casales después de la mascletà.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:top\\s+5\\s+platos\\s+valencianos)\\b",
+          "answer": "Las Provincias propone este ranking fallero: 1) Paella, 2) Arroz al horno, 3) Fideuà, 4) All i pebre, 5) Titaina del Cabanyal.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:qu[eé]\\s+comer\\s+en\\s+valencia\\s+fallas)\\b",
+          "answer": "Cendra Digital recuerda que en marzo tampoco faltan buñuelos de calabaza ni churros con chocolate, perfectos para cerrar una ruta de monumentos.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:receta\\s+paella\\s+valenciana)\\b",
+          "keywords": ["ingredientes paella", "como cocinar arroz valenciano", "socarrat casero", "pasos de paella", "receta tradicional"],
+          "answer": "Visit Valencia detalla la receta clásica: pollo y conejo, garrofó, ferradura, tomate rallado, pimentón, azafrán y arroz bomba que se cuece 18 min a fuego vivo y 3 min a fuego suave para conseguir el socarrat.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:ingredientes\\s+paella\\s+aut[éé]ntica)\\b",
+          "answer": "Según la JCF, una paella de concurso nunca lleva chorizo ni guisantes; el pimentón y el romero son los únicos toques aromáticos permitidos.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:ingredientes\\s+paella\\s+fallera)\\b",
+          "answer": "Levante-EMV recalca que los ingredientes 'de libro' son: pollo, conejo, judía verde plana, garrofó, tomate, aceite, agua, sal, azafrán y, opcionalmente, caracoles y romero.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:d[oó]nde\\s+comer\\s+buñuelos\\s+fallas)\\b",
+          "answer": "Levante-EMV recomienda los puestos de la plaza de la Reina y el histórico 'Casa Piloto' en la calle San Vicente, donde fríen buñuelos de calabaza desde 1945.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:restaurantes\\s+paella\\s+recomendados)\\b",
+          "answer": "Visit Valencia sugiere Casa Carmela (Malvarrosa), La Riuà (centro) y Nou Racó (Albufera) para degustar paella a leña sin menú-trampa.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:d[oó]nde\\s+comer\\s+paella\\s+valencia)\\b",
+          "answer": "Las Provincias aconseja llegar temprano a L'Estimat o Casa Isabel en la playa para disfrutar arroz junto al Mediterráneo.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:restaurante\\s+valencia\\s+tradicional)\\b",
+          "answer": "Actualidad Fallera recomienda Navarro en la calle Arzobispo Mayoral: paella de mediodía y 'all i pebre' por encargo.",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:d[oó]nde\\s+cenar\\s+en\\s+fallas)\\b",
+          "answer": "Hablemos de Fallas propone casales con menú popular: Cuba-Literato Azorín ofrece arroces alicantinos y ambiente festivo hasta las 2 a.m.",
+          "followUps": []
+        },
+        {
+          "trigger": ["^(?:paella)\\s+valenciana$", "^(?:como)\\s+hacer\\s+paella$"],
+          "answer": "La paella valenciana es el plato más emblemático. Se hace con arroz, garrofón, judía verde, pollo, conejo, azafrán y aceite de oliva en una paellera sobre fuego de leña.",
+          "followUps": ["¿Qué ingredientes lleva exactamente?", "¿Cómo se hace el sofrito?", "¿Qué leña usar?"]
+        }
+      ]
+    },
+    "festejosReligiosos": {
+      "patrones": [
+      {
+        "trigger": "^(?:festejos?\\s+religiosos?)\\b",
+        "keywords": ["actos religiosos falleros", "virgen de los desamparados", "ofrenda floral", "procesiones de fallas", "devocion valenciana"],
+        "answer": "Los festejos religiosos en las Fallas incluyen la Ofrenda de Flores a la Virgen y la Crida. 🙏",
+        "followUps": [
+          "Ofrenda de Flores",
+          "Crida",
+          "Procesiones"
+        ]
+      },
+      {
+        "trigger": "^(?:ofrenda\\s+de\\s+flores)\\b",
+        "answer": "La Ofrenda de Flores es un acto emotivo donde se rinde homenaje a la Virgen de los Desamparados. 🌸",
+        "followUps": [
+          "Horario de la Ofrenda",
+          "Ruta de la Ofrenda",
+          "Historia de la Ofrenda"
+        ]
+      },
+      {
+        "trigger": "^(?:crida)\\b",
+        "answer": "La Crida es el acto inaugural de las Fallas, donde se da inicio a las festividades. 🎉",
+        "followUps": [
+          "Dónde ver la Crida",
+          "Horario de la Crida",
+          "Importancia de la Crida"
+        ]
+      },
+      {
+        "trigger": ["^(?:virgen)\\s+de\\s+los\\s+desamparados$", "^(?:patrona)\\s+de\\s+valencia$"],
+        "answer": "La Virgen de los Desamparados es la patrona de Valencia. Su festividad se celebra el segundo domingo de mayo con procesiones y ofrendas florales masivas.",
+        "followUps": ["¿Cuándo es la ofrenda?", "¿Cómo participar en la procesión?", "¿Dónde está la basílica?"]
+      }
+      ],
+      "procesiones": [
+        {
+          "trigger": "^(?:procesiones?)\\b",
+          "keywords": ["desfiles religiosos", "procesion valenciana", "recorrido devocional", "actos de iglesia", "tradicion religiosa"],
+          "answer": "Las procesiones son parte integral de las Fallas, destacando la devoción a la Virgen. 🚶‍♀️🚶‍♂️",
+          "followUps": [
+            "Fechas de las procesiones",
+            "Ruta de las procesiones",
+            "Importancia de las procesiones"
+          ]
+        },
+        {
+          "trigger": "^(?:virgen\\s+de\\s+los\\s+desamparados)\\b",
+          "answer": "La Virgen de los Desamparados es la patrona de Valencia y recibe una ofrenda floral especial. 🌹",
+          "followUps": [
+            "Historia de la Virgen",
+            "Eventos en honor a la Virgen",
+            "Cómo participar en la ofrenda"
+          ]
+        },
+        {
+          "trigger": ["^(?:procesión)\\s+del\\s+corpus$", "^(?:alfombras)\\s+de\\s+flores$"],
+          "answer": "La procesión del Corpus Christi es una tradición religiosa donde se crean alfombras de flores por las calles. Participan las falleras mayores y autoridades.",
+          "followUps": ["¿Cuándo es el Corpus?", "¿Cómo se hacen las alfombras?", "¿Qué recorrido tiene?"]
+        }
+      ],
+      "ofrendas": [
+        {
+          "trigger": "^(?:horarios?\\s+(?:de\\s+paso\\s+)?(?:de\\s+la\\s+)?ofrenda)\\b",
+          "answer": "Los horarios de paso de la Ofrenda a la Virgen suelen comenzar alrededor de las 15:00, marcando el inicio de este emotivo acto. Consulta con tu fuente local para conocer detalles exactos.",
+          "followUps": [
+            "Ruta de la Ofrenda",
+            "Traje tradicional fallero"
+          ]
+        },
+        {
+          "trigger": "^(?:horario[s]?\\s*ofrenda)\\b",
+          "answer": "La Ofrenda de Flores a la Virgen se celebra el 17 y 18 de marzo, comenzando a las 15:00 horas. ¡No te la pierdas! ⏰",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:ofrenda)\\b",
+          "answer": "La Ofrenda de Flores a la Virgen es un acto de fe que llena las calles de color y devoción. 🌸",
+          "followUps": [
+            "Ruta de la Ofrenda",
+            "Horarios de paso",
+            "Traje tradicional fallero"
+          ]
+        },
+        {
+          "trigger": "^(?:ofrenda[s]?)\\b",
+          "answer": "Las ofrendas son actos de devoción donde se rinden homenajes a la Virgen y a los patrones de las Fallas. 🙏",
+          "followUps": [
+            "Ofrenda de Flores",
+            "Ofrenda de Pan",
+            "Ofrenda de Luz"
+          ]
+        },
+        {
+          "trigger": "^(?:ofrenda\\s+de\\s+pan)\\b",
+          "keywords": ["ofrenda tradicional", "pan bendecido", "acto simbolico", "gratitud religiosa", "ofrendas populares"],
+          "answer": "La Ofrenda de Pan es una tradición donde se ofrecen productos típicos como símbolo de gratitud. 🍞",
+          "followUps": [
+            "Historia de la Ofrenda de Pan",
+            "Productos típicos ofrecidos",
+            "Cómo participar en la Ofrenda de Pan"
+          ]
+        },
+        {
+          "trigger": "^(?:ofrenda\\s+de\\s+luz)\\b",
+          "answer": "La Ofrenda de Luz es un acto simbólico que representa la esperanza y la fe. 💡",
+          "followUps": [
+            "Historia de la Ofrenda de Luz",
+            "Cómo participar en la Ofrenda de Luz",
+            "Importancia de la Ofrenda de Luz"
+          ]
+        },
+        {
+          "trigger": ["^(?:ofrenda)\\s+de\\s+flores$", "^(?:como)\\s+participar\\s+en\\s+la\\s+ofrenda$"],
+          "answer": "La ofrenda de flores a la Virgen de los Desamparados es uno de los actos más emotivos. Miles de falleras y falleros depositan flores formando un manto gigante.",
+          "followUps": ["¿Qué flores se usan?", "¿Cuánto dura la ofrenda?", "¿Cómo inscribirse?"]
+        }
+      ]
+    },
+    "festejosPopulares": {
+      "tradiciones": [
+        {
+          "trigger": "^(?:horario[s]?\\s*plant[aá])\\b",
+          "answer": "La plantà de las fallas grandes es el 15 de marzo a las 8:00 y la de las infantiles a las 10:00. ¡A disfrutar! ⏰",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:plant[aá])\\b",
+          "answer": "La plantà es el momento en que se instalan los monumentos falleros la madrugada del 15 de marzo.",
+          "followUps": [
+            "Cuándo es la mascletà",
+            "Qué es la cremà",
+            "Diferencia con la ofrenda"
+          ]
+        },
+        {
+          "trigger": "^(?:horario[s]?\\s*crem[aá])\\b",
+          "answer": "La cremà de las fallas grandes es el 19 de marzo a las 22:00 y la de las infantiles a las 20:00. ¡No te lo pierdas! ⏰",
+          "followUp": []
+        },
+        {
+          "trigger": "^(?:crem[aá])\\b",
+          "answer": "La cremà es la noche del 19 al 20 de marzo, cuando arden todos los monumentos falleros. 🔥",
+          "followUps": [
+            "Qué es la plantà",
+            "Cómo se indulta un ninot",
+            "Horario de la cremà"
+          ]
+        },
+        {
+          "trigger": "^(?:horario[s]?\\s*crid[aá])\\b",
+          "answer": "La Crida se celebra el último domingo de febrero a las 20:00 horas desde las Torres de Serranos. ¡No faltes! ⏰",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:crid[aá])\\b",
+          "answer": "La Crida inaugura las Fallas el último domingo de febrero desde las Torres de Serranos. 📣",
+          "followUps": [
+            "Dónde ver la Crida",
+            "Horario de la Crida",
+            "Importancia de la Crida"
+          ]
+        },
+        {
+          "trigger": "^(?:or[ií]gen(?:es)?)\\b",
+          "answer": "¡Chispa aquí! 🚀 Las Fallas nacen en el siglo XVIII para celebrar la llegada de la primavera.",
+          "followUps": [
+            "Historia de la Crida",
+            "Evolución del monumento",
+            "Curiosidades falleras"
+          ]
+        },
+        {
+          "trigger": "^(?:festejos?\\s+populares?)\\b",
+          "keywords": ["tradiciones falleras", "actos populares", "fiesta valenciana", "planta y crema", "agenda festiva"],
+          "text": "Los festejos populares de las Fallas incluyen la plantà, la cremà y las mascletàs. 🎊",
+          "followUp": [
+            "Plantà",
+            "Cremà",
+            "Mascletàs"
+          ]
+        },
+        {
+          "trigger": "^(?:plantà)\\b",
+          "answer": "La plantà es el momento en que se instalan los monumentos falleros la madrugada del 15 de marzo. 🌟",
+          "followUps": [
+            "Cuándo es la plantà",
+            "Horario de la plantà",
+            "Importancia de la plantà"
+          ]
+        },
+        {
+          "trigger": "^(?:cremà)\\b",
+          "answer": "La cremà es la noche del 19 al 20 de marzo, cuando arden todos los monumentos falleros. 🔥",
+          "followUps": [
+            "Qué es la plantà",
+            "Cómo se indulta un ninot",
+            "Horario de la cremà"
+          ]
+        },
+        {
+          "trigger": ["^(?:plantà)$", "^(?:cuando)\\s+se\\s+plantan\\s+las\\s+fallas$"],
+          "keywords": ["montar monumentos", "instalar fallas", "inicio del montaje", "levantar ninots", "colocar monumentos falleros"],
+          "answer": "La plantà es el momento en que se montan los monumentos falleros en sus ubicaciones definitivas. Suele realizarse entre el 15 y 16 de marzo.",
+          "followUps": ["¿Cuánto tardan en montarlas?", "¿Quién las monta?", "¿Se puede ver el proceso?"]
+        },
+        {
+          "trigger": ["^(?:cremà)$", "^(?:cuando)\\s+se\\s+queman\\s+las\\s+fallas$"],
+          "answer": "La cremà es el acto final donde se queman todos los monumentos falleros la noche del 19 de marzo, día de San José. Es el momento más emotivo de las fiestas.",
+          "followUps": ["¿A qué hora comienza?", "¿Cuál se quema primero?", "¿Qué se salva del fuego?"]
+        }
+      ],
+      "pirotecnia": [
+        {
+          "trigger": ["que es una mascleta", "que es la mascleta", "mascleta", "que es una mascletà", "que es la mascletà", "mascletà"],
+          "keywords": ["pirotecnia de dia", "estruendo fallero", "petardos en la plaza", "disparo de mediodia", "ritmo pirotecnico"],
+          "answer": "La mascletà es un espectáculo pirotécnico diurno que combina miles de petardos en un crescendo sonoro impresionante. Se celebra a las 14:00 en la Plaza del Ayuntamiento.",
+          "followUps": ["¿Desde cuándo existe?", "¿Quién la dispara?", "¿Cuál es la mejor ubicación para verla?"]
+        },
+        {
+          "trigger": ["que es un masclet", "masclet", "masclets", "petardos falleros", "petardo", "petardos"],
+          "answer": "Masclet es un petardo colosal, disparado para lograr un efecto acústico que vibra en el centro de la festividad.",
+          "image": "",
+          "video": "",
+          "images": ["img/masclet.png"],
+          "videos": [
+            "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/_UuqngJcL7s\" title=\"El martillo de Thor, el homenaje a las víctimas de la dana en la mascletà\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+          ],
+          "followUps": ["¿Cómo se organiza una fila de masclets?", "Normativa de artificios", "Efecto acústico de la mascletà"]
+        },
+        {
+          "trigger": ["^(?:mascletà)$", "^(?:cuando)\\s+es\\s+la\\s+mascletà$"],
+          "answer": "La mascletà es un espectáculo pirotécnico diurno que se celebra a las 14:00 en la Plaza del Ayuntamiento. Es famosa por su ritmo y estruendo ensordecedor.",
+          "followUps": ["¿Desde cuándo existe?", "¿Quién la dispara?", "¿Cuál es la mejor ubicación para verla?"]
+        }
+      ],
+      "musica": [
+        {
+          "trigger": "^(?:música[s]?)\\b",
+          "keywords": ["bandas de fallas", "pasodobles valencianos", "musica de casal", "desfiles musicales", "cultura sonora"],
+          "answer": "La música es una parte esencial de las Fallas, con bandas que tocan pasodobles y canciones tradicionales. 🎶",
+          "followUps": [
+            "Bandas de música",
+            "Canciones típicas",
+            "Eventos musicales"
+          ]
+        },
+        {
+          "trigger": "^(?:pasod[oó]ble[s]?)\\b",
+          "answer": "El pasodoble es un género musical muy popular en las Fallas, interpretado por numerosas bandas. 🎺",
+          "followUps": [
+            "Historia del pasodoble",
+            "Mejores pasodobles falleros",
+            "Cómo se baila el pasodoble"
+          ]
+        },
+        {
+          "trigger": ["^(?:banda)\\s+de\\s+m[uú]sica$", "^(?:m[uú]sica)\\s+fallera$", "^(?:banda)\\s+musical$", "^(?:m[uú]sica)\\s+de\\s+fallas$", "^(?:bandas?)\\s+falleras?$", "^(?:conjuntos?)\\s+musicales?$", "^(?:agrupaci[oó]n)\\s+musical$"],
+          "answer": "Las bandas de música acompañan todos los actos falleros. Tocan pasodobles, himnos y marchas tradicionales valencianas que dan vida a las celebraciones.",
+          "followUps": ["¿Qué canciones son tradicionales?", "¿Cómo unirse a una banda?", "¿Cuándo actúan?"]
+        }
+      ],
+      "baile": [
+        {
+          "trigger": "^(?:baile[s]?)\\b",
+          "keywords": ["danzas falleras", "baile tradicional valenciano", "coreografias populares", "folclore festivo", "muixeranga"],
+          "answer": "El baile es una parte importante de las Fallas, con danzas tradicionales y eventos de baile. 💃🕺",
+          "followUps": [
+            "Danzas tradicionales",
+            "Eventos de baile",
+            "Cómo aprender a bailar"
+          ]
+        },
+          {
+            "trigger": "^(?:danzas?\\s+tradicionales?)\\b",
+            "answer": "Las danzas tradicionales son una expresión cultural que se celebra en las Fallas. 🕺",
+            "followUps": [
+              "Tipos de danzas",
+              "Historia de las danzas",
+              "Cómo participar en las danzas"
+            ]
+          },
+          
+        {
+          "trigger": ["^(?:muixeranga)$", "^(?:danzas)\\s+tradicionales$"],
+          "answer": "La muixeranga es una danza tradicional valenciana con torres humanas. Se baila en las fiestas falleras y es Patrimonio Cultural Inmaterial de la Humanidad.",
+          "followUps": ["¿Cómo se forma una torre?", "¿Dónde se puede ver?", "¿Cómo aprender a bailarla?"]
+        }
+      ]
+    },
+    "monumentos": [
+      {
+        "trigger": [
+          "(?:^|\\s)fallas?(?:$|\\s)",
+          "(?:^|\\s)(?:[¿]?\\s*)?(?:qu[eé]\\s+)?son\\s+las\\s+fallas?(?:\\s*[?¿]*)?(?:$|\\s)",
+          "(?:^|\\s)(?:[¿]?\\s*)?(?:qu[eé]\\s+)?(?:es|son)\\s+(?:una?\\s+)?falla(?:s)?(?:\\s*[?¿]*)?(?:$|\\s)",
+          "(?:^|\\s)monumentos?\\s+faller[oa]s?(?:$|\\s)",
+          "(?:^|\\s)monumento\\s+faller[o]?(?:$|\\s)",
+          "(?:^|\\s)(?:los\\s+)?monumentos?\\s+(?:de\\s+)?(?:las\\s+)?fallas?(?:$|\\s)"
+        ],
+        "keywords": ["monumentos falleros", "ninots", "carton piedra", "artistas falleros", "satira valenciana"],
+        "answer": "Las fallas son monumentos artísticos de cartón, madera y corcho que representan escenas satíricas. Se construyen durante meses y se queman en la cremà el 19 de marzo.",
+        "images": ["img/masclet.png"],
+        "videos": [
+          "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/abc123example1\" title=\"Construcción de una Falla\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+        ],
+        "followUps": ["¿Quién las diseña?", "¿Cuánto cuestan?", "¿Cómo se eligen los temas?"]
+      },
+      {
+          "trigger": "^(?:horario[s]?\\s*exposici[oó]n\\s*ninot)\\b",
+          "answer": "La Exposición del Ninot está abierta del 1 al 15 de marzo, con horarios de 10:00 a 20:00 horas. ¡Visítala! ⏰",
+          "followUps": []
+        },
+        {
+          "trigger": "^(?:exposici[oó]n\\s*ninot)\\b",
+            "keywords": ["museo del ninot", "ninots indultados", "votacion popular", "monumentos en exposicion", "visita previa a la crema"],
+          "answer": "La Exposición del Ninot reúne piezas en el Museo de las Ciencias antes de la votación popular.",
+          "followUps": [
+            "Lugar de la Exposición",
+            "Fechas de visita",
+            "Precio de entradas"
+          ]
+        },
+        {
+          "trigger": "^(?:ninot[s]?\\s*indult)\\b",
+          "keywords": ["salvar del fuego", "ninot indultado", "votacion del ninot", "pieza premiada", "museo fallero"],
+          "answer": "Cada comisión propone un ninot para indultar y salvarlo de la cremà, demostrando ingenio y creatividad. ✨",
+          "followUps": [
+            "Qué es la Exposición del Ninot",
+            "Día de la votación",
+            "Ninots indultados famosos"
+          ]
+        },
+        {
+          "trigger": "^(?:secci[oó]n(?:es)?)\\b",
+          "answer": "Las secciones competitivas se definen el 1 de marzo y se reconocen sus premios el 19 de marzo. 🏆",
+          "followUps": [
+            "Qué sección es la tuya",
+            "Premios de sección",
+            "Cómo se asignan las secciones"
+          ]
+        },
+        {
+          "trigger": "^(?:premios?)\\b",
+          "keywords": ["premios falleros", "categorias de monumentos", "jurado de fallas", "ganadores", "ingenio y gracia"],
+          "answer": "Los premios valoran originalidad, crítica, ingenio y estética de cada monumento.",
+          "followUps": [
+            "Ganadores recientes",
+            "Categorías de premios",
+            "Cómo votar al mejor ninot"
+          ]
+        },
+        {
+          "trigger": "^(?:falla[s]?\\s*\\((?:grande|infantil)\\))\\b",
+          "answer": "Las fallas grandes son monumentos de gran tamaño, mientras que las infantiles destacan por su ternura. 🎈",
+          "followUps": [
+            "Diferencias entre fallas",
+            "Historia de las fallas infantiles",
+            "Premios de las fallas infantiles"
+          ]
+        }
+    ],
+    "puestosPersonal": [
+      {
+        "trigger": "^(?:puestos?\\s+personal)\\b",
+        "keywords": ["cargos falleros", "organizacion de la comision", "roles de casal", "representantes de fallas", "equipo festivo"],
+        "answer": "Los puestos de personal en las Fallas incluyen roles como fallera mayor, presidente de comisión y artistas falleros. 👩‍🎤👨‍🎨",
+        "followUps": [
+          "Funciones del personal",
+          "Ejemplos de roles",
+          "Importancia del equipo"
+        ]
+      },
+      {
+        "trigger": "^(?:fallera\\s+mayor)\\b",
+        "answer": "La fallera mayor es la representante emblemática de la festividad, elegida por su compromiso y carisma. 👑",
+        "followUps": [
+          "Proceso de elección",
+          "Historia de la fallera mayor"
+        ]
+      },
+      {
+        "trigger": "^(?:presidente\\s+de\\s+comisi[oó]n)\\b",
+        "keywords": ["lider de la falla", "presidencia del casal", "organizar actividades", "responsable de comision", "cargo directivo"],
+        "answer": "El presidente de comisión coordina todas las actividades de su falla y es pieza clave en la organización. 🗂️",
+        "followUps": [
+          "Funciones del presidente",
+          "Proceso de elección",
+          "Importancia del rol"
+        ]
+      },
+     {
+        "trigger": ["^(?:fallera)\\s+mayor$", "^(?:qué)\\s+hace\\s+la\\s+fallera\\s+mayor$"],
+        "answer": "La Fallera Mayor es la máxima representante de las fiestas. Preside actos oficiales, procesiones y es embajadora de la cultura fallera durante todo su reinado.",
+        "followUps": ["¿Cómo se elige?", "¿Cuánto dura el cargo?", "¿Qué requisitos hay?"]
+      }
+    ]
+  },
+  "va": {
+    "knowledgeBase": [
+
+      {
+        "trigger": "^(hola|bona\\s+diada|bona\\s+tarda|bona\\s+nit|què\\s+tal|ei|hey)\\b",
+        "answer": [
+          "Hola! 🎉 Sóc Masclet, el teu bot faller amb espurna. En què et puc ajudar avui?",
+          "Ei! Com va? Sóc Masclet, preparat per a tot el que necessites.",
+          "Salutacions! Estic ací per ajudar-te, què passa?",
+          "Hola! Com va tot? Sóc Masclet, el teu bot faller. En què puc ajudar-te?"
+        ],
+        "followUps": [
+          "Sobre quin tema vols parlar?",
+          "T'interessa conèixer algun dada de les Falles?"
+        ]           
+      },
+        {
+            "trigger": "^(sobre\\s+quin\\s+tema\\s+vols\\s+parlar)$",
+            "answer": "Explica'm, t'interessa parlar sobre cultura, gastronomia, vestimenta o esdeveniments fallers?",
+            "followUps": []
+        },
+        {
+            "trigger": "^(t'interessa\\s+conèixer\\s+alguna\\s+dada\\s+de\\s+les\\s+Falles)$",
+            "answer": "Puc explicar-te des de la història, tradicions i curiositats de les Falles. Què t'agradaria saber?",
+            "followUps": []
+        },
+        {
+            "trigger": "^(hola\\s+bot|hola,\\s+bot)\\b",
+            "answer": [
+            "Hola! Sóc Masclet Bot, com puc ajudar-te avui?",
+            "Ei! Ací Masclet Bot, preparat per ajudar-te."
+            ],
+            "followUps": [
+            "Què t'agradaria saber?",
+            "Vols recomanacions sobre esdeveniments fallers?"
+            ]
+        },
+        {
+            "trigger": "^qu[eè]\\s+tal\\s+si\\s+parlem\\s+de",
+            "answer": [
+            "Eixa és una bona idea. Sobre quin tema t'agradaria conversar?",
+            "Perfecte, digues el tema i et conte el que sé."
+            ],
+            "followUps": ["gastronomia", "tradicions", "esdeveniments fallers"]
+        },
+        {
+            "trigger": "^vull\\s+saber\\s+sobre\\s+les\\s+falles$",
+            "answer": [
+            "Les Falles són una festa d'enginy i tradició. Quin aspecte t'interessa?",
+            "Puc explicar-te des de la història fins a la gastronomia i vestimenta de les Falles. Què prefereixes?"
+            ],
+            "followUps": ["història", "esdeveniments", "receptes tradicionals"]
+        },
+        {
+            "trigger": "^digues\\s+sobre",
+            "answer": [
+            "Clar! Sobre quin tema específic necessites informació?",
+            "Pots preguntar-me sobre qualsevol aspecte de les Falles. Què et crida l'atenció?"
+            ],
+            "followUps": ["cultura", "receptes", "festes"]
+        },
+        {
+            "trigger": "^avui$",
+            "answer": [
+            "Avui és un dia ideal per a celebrar les tradicions falleres. Vols saber quins esdeveniments es realitzen?",
+            "Si t'interessa, puc explicar-te més sobre les activitats d'avui en les Falles."
+            ],
+            "followUps": ["gastronomia", "vestimenta", "esdeveniments"]
+        },
+        {
+            "trigger": "^què\\s+em\\s+recomanes$",
+            "answer": [
+            "Et recomane explorar els nostres continguts sobre vestimenta i gastronomia, dos pilars de la cultura fallera.",
+            "Si busques alguna cosa especial, què tal conèixer els plats típics o els vestits tradicionals?"
+            ],
+            "followUps": ["vestits de fallera", "receptes de paella"]
+        },
+        {
+            "trigger": "^suggerix$",
+            "answer": [
+            "Et suggereixc que comences per una visita virtual als monuments fallers o que explores receptes tradicionals.",
+            "Considera revisar les nostres seccions de cultura i gastronomia per a una visió completa."
+            ],
+            "followUps": ["Quin tema vols començar?"]
+        },
+        {
+          "trigger": "^pla\\s+per\\s+al\\s+d[ií]a$",
+          "answer": [
+          "Avui et recomane conèixer el calendari d'esdeveniments i gaudir de l'autèntica paella valenciana.",
+          "Un bon pla és informar-te de les activitats i delectar-te amb la gastronomia local."
+          ],
+          "followUps": ["Vols saber sobre els esdeveniments o els plats típics?"]
+        }, 
+      {
+        "trigger": ["^\\s*(¡+)?\\s*(hola|buenas|salutacions|hey|ei|ep[a|e]?)\\s*(!+)?\\s*$", "^\\s*(¡+)?\\s*bon(s|es)?\\s+(dies?|tardes?|nits?)\\s*(!+)?\\s*$", "^\\s*(¿+)?\\s*qu[eè]\\s+tal\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*com\\s+(est[aà](s|u|eu)?|va(s|u|eu)?)\\s*(\\?+)?\\s*$"],
+        "answer": "Hola! En què puc ajudar-te?",
+        "followUps": [
+          "Com estàs?",
+          "Quins serveis oferixes?",
+          "Pots ajudar-me amb algo específic?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*(¿+)?\\s*com\\s+(est[aà](s|u|eu)?|va(s|u|eu)?|te\\s+(trobes?|sents?))\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*qu[eè]\\s+tal\\s+(est[aà](s|u|eu)?|va(s|u|eu)?)?\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*tot\\s+(b[eé]n?|ok|okay|perfecte|genial)\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*com\\s+(va|anda)\\s+(tot|la\\s+cosa|el\\s+dia)\\s*(\\?+)?\\s*$"],
+        "answer": "Estic bé, gràcies. I tu?",
+        "followUps": [
+          "Què pots fer per mi?",
+          "Tens alguna funció especial?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*(¿+)?\\s*com\\s+funciona\\s+(aquest\\s+|el\\s+)?x[aà]t\\s*[_-]?bot\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*(com\\s+)?funciona(ment)?\\s+(del?\\s+)?x[aà]t\\s*[_-]?bot\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*qu[eè]\\s+(fa|és|significa)\\s+(aquest\\s+|un\\s+)?x[aà]t\\s*[_-]?bot\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*(explica('|')m|digues-me)\\s+(com\\s+)?funciona\\s*(a(i|í)x[oò]|el\\s+bot)\\s*(\\?+)?\\s*$"],
+        "answer": "Aquest xatbot utilitza la llibreria Fuse.js per a proporcionar respostes intel·ligents basades en coincidències de text. Pots interactuar amb mi escrivint preguntes i rebràs respostes rellevants.",
+        "followUps": [
+          "Què és Fuse.js?",
+          "Pots entendre diferents idiomes?",
+          "Com millores les teues respostes?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*(¿+)?\\s*qu[eè]\\s+(informaci[oó]|dades?|coses?)\\s+(pots?|puedes?)\\s+(proporcionar(me)?|donar(me)?|oferir(me)?|brindar(me)?)\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*qu[eè]\\s+(saps?|coneixes?|maneges?)\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*(en\\s+)?qu[eè]\\s+(pots?|puedes?)\\s+(ajudar(me)?|assistir(me)?|col·laborar)\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*(quines?\\s+són\\s+)?les\\s+teues\\s+(capacitats|habilitats|funcions?)\\s*(\\?+)?\\s*$"],
+        "answer": "Puc proporcionar informació bàsica sobre diversos temes, ajudar-te amb consultes comunes i guiar-te a través dels nostres serveis. El meu coneixement és limitat, però estic ací per a ajudar-te el millor possible.",
+        "followUps": [
+          "Tens límits en les teues respostes?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*(¿+)?\\s*necessite\\s+(un\\s+)?compte\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*cal\\s+(registrar-se|crear\\s+(un\\s+)?compte|inscriure's)\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*fa\\s+falta\\s+(compte|registre|inscripci[oó])\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*(he|haig)\\s+de\\s+(registrar-me|crear\\s+compte)\\s*(\\?+)?\\s*$"],
+        "answer": "No, no necessites un compte per a utilitzar aquest xatbot. És un servei gratuït i accessible per a tots els visitants del lloc web.",
+        "followUps": []
+      },
+      {
+        "trigger": ["^(?:banda)\\s+de\\s+m[uú]sica$", "^(?:m[uú]sica)\\s+fallera$", "^(?:banda)\\s+musical$", "^(?:m[uú]sica)\\s+de\\s+falles$", "^(?:bandes?)\\s+falleres?$", "^(?:conjunts?)\\s+musicals?$", "^(?:agrupaci[oó])\\s+musical$"],
+        "keywords": ["bandes valencianes", "pasdobles", "musica de casal", "desfilades musicals", "marxa fallera"],
+        "answer": "Les bandes de música acompanyen tots els actes fallers. Toquen pasdobles, himnes i marxes tradicionals valencianes que donen vida a les celebracions.",
+        "followUps": ["Quines cançons són tradicionals?", "Com unir-se a una banda?", "Quan actuen?"]
+      },
+      {
+        "trigger": "^(?:dolços?)\\b",
+        "keywords": ["postres fallers", "rebosteria valenciana", "berenars de falles", "xurros amb xocolate", "dolç tradicional"],
+        "answer": "Els dolços típics de les Falles inclouen bunyols de carabassa, pastissos de moniato, xurros amb xocolata i fartons. Són una part essencial de la tradició fallera.",
+        "followUps": ["Com fer bunyols?", "On comprar pastissos de moniato?", "Què són els fartons?"]
+      },
+      {
+        "trigger": ["^(?:bunyols)\\s+de\\s+carabassa$", "^(?:bunyols)\\s+de\\s+vent$"],
+        "keywords": ["massa fregida", "carabassa rostida", "dolç de fira", "snack faller", "bunyols tradicionals"],
+        "answer": "Els bunyols de carabassa són el dolç tradicional de les Falles. Es fan amb puré de carabassa rostida, farina, llevat i es fregeixen fins que es doren. S'espolvoregen amb sucre.",
+        "followUps": ["Recepta completa de bunyols?", "On comprar els millors?", "Quan es mengen tradicionalment?"]
+      },
+      {
+        "trigger": ["^(?:vestit)\\s+de\\s+fallera$", "^(?:traje)\\s+faller$", "^(?:vestimenta)\\s+fallera$"],
+        "keywords": ["indumentaria valenciana dona", "vestit regional", "falda de seda", "mocador de manila", "joies falleres"],
+        "answer": "El vestit de fallera és una vestimenta tradicional valenciana molt elaborada. Consta de cosset, faldilla de seda, davantal, mocador de Manila, joies tradicionals com arracades i collars, i pinta.",
+        "followUps": ["Quin tipus de teles s'usen?", "Quines són les joies tradicionals?", "Com es fa el pentinat?"]
+      },
+      {
+        "trigger": ["^(?:vestit)\\s+de\\s+faller$", "^(?:traje)\\s+de\\s+faller$"],
+        "keywords": ["indumentaria valenciana home", "armilla i faixa", "barretina", "espardenyes", "traje tradicional masculi"],
+        "answer": "El vestit de faller inclou camisa blanca, armilla, faixa, pantaló negre, espardenyes i barretina. És una vestimenta tradicional valenciana elegant i còmoda.",
+        "followUps": ["Què és la barretina?", "Com es lliga la faixa?", "Hi ha variacions del vestit?"]
+      },
+      {
+        "trigger": ["^(?:paella)\\s+valenciana$", "^(?:paella)$", "^(?:recepta)\\s+paella$"],
+        "keywords": ["arròs valencia", "plat tipic", "socarrat", "pollastre i conill", "cuina valenciana"],
+        "answer": "La paella valenciana és el plat més emblemàtic de València. Els ingredients tradicionals són: arròs bomba, pollastre, conill, garrofó, baioqueta, tomaquet, pebrella, safrà i oli d'oliva.",
+        "followUps": ["Com es fa pas a pas?", "On menjar la millor paella?", "Què és el socarrat?"]
+      }
+    ],
+    "defaultFollowUps": [
+      "Com funciona aquest xatbot?",
+      "Quina informació pots proporcionar-me?",
+      "Necessite un compte per a utilitzar aquest servei?"
+    ],
+    "vestimenta": {
+      "mujeres": [
+        {
+          "trigger": ["^(?:fallera)\\s+dress$", "^(?:traditional)\\s+valencian\\s+costume$"],
+          "answer": "The fallera dress is a traditional Valencian costume with elaborate details. It consists of a bodice, skirt, apron, Manila shawl, and traditional jewelry like earrings and necklaces.",
+          "followUps": ["What fabrics are used?", "What are the traditional jewels?", "Are there regional differences?"]
+        }
+      ],
+      "hombres": [
+        {
+          "trigger": ["^(?:fallero)\\s+outfit$", "^(?:men)\\s+traditional\\s+costume$"],
+          "answer": "The fallero outfit includes a white shirt, vest, sash, black pants, espadrilles, and barretina (traditional cap). It's an elegant and comfortable traditional Valencian attire.",
+          "followUps": ["What is a barretina?", "How to tie the sash?", "Are there variations?"]
+        }
+      ]
+    },
+    "comidaTipica": {
+      "dulce": [
+        {
+          "trigger": ["^(?:buñuelos)$", "^(?:traditional)\\s+sweets$"],
+          "answer": "Buñuelos de viento are the traditional Fallas sweets. They're made with fried dough and sprinkled with sugar. They're essential during the Fallas festivities.",
+          "followUps": ["How are buñuelos made?", "What other sweets are there?", "When are they traditionally eaten?"]
+        }
+      ],
+      "salada": [
+        {
+          "trigger": ["^(?:valencian)\\s+paella$", "^(?:how)\\s+to\\s+make\\s+paella$"],
+          "answer": "Valencian paella is the most emblematic dish. It's made with rice, beans, green beans, chicken, rabbit, saffron, and olive oil in a paella pan over wood fire.",
+          "followUps": ["What ingredients exactly?", "How to make the sofrito?", "What wood to use?"]
+        }
+      ]
+    },
+    "festejosReligiosos": {
+      "patrones": [
+        {
+          "trigger": ["^(?:virgin)\\s+of\\s+the\\s+helpless$", "^(?:patron)\\s+of\\s+valencia$"],
+          "answer": "The Virgin of the Helpless is Valencia's patron saint. Her festivity is celebrated on the second Sunday of May with processions and massive flower offerings.",
+          "followUps": ["When is the offering?", "How to participate in the procession?", "Where is the basilica?"]
+        }
+      ],
+      "procesiones": [
+        {
+          "trigger": ["^(?:corpus)\\s+christi\\s+procession$", "^(?:flower)\\s+carpets$"],
+          "answer": "The Corpus Christi procession is a religious tradition where flower carpets are created on the streets. Falleras mayores and authorities participate.",
+          "followUps": ["When is Corpus?", "How are carpets made?", "What route does it take?"]
+        }
+      ],
+      "ofrendas": [
+        {
+          "trigger": ["^(?:flower)\\s+offering$", "^(?:how)\\s+to\\s+participate\\s+in\\s+offering$"],
+          "keywords": ["ofrena de flors", "mare de deu dels desemparats", "mantell floral", "acte religios", "participar en l'ofrena"],
+          "answer": "The flower offering to the Virgin of the Helpless is one of the most emotional acts. Thousands of falleras and falleros deposit flowers forming a giant mantle.",
+          "followUps": ["What flowers are used?", "How long does the offering last?", "How to register?"]
+        }
+      ]
+    },
+    "festejosPopulares": {
+      "tradiciones": [
+        {
+          "trigger": ["^(?:plantà)$", "^(?:when)\\s+are\\s+fallas\\s+erected$"],
+          "keywords": ["planta de les falles", "muntar monuments", "alçar ninots", "inici de la festa", "muntatge faller"],
+          "answer": "The plantà is when the falla monuments are assembled in their final locations. It usually takes place between March 15th and 16th.",
+          "followUps": ["How long does assembly take?", "Who assembles them?", "Can the process be watched?"]
+        },
+        {
+          "trigger": ["^(?:cremà)$", "^(?:when)\\s+are\\s+fallas\\s+burned$"],
+          "answer": "The cremà is the final act where all falla monuments are burned on the night of March 19th, St. Joseph's Day. It's the most emotional moment of the festivities.",
+          "followUps": ["What time does it start?", "Which burns first?", "What is saved from fire?"]
+        }
+      ],
+      "pirotecnia": [
+        {
+          "trigger": ["^(?:mascletà)$", "^(?:when)\\s+is\\s+the\\s+mascletà$"],
+          "keywords": ["mascleta", "pirotecnia diurna", "disparada de migdia", "soroll faller", "placa de l'ajuntament"],
+          "answer": "The mascletà is a daytime fireworks show held at 2:00 PM in the Town Hall Square. It's famous for its rhythm and deafening noise.",
+          "followUps": ["Since when has it existed?", "Who shoots it?", "What's the best viewing location?"]
+        }
+      ],
+      "musica": [
+        {
+          "trigger": ["^(?:music)\\s+band$", "^(?:falla)\\s+music$"],
+          "answer": "Music bands accompany all falla events. They play pasodobles, hymns, and traditional Valencian marches that bring the celebrations to life.",
+          "followUps": ["What songs are traditional?", "How to join a band?", "When do they perform?"]
+        }
+      ],
+      "baile": [
+        {
+          "trigger": ["^(?:muixeranga)$", "^(?:traditional)\\s+dances$"],
+          "answer": "Muixeranga is a traditional Valencian dance with human towers. It's danced during Fallas festivities and is UNESCO Intangible Cultural Heritage.",
+          "followUps": ["How is a tower formed?", "Where can it be seen?", "How to learn to dance it?"]
+        }
+      ]
+    },
+    "monumentos": [
+      {
+        "trigger": ["^(?:what)\\s+are\\s+fallas$", "^(?:falla)\\s+monuments$"],
+        "keywords": ["monuments fallers", "ninots", "satira valenciana", "carto pedra", "artistes fallers"],
+        "answer": "Fallas are artistic monuments made of cardboard, wood, and cork representing satirical scenes. They're built over months and burned in the cremà.",
+        "followUps": ["Who designs them?", "How much do they cost?", "How are themes chosen?"]
+      }
+    ],
+    "puestosPersonal": [
+      {
+        "trigger": ["^(?:fallera)\\s+mayor$", "^(?:what)\\s+does\\s+fallera\\s+mayor\\s+do$"],
+        "keywords": ["fallera major", "representant de les falles", "ambaixadora fallera", "maxima representant", "carrec festiu"],
+        "answer": "The Fallera Mayor is the maximum representative of the festivities. She presides over official acts, processions, and is an ambassador of falla culture during her reign.",
+        "followUps": ["How is she chosen?", "How long does the position last?", "What are the requirements?"]
+      }
+    ]
+  },
+  "en": {
+    "knowledgeBase": [
+      {
+        "trigger": ["^\\s*(hello|hi|hey|greetings?|hiya|howdy)\\s*(!+)?\\s*$", "^\\s*good\\s+(morning|afternoon|evening|day)\\s*(!+)?\\s*$", "^\\s*what'?s\\s+up\\s*(\\?+)?\\s*$", "^\\s*(yo|sup|wassup|what'?s\\s+good)\\s*(\\?+)?\\s*$"],
+        "answer": "Hello! How can I assist you?",
+        "followUps": [
+          "How are you?",
+          "What services do you offer?",
+          "Can you help me with something specific?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*how\\s+(are\\s+you|'?re\\s+you|ya\\s+doing|you\\s+doing)\\s*(\\?+)?\\s*$", "^\\s*how'?s\\s+it\\s+(going|hanging)\\s*(\\?+)?\\s*$", "^\\s*what'?s\\s+up\\s*(with\\s+you)?\\s*(\\?+)?\\s*$", "^\\s*(how\\s+do\\s+you\\s+do|how\\s+are\\s+things|you\\s+(good|ok|alright))\\s*(\\?+)?\\s*$"],
+        "answer": "I'm doing well, thank you. How about you?",
+        "followUps": [
+          "What can you do for me?",
+          "Do you have any special features?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*how\\s+does\\s+(this\\s+|the\\s+)?chat\\s*[_-]?bot\\s+(work|function|operate)\\s*(\\?+)?\\s*$", "^\\s*how\\s+does\\s+(it|this|that)\\s+(work|function|operate)\\s*(\\?+)?\\s*$", "^\\s*what\\s+does\\s+(this\\s+|the\\s+)?chat\\s*[_-]?bot\\s+(do|mean)\\s*(\\?+)?\\s*$", "^\\s*(explain|tell\\s+me)\\s+how\\s+(this|it)\\s+(works?|functions?)\\s*(\\?+)?\\s*$"],
+        "answer": "This chatbot uses the Fuse.js library to provide intelligent responses based on text matching. You can interact with me by typing questions and you'll receive relevant answers.",
+        "followUps": [
+          "What is Fuse.js?",
+          "Can you understand different languages?",
+          "How do you improve your responses?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*what\\s+(information|info|data|stuff)\\s+(can|do|could)\\s+you\\s+(provide|give|offer|supply)(\\s+me)?\\s*(\\?+)?\\s*$", "^\\s*what\\s+(do\\s+you\\s+)?(know|have|understand)\\s*(about)?\\s*(\\?+)?\\s*$", "^\\s*what\\s+can\\s+you\\s+(help|assist)\\s+(me\\s+)?with\\s*(\\?+)?\\s*$", "^\\s*what\\s+(are\\s+)?your\\s+(capabilities|abilities|features|functions?)\\s*(\\?+)?\\s*$"],
+        "answer": "I can provide basic information on various topics, help you with common queries, and guide you through our services. My knowledge is limited, but I'm here to assist you as best as I can.",
+        "followUps": [
+          "Do you have limits in your responses?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*do\\s+i\\s+need\\s+(an?\\s+)?account\\s*(\\?+)?\\s*$", "^\\s*(is\\s+)?(registration|signup|sign-up)\\s+(required|needed|necessary)\\s*(\\?+)?\\s*$", "^\\s*do\\s+i\\s+(have\\s+to|need\\s+to)\\s+(register|sign\\s+up|create\\s+an?\\s+account)\\s*(\\?+)?\\s*$", "^\\s*(must|should)\\s+i\\s+(register|create\\s+an?\\s+account)\\s*(\\?+)?\\s*$"],
+        "answer": "No, you don't need an account to use this chatbot. It's a free service accessible to all website visitors.",
+        "followUps": []
+      },
+      {
+        "trigger": ["^(?:band)\\s+music$", "^(?:music)\\s+band$", "^(?:traditional)\\s+music$", "^(?:fallas?)\\s+music$", "^(?:musical)\\s+group$", "^(?:marching)\\s+band$"],
+        "keywords": ["valencian bands", "pasodobles", "fallas parade music", "traditional marches", "festival brass band"],
+        "answer": "Music bands accompany all Fallas events. They play pasodobles, hymns and traditional Valencian marches that bring the celebrations to life.",
+        "followUps": ["What songs are traditional?", "How to join a band?", "When do they perform?"]
+      },
+      {
+        "trigger": "^(?:sweets?)\\b",
+        "keywords": ["fallas desserts", "traditional valencian pastries", "sweet snacks in march", "pumpkin fritters", "churros and chocolate"],
+        "answer": "Traditional Fallas sweets include pumpkin fritters, sweet potato pastries, churros with chocolate and fartons. They are an essential part of the Fallas tradition.",
+        "followUps": ["How to make fritters?", "Where to buy sweet potato pastries?", "What are fartons?"]
+      },
+      {
+        "trigger": ["^(?:fritters)\\s+pumpkin$", "^(?:pumpkin)\\s+fritters$"],
+        "keywords": ["fried pumpkin dough", "festival fritters", "traditional sweet snack", "sugar fritters", "fallas street food"],
+        "answer": "Pumpkin fritters are the traditional sweet of the Fallas. They are made with roasted pumpkin puree, flour, yeast and fried until golden. They are sprinkled with sugar.",
+        "followUps": ["Complete fritters recipe?", "Where to buy the best ones?", "When are they traditionally eaten?"]
+      },
+      {
+        "trigger": ["^(?:fallera)\\s+dress$", "^(?:traditional)\\s+dress$", "^(?:costume)\\s+fallera$"],
+        "keywords": ["women valencian costume", "traditional silk dress", "fallera outfit", "regional valencian clothing", "shawl and jewelry"],
+        "answer": "The fallera dress is a very elaborate traditional Valencian costume. It consists of a bodice, silk skirt, apron, Manila shawl, traditional jewelry such as earrings and necklaces, and hair ornaments.",
+        "followUps": ["What type of fabrics are used?", "What are the traditional jewels?", "How is the hairstyle done?"]
+      },
+      {
+        "trigger": ["^(?:fallero)\\s+suit$", "^(?:traditional)\\s+suit$"],
+        "keywords": ["men valencian costume", "fallero outfit", "traditional sash and cap", "espadrilles and vest", "regional male attire"],
+        "answer": "The fallero suit includes white shirt, vest, sash, black pants, espadrilles and barretina. It is an elegant and comfortable traditional Valencian outfit.",
+        "followUps": ["What is the barretina?", "How to tie the sash?", "Are there variations of the suit?"]
+      },
+      {
+        "trigger": ["^(?:paella)\\s+valenciana$", "^(?:paella)$", "^(?:recipe)\\s+paella$"],
+        "keywords": ["valencian rice dish", "traditional paella recipe", "saffron rice", "chicken and rabbit rice", "socarrat"],
+        "answer": "Valencian paella is the most emblematic dish of Valencia. The traditional ingredients are: bomba rice, chicken, rabbit, green beans, lima beans, tomato, paprika, saffron and olive oil.",
+        "followUps": ["How is it made step by step?", "Where to eat the best paella?", "What is socarrat?"]
+      }
+    ],
+    "defaultFollowUps": [
+      "How does this chatbot work?",
+      "What information can you provide?",
+      "Do I need an account to use this service?"
+    ],
+    "vestimenta": {
+      "mujeres": [
+        {
+          "trigger": ["^(?:fallera)\\s+dress$", "^(?:traditional)\\s+valencian\\s+costume$"],
+          "answer": "The fallera dress is a traditional Valencian costume with elaborate details. It consists of a bodice, skirt, apron, Manila shawl, and traditional jewelry like earrings and necklaces.",
+          "followUps": ["What fabrics are used?", "What are the traditional jewels?", "Are there regional differences?"]
+        }
+      ],
+      "hombres": [
+        {
+          "trigger": ["^(?:fallero)\\s+outfit$", "^(?:men)\\s+traditional\\s+costume$"],
+          "answer": "The fallero outfit includes a white shirt, vest, sash, black pants, espadrilles, and barretina (traditional cap). It's an elegant and comfortable traditional Valencian attire.",
+          "followUps": ["What is a barretina?", "How to tie the sash?", "Are there variations?"]
+        }
+      ]
+    },
+    "comidaTipica": {
+      "dulce": [
+        {
+          "trigger": ["^(?:buñuelos)$", "^(?:traditional)\\s+sweets$"],
+          "answer": "Buñuelos de viento are the traditional Fallas sweets. They're made with fried dough and sprinkled with sugar. They're essential during the Fallas festivities.",
+          "followUps": ["How are buñuelos made?", "What other sweets are there?", "When are they traditionally eaten?"]
+        }
+      ],
+      "salada": [
+        {
+          "trigger": ["^(?:valencian)\\s+paella$", "^(?:how)\\s+to\\s+make\\s+paella$"],
+          "answer": "Valencian paella is the most emblematic dish. It's made with rice, beans, green beans, chicken, rabbit, saffron, and olive oil in a paella pan over wood fire.",
+          "followUps": ["What ingredients exactly?", "How to make the sofrito?", "What wood to use?"]
+        }
+      ]
+    },
+    "festejosReligiosos": {
+      "patrones": [
+        {
+          "trigger": ["^(?:virgin)\\s+of\\s+the\\s+helpless$", "^(?:patron)\\s+of\\s+valencia$"],
+          "answer": "The Virgin of the Helpless is Valencia's patron saint. Her festivity is celebrated on the second Sunday of May with processions and massive flower offerings.",
+          "followUps": ["When is the offering?", "How to participate in the procession?", "Where is the basilica?"]
+        }
+      ],
+      "procesiones": [
+        {
+          "trigger": ["^(?:corpus)\\s+christi\\s+procession$", "^(?:flower)\\s+carpets$"],
+          "answer": "The Corpus Christi procession is a religious tradition where flower carpets are created on the streets. Falleras mayores and authorities participate.",
+          "followUps": ["When is Corpus?", "How are carpets made?", "What route does it take?"]
+        }
+      ],
+      "ofrendas": [
+        {
+          "trigger": ["^(?:flower)\\s+offering$", "^(?:how)\\s+to\\s+participate\\s+in\\s+offering$"],
+          "keywords": ["flower offering", "virgin of the helpless", "religious fallas act", "floral mantle", "join the offering"],
+          "answer": "The flower offering to the Virgin of the Helpless is one of the most emotional acts. Thousands of falleras and falleros deposit flowers forming a giant mantle.",
+          "followUps": ["What flowers are used?", "How long does the offering last?", "How to register?"]
+        }
+      ]
+    },
+    "festejosPopulares": {
+      "tradiciones": [
+        {
+          "trigger": ["^(?:plantà)$", "^(?:when)\\s+are\\s+fallas\\s+erected$"],
+          "keywords": ["assemble monuments", "erect fallas", "install ninots", "festival setup", "start of fallas"],
+          "answer": "The plantà is when the falla monuments are assembled in their final locations. It usually takes place between March 15th and 16th.",
+          "followUps": ["How long does assembly take?", "Who assembles them?", "Can the process be watched?"]
+        },
+        {
+          "trigger": ["^(?:cremà)$", "^(?:when)\\s+are\\s+fallas\\s+burned$"],
+          "answer": "The cremà is the final act where all falla monuments are burned on the night of March 19th, St. Joseph's Day. It's the most emotional moment of the festivities.",
+          "followUps": ["What time does it start?", "Which burns first?", "What is saved from fire?"]
+        }
+      ],
+      "pirotecnia": [
+        {
+          "trigger": ["^(?:mascletà)$", "^(?:when)\\s+is\\s+the\\s+mascletà$"],
+          "keywords": ["daytime fireworks", "town hall square", "noisy pyrotechnics", "2pm fireworks", "fallas blast"],
+          "answer": "The mascletà is a daytime fireworks show held at 2:00 PM in the Town Hall Square. It's famous for its rhythm and deafening noise.",
+          "followUps": ["Since when has it existed?", "Who shoots it?", "What's the best viewing location?"]
+        }
+      ],
+      "musica": [
+        {
+          "trigger": ["^(?:music)\\s+band$", "^(?:falla)\\s+music$"],
+          "answer": "Music bands accompany all falla events. They play pasodobles, hymns, and traditional Valencian marches that bring the celebrations to life.",
+          "followUps": ["What songs are traditional?", "How to join a band?", "When do they perform?"]
+        }
+      ],
+      "baile": [
+        {
+          "trigger": ["^(?:muixeranga)$", "^(?:traditional)\\s+dances$"],
+          "answer": "Muixeranga is a traditional Valencian dance with human towers. It's danced during Fallas festivities and is UNESCO Intangible Cultural Heritage.",
+          "followUps": ["How is a tower formed?", "Where can it be seen?", "How to learn to dance it?"]
+        }
+      ]
+    },
+    "monumentos": [
+      {
+        "trigger": ["^(?:what)\\s+are\\s+fallas$", "^(?:falla)\\s+monuments$"],
+        "keywords": ["falla monuments", "satirical sculptures", "wood and cardboard monuments", "ninots", "burning monuments"],
+        "answer": "Fallas are artistic monuments made of cardboard, wood, and cork representing satirical scenes. They're built over months and burned in the cremà.",
+        "followUps": ["Who designs them?", "How much do they cost?", "How are themes chosen?"]
+      }
+    ],
+    "puestosPersonal": [
+      {
+        "trigger": ["^(?:fallera)\\s+mayor$", "^(?:what)\\s+does\\s+fallera\\s+mayor\\s+do$"],
+        "keywords": ["festival representative", "queen of fallas", "official ambassador", "public ceremonies", "fallas leadership"],
+        "answer": "The Fallera Mayor is the maximum representative of the festivities. She presides over official acts, processions, and is an ambassador of falla culture during her reign.",
+        "followUps": ["How is she chosen?", "How long does the position last?", "What are the requirements?"]
+      }
+    ]
+  },
+  "fr": {
+    "knowledgeBase": [
+      {
+        "trigger": ["^\\s*(bonjour|salut|bonsoir|bonne\\s+(journ[eé]e|soir[eé]e)|re)\\s*(!+)?\\s*$", "^\\s*(hey|coucou|hello)\\s*(!+)?\\s*$", "^\\s*(ça\\s+va|quoi\\s+de\\s+neuf)\\s*(\\?+)?\\s*$"],
+        "answer": "Bonjour! Comment puis-je vous aider?",
+        "followUps": [
+          "Comment allez-vous?",
+          "Quels services offrez-vous?",
+          "Pouvez-vous m'aider avec quelque chose de spécifique?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*comment\\s+(ça\\s+va|allez-vous|vous\\s+portez-vous|tu\\s+vas?)\\s*(\\?+)?\\s*$", "^\\s*(ça\\s+va|tu\\s+vas?)\\s+(bien)?\\s*(\\?+)?\\s*$", "^\\s*tout\\s+(va\\s+bien|est\\s+ok)\\s*(\\?+)?\\s*$", "^\\s*(vous\\s+allez|tu\\s+vas)\\s+(comment|bien)\\s*(\\?+)?\\s*$"],
+        "answer": "Je vais bien, merci. Et vous?",
+        "followUps": [
+          "Que pouvez-vous faire pour moi?",
+          "Avez-vous des fonctionnalités spéciales?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*comment\\s+fonctionne\\s+(ce\\s+|le\\s+)?chat\\s*[_-]?bot\\s*(\\?+)?\\s*$", "^\\s*comment\\s+(ça|cela)\\s+(marche|fonctionne)\\s*(\\?+)?\\s*$", "^\\s*(que\\s+fait|qu'est-ce\\s+que\\s+fait)\\s+(ce\\s+|le\\s+)?chat\\s*[_-]?bot\\s*(\\?+)?\\s*$", "^\\s*(expliquez-moi|dites-moi)\\s+comment\\s+(ça|cela)\\s+(marche|fonctionne)\\s*(\\?+)?\\s*$"],
+        "answer": "Ce chatbot utilise la bibliothèque Fuse.js pour fournir des réponses intelligentes basées sur la correspondance de texte. Vous pouvez interagir avec moi en tapant des questions et vous recevrez des réponses pertinentes.",
+        "followUps": [
+          "Qu'est-ce que Fuse.js?",
+          "Pouvez-vous comprendre différentes langues?",
+          "Comment améliorez-vous vos réponses?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*quell?es?\\s+(informations?|infos?|donn[eé]es?)\\s+(pouvez-vous|peux-tu|pourriez-vous)\\s+(me\\s+)?(fournir|donner|offrir)\\s*(\\?+)?\\s*$", "^\\s*(que\\s+|qu'est-ce\\s+que\\s+)(vous\\s+)?(savez|connaissez|ma[iî]trisez)(-vous)?\\s*(\\?+)?\\s*$", "^\\s*(dans\\s+quoi|en\\s+quoi|pour\\s+quoi)\\s+(pouvez-vous|peux-tu)\\s+(m'aider|m'assister)\\s*(\\?+)?\\s*$", "^\\s*quell?es?\\s+sont\\s+vos\\s+(capacités|habilités|fonctions?)\\s*(\\?+)?\\s*$"],
+        "answer": "Je peux fournir des informations de base sur divers sujets, vous aider avec des requêtes courantes et vous guider à travers nos services. Mes connaissances sont limitées, mais je suis ici pour vous aider du mieux que je peux.",
+        "followUps": [
+          "Avez-vous des limites dans vos réponses?"
+        ]
+      },
+      {
+        "trigger": ["^\\s*do\\s+j'ai\\s+besoin\\s+(d'un?\\s+)?compte\\s*(\\?+)?\\s*$", "^\\s*(est\\s+)?(l'inscription|la création|s'inscrire)\\s+(requise|nécessaire)\\s*(\\?+)?\\s*$", "^\\s*do\\s+j'ai\\s+(à|besoin)\\s+(m'inscrire|créer\\s+un?\\s+compte)\\s*(\\?+)?\\s*$", "^\\s*(dois|devrais)\\s+j'ai\\s+(m'inscrire|créer\\s+un?\\s+compte)\\s*(\\?+)?\\s*$"],
+        "answer": "Non, vous n'avez pas besoin d'un compte pour utiliser ce chatbot. C'est un service gratuit et accessible à tous les visiteurs du site web.",
+        "followUps": []
+      },
+      {
+        "trigger": ["^(?:fanfare)$", "^(?:musique)\\s+des\\s+fallas$", "^(?:groupe)\\s+musical$", "^(?:fanfare)\\s+traditionnelle$", "^(?:musique)\\s+fallera$", "^(?:orchestre)\\s+faller$"],
+        "keywords": ["fanfares valenciennes", "pasodobles", "musique des fallas", "marches traditionnelles", "defiles musicaux"],
+        "answer": "Les fanfares accompagnent tous les actes fallas. Elles jouent des pasodobles, des hymnes et des marches traditionnelles valenciennes qui animent les célébrations.",
+        "followUps": ["Quelles chansons sont traditionnelles?", "Comment rejoindre une fanfare?", "Quand jouent-elles?"]
+      },
+      {
+        "trigger": "^(?:douceurs?)\\b",
+        "keywords": ["desserts des fallas", "patisseries valenciennes", "gouters traditionnels", "churros au chocolat", "douceurs de mars"],
+        "answer": "Les douceurs traditionnelles des Fallas comprennent les beignets de courge, les pâtisseries de patate douce, les churros au chocolat et les fartons. Elles sont une partie essentielle de la tradition fallera.",
+        "followUps": ["Comment faire des beignets?", "Où acheter des pâtisseries de patate douce?", "Que sont les fartons?"]
+      },
+      {
+        "trigger": ["^(?:beignets)\\s+de\\s+courge$", "^(?:beignets)\\s+traditionnels$"],
+        "keywords": ["pate frite a la courge", "beignets traditionnels", "sucrerie de fete", "snack des fallas", "dessert valencien"],
+        "answer": "Les beignets de courge sont la douceur traditionnelle des Fallas. Ils sont faits avec de la purée de courge rôtie, de la farine, de la levure et frits jusqu'à ce qu'ils soient dorés. Ils sont saupoudrés de sucre.",
+        "followUps": ["Recette complète des beignets?", "Où acheter les meilleurs?", "Quand les mange-t-on traditionnellement?"]
+      },
+      {
+        "trigger": ["^(?:robe)\\s+fallera$", "^(?:costume)\\s+traditionnel$", "^(?:tenue)\\s+fallera$"],
+        "keywords": ["costume valencien femme", "robe regionale", "soie et chale de manille", "tenue fallera", "bijoux traditionnels"],
+        "answer": "La robe fallera est un costume traditionnel valencien très élaboré. Elle se compose d'un corsage, d'une jupe en soie, d'un tablier, d'un châle de Manille, de bijoux traditionnels comme des boucles d'oreilles et des colliers, et d'ornements de cheveux.",
+        "followUps": ["Quels types de tissus sont utilisés?", "Quels sont les bijoux traditionnels?", "Comment fait-on la coiffure?"]
+      },
+      {
+        "trigger": ["^(?:costume)\\s+faller$", "^(?:tenue)\\s+de\\s+faller$"],
+        "keywords": ["costume valencien homme", "tenue fallero", "ceinture et barretina", "espadrilles", "habit regional"],
+        "answer": "Le costume faller comprend une chemise blanche, un gilet, une ceinture, un pantalon noir, des espadrilles et une barretina. C'est un costume traditionnel valencien élégant et confortable.",
+        "followUps": ["Qu'est-ce que la barretina?", "Comment nouer la ceinture?", "Y a-t-il des variantes du costume?"]
+      },
+      {
+        "trigger": ["^(?:paella)\\s+valencienne$", "^(?:paella)$", "^(?:recette)\\s+paella$"],
+        "keywords": ["plat valencien de riz", "recette paella", "riz au safran", "poulet et lapin", "socarrat"],
+        "answer": "La paella valencienne est le plat le plus emblématique de Valence. Les ingrédients traditionnels sont : riz bomba, poulet, lapin, haricots verts, haricots de Lima, tomate, paprika, safran et huile d'olive.",
+        "followUps": ["Comment la faire étape par étape?", "Où manger la meilleure paella?", "Qu'est-ce que le socarrat?"]
+      }
+    ],
+    "defaultFollowUps": [
+      "Comment fonctionne ce chatbot?",
+      "Quelles informations pouvez-vous me fournir?",
+      "Ai-je besoin d'un compte pour utiliser ce service?"
+    ],
+    "vestimenta": {
+      "mujeres": [
+        {
+          "trigger": ["^(?:robe|costume)\\s+de\\s+fallera$", "^(?:tenue)\\s+traditionnelle\\s+valencienne$"],
+          "answer": "La robe de fallera est un costume traditionnel valencien très élaboré. Elle se compose d'un corsage, d'une jupe, d'un tablier, d'un châle de Manille et de bijoux traditionnels.",
+          "followUps": ["Quels tissus sont utilisés?", "Quels sont les bijoux traditionnels?", "Y a-t-il des différences régionales?"]
+        }
+      ],
+      "hombres": [
+        {
+          "trigger": ["^(?:costume)\\s+de\\s+fallero$", "^(?:tenue)\\s+masculine\\s+traditionnelle$"],
+          "answer": "Le costume de fallero comprend une chemise blanche, un gilet, une ceinture, un pantalon noir, des espadrilles et une barretina. C'est une tenue traditionnelle valencienne élégante.",
+          "followUps": ["Qu'est-ce qu'une barretina?", "Comment nouer la ceinture?", "Y a-t-il des variations?"]
+        }
+      ]
+    },
+    "comidaTipica": {
+      "dulce": [
+        {
+          "trigger": ["^(?:buñuelos)$", "^(?:douceurs)\\s+traditionnelles$"],
+          "answer": "Les buñuelos de viento sont les douceurs traditionnelles des Fallas. Ils sont faits de pâte frite et saupoudrés de sucre, essentiels pendant les fêtes.",
+          "followUps": ["Comment faire les buñuelos?", "Quelles autres douceurs y a-t-il?", "Quand les mange-t-on traditionnellement?"]
+        }
+      ],
+      "salada": [
+        {
+          "trigger": ["^(?:paella)\\s+valencienne$", "^(?:comment)\\s+faire\\s+la\\s+paella$"],
+          "answer": "La paella valencienne est le plat le plus emblématique. Elle se fait avec du riz, des haricots, du poulet, du lapin, du safran et de l'huile d'olive dans une paellera.",
+          "followUps": ["Quels ingrédients exactement?", "Comment faire le sofrito?", "Quel bois utiliser?"]
+        }
+      ]
+    },
+    "festejosReligiosos": {
+      "patrones": [
+        {
+          "trigger": ["^(?:vierge)\\s+des\\s+abandonnés$", "^(?:patronne)\\s+de\\s+valence$"],
+          "answer": "La Vierge des Abandonnés est la patronne de Valence. Sa fête se célèbre le deuxième dimanche de mai avec des processions et des offrandes florales massives.",
+          "followUps": ["Quand est l'offrande?", "Comment participer à la procession?", "Où est la basilique?"]
+        }
+      ],
+      "procesiones": [
+        {
+          "trigger": ["^(?:procession)\\s+du\\s+corpus$", "^(?:tapis)\\s+de\\s+fleurs$"],
+          "answer": "La procession du Corpus Christi est une tradition religieuse où des tapis de fleurs sont créés dans les rues. Les falleras mayores et les autorités y participent.",
+          "followUps": ["Quand est le Corpus?", "Comment faire les tapis?", "Quel parcours suit-elle?"]
+        }
+      ],
+      "ofrendas": [
+        {
+          "trigger": ["^(?:offrande)\\s+de\\s+fleurs$", "^(?:comment)\\s+participer\\s+à\\s+l'offrande$"],
+          "keywords": ["offrande florale", "vierge des abandonnes", "manteau de fleurs", "acte religieux des fallas", "participer a l'offrande"],
+          "answer": "L'offrande de fleurs à la Vierge des Abandonnés est un des actes les plus émouvants. Des milliers de falleras déposent des fleurs formant un manteau géant.",
+          "followUps": ["Quelles fleurs sont utilisées?", "Combien dure l'offrande?", "Comment s'inscrire?"]
+        }
+      ]
+    },
+    "festejosPopulares": {
+      "tradiciones": [
+        {
+          "trigger": ["^(?:plantà)$", "^(?:quand)\\s+sont\\s+érigées\\s+les\\s+fallas$"],
+          "keywords": ["montage des fallas", "assembler les monuments", "installer les ninots", "debut des fetes", "mise en place"],
+          "answer": "La plantà est le moment où les monuments fallas sont assemblés à leurs emplacements définitifs. Cela se déroule généralement entre le 15 et 16 mars.",
+          "followUps": ["Combien de temps pour les assembler?", "Qui les monte?", "Peut-on voir le processus?"]
+        }
+      ],
+      "pirotecnia": [
+        {
+          "trigger": ["^(?:mascletà)$", "^(?:quand)\\s+est\\s+la\\s+mascletà$"],
+          "keywords": ["feux d'artifice de jour", "place de la mairie", "pyrotechnie sonore", "spectacle de 14h", "grand fracas"],
+          "answer": "La mascletà est un spectacle pyrotechnique diurne célébré à 14h00 sur la Place de la Mairie. Elle est célèbre pour son rythme et son bruit assourdissant.",
+          "followUps": ["Depuis quand existe-t-elle?", "Qui la tire?", "Quel est le meilleur endroit pour la voir?"]
+        }
+      ],
+      "musica": [
+        {
+          "trigger": ["^(?:fanfare)$", "^(?:musique)\\s+des\\s+fallas$"],
+          "answer": "Les fanfares accompagnent tous les actes fallas. Elles jouent des pasodobles, des hymnes et des marches traditionnelles valenciennes qui animent les célébrations.",
+          "followUps": ["Quelles chansons sont traditionnelles?", "Comment rejoindre une fanfare?", "Quand jouent-elles?"]
+        }
+      ],
+      "baile": [
+        {
+          "trigger": ["^(?:muixeranga)$", "^(?:danses)\\s+traditionnelles$"],
+          "answer": "La muixeranga est une danse traditionnelle valencienne avec des tours humaines. Elle se danse pendant les fêtes fallas et est Patrimoine Culturel Immatériel de l'Humanité.",
+          "followUps": ["Comment former une tour?", "Où peut-on la voir?", "Comment apprendre à la danser?"]
+        }
+      ]
+    },
+    "monumentos": [
+      {
+        "trigger": ["^(?:que)\\s+sont\\s+les\\s+fallas$", "^(?:monuments)\\s+fallas$"],
+        "keywords": ["monuments fallas", "scenes satiriques", "carton et bois", "ninots", "cremation finale"],
+        "answer": "Les fallas sont des monuments artistiques en carton, bois et liège représentant des scènes satiriques. Ils sont construits pendant des mois et brûlés lors de la cremà.",
+        "followUps": ["Qui les conçoit?", "Combien coûtent-ils?", "Comment choisit-on les thèmes?"]
+      }
+    ],
+    "puestosPersonal": [
+      {
+        "trigger": ["^(?:fallera)\\s+mayor$", "^(?:que)\\s+fait\\s+la\\s+fallera\\s+mayor$"],
+        "keywords": ["representante des fetes", "reine des fallas", "ambassadrice culturelle", "actes officiels", "mandat fallero"],
+        "answer": "La Fallera Mayor est la représentante maximale des fêtes. Elle préside les actes officiels, les processions et est ambassadrice de la culture falla pendant son règne.",
+        "followUps": ["Comment est-elle choisie?", "Combien dure le mandat?", "Quelles sont les exigences?"]
+      }
+    ]
+  }
+}

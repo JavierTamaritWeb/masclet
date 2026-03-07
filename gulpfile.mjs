@@ -9,6 +9,7 @@ import autoprefixer from 'gulp-autoprefixer';
 import cleanCSS from 'gulp-clean-css';
 import rename from 'gulp-rename';
 import browserSync from 'browser-sync';
+import { rm } from 'node:fs/promises';
 
 const sass = gulpSass(dartSass);
 const bs = browserSync.create();
@@ -32,10 +33,6 @@ const paths = {
   img: {
     src: 'src/img/**/*',
     dest: 'dist/img',
-  },
-  json: {
-    src: 'src/json/**/*',
-    dest: 'dist/json',
   },
   data: {
     src: 'src/data/**/*',
@@ -72,18 +69,18 @@ function copyImg() {
   return gulp.src(paths.img.src, { encoding: false }).pipe(gulp.dest(paths.img.dest));
 }
 
-// ---- Copiar JSON ----
-function copyJSON() {
-  return gulp.src(paths.json.src).pipe(gulp.dest(paths.json.dest));
-}
-
 // ---- Copiar Data ----
 function copyData() {
   return gulp.src(paths.data.src, { encoding: false }).pipe(gulp.dest(paths.data.dest));
 }
 
 // ---- Tarea unificada de copiado de estáticos ----
-const copyStatic = gulp.parallel(copyHTML, copyJS, copyImg, copyJSON, copyData);
+const copyStatic = gulp.parallel(copyHTML, copyJS, copyImg, copyData);
+
+// ---- Limpiar dist para evitar artefactos obsoletos ----
+async function cleanDist() {
+  await rm(paths.dist, { recursive: true, force: true });
+}
 
 // ---- BrowserSync: servidor local en dist/ ----
 function serve(cb) {
@@ -108,13 +105,12 @@ function watchFiles(cb) {
   gulp.watch(paths.html.src, gulp.series(copyHTML, reload));
   gulp.watch(paths.js.src, gulp.series(copyJS, reload));
   gulp.watch(paths.img.src, { encoding: false }, gulp.series(copyImg, reload));
-  gulp.watch(paths.json.src, gulp.series(copyJSON, reload));
   gulp.watch(paths.data.src, { encoding: false }, gulp.series(copyData, reload));
   cb();
 }
 
 // ---- Tareas exportadas ----
-const build = gulp.series(copyStatic, compileSass);
+const build = gulp.series(cleanDist, copyStatic, compileSass);
 const dev = gulp.series(build, serve, watchFiles);
 
 export { compileSass as sass, copyStatic as copy, build };

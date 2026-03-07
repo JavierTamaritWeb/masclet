@@ -1,7 +1,7 @@
 // ============================================================
 // RESET & BASE – Masclet Bot Fallero
 // ============================================================
-@use '../abstracts/variables' as *;
+@use '../abstracts/variables' as v;
 
 // ---- Box model reset ----
 *,
@@ -14,9 +14,9 @@
 
 // ---- Body ----
 body {
-  font-family: $font-family;
-  background: $gradient-bg;
-  color: $color-text;
+  font-family: v.$font-family;
+  background: v.$gradient-bg;
+  color: v.$color-text;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -45,6 +45,6 @@ html {
 
 // ---- Foco global para accesibilidad ----
 :focus-visible {
-  outline: 2px solid $color-primary;
+  outline: 2px solid v.$color-primary;
   outline-offset: 2px;
 }

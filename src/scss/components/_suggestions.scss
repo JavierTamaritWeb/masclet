@@ -1,38 +1,42 @@
 // ============================================================
 // COMPONENTE: suggestions (BEM) – Botones de sugerencia
 // ============================================================
-@use '../abstracts/variables' as *;
-@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
 
 // ---- Bloque .suggestions ----
 .suggestions {
-  padding: $spacing-8 $spacing-12;
+  padding: v.$spacing-8 v.$spacing-12;
   display: flex;
-  gap: $spacing-6;
+  gap: v.$spacing-6;
   flex-wrap: wrap;
-  background: $color-surface;
-  border-top: 1px solid $color-border-light;
+  background: v.$color-surface;
+  border-top: 1px solid v.$color-border-light;
 
   // .suggestions__btn
   &__btn {
-    background: $gradient-accent;
-    color: $color-bg-dark;
-    border: none;
-    padding: 5px $spacing-12;
-    border-radius: $radius-xl;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-semibold;
+    background: rgba(255, 111, 97, 0.15); // Translucent background
+    border: 1px solid rgba(255, 111, 97, 0.3); // Subtle border
+    color: v.$color-text;
+    padding: 6px v.$spacing-14;
+    border-radius: v.$radius-pill;
+    font-size: v.$font-size-xs;
+    font-weight: v.$font-weight-semibold;
     cursor: pointer;
-    @include smooth-transition(transform, box-shadow);
-    @include focus-visible($color-accent);
+    backdrop-filter: v.$blur-light;
+    @include m.smooth-transition(transform, box-shadow, background, color);
+    @include m.focus-visible(v.$color-primary);
 
     &:hover {
-      transform: translateY(-1px);
-      box-shadow: $shadow-accent;
+      transform: translateY(-2px);
+      box-shadow: v.$shadow-btn;
+      background: v.$color-primary;
+      color: v.$color-white;
     }
 
     &:active {
       transform: translateY(0);
+      box-shadow: none;
     }
   }
 }

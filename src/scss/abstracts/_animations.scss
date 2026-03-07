@@ -1,7 +1,7 @@
 // ============================================================
 // ANIMACIONES – Masclet Bot Fallero
 // ============================================================
-@use 'variables' as *;
+@use 'variables' as v;
 
 // ---- Fade in desde abajo (mensajes) ----
 @keyframes fadeIn {
@@ -41,15 +41,28 @@
   }
 }
 
-// ---- Dots de typing ----
-@keyframes typingDots {
-  0%,
-  80%,
-  100% {
-    opacity: 0.3;
-  }
+// ---- Flotar (widget general) ----
+@keyframes floatWidget {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
 
-  40% {
-    opacity: 1;
-  }
+// ---- Gradiente Header Animado ----
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+// ---- Estado Activo (Punto verde avatar) ----
+@keyframes statusPulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+// ---- Dots de typing modernos ----
+@keyframes bouncingDots {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.5); opacity: 1; }
 }
