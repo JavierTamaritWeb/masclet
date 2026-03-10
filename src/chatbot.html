@@ -5,39 +5,23 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Masclet Bot Fallero</title>
-  <meta name="description" content="Masclet Bot Fallero: tu chatbot interactivo sobre las Fallas de Valencia. Pregunta sobre cultura, gastronomía, vestimenta y tradiciones falleras." />
+  <meta name="description" content="Masclet Bot Fallero: chatbot standalone sobre las Fallas de Valencia." />
 
-  <!-- Tipografía -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- CSS compilado desde SCSS -->
-  <link rel="stylesheet" href="css/main.min.css" />
+  <link rel="stylesheet" href="css/chatbot.min.css" />
 
-  <!-- Dependencias JS (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" defer></script>
   <script src="https://unpkg.com/compromise" defer></script>
-  <!-- Iconos (Lucide) -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-
-  <!-- ========== ENCABEZADO ========== -->
-  <header class="page-header">
-    <h1 class="page-header__title">🎆 Masclet Bot Fallero</h1>
-    <p class="page-header__subtitle">¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.</p>
-  </header>
-
-  <!-- ========== CONTENEDOR PRINCIPAL ========== -->
-  <main class="chat-wrapper">
-
-    <!-- ========== WIDGET CHATBOT ========== -->
-    <section class="chatbot chatbot--minimized" aria-label="Chat con Masclet Bot" role="complementary">
-
-      <!-- Cabecera (arrastrable) -->
+  <main class="chatbot-frame">
+    <section class="chatbot chatbot--static" aria-label="Chat con Masclet Bot" role="complementary">
       <div class="chatbot__header" role="banner">
         <div class="chatbot__avatar-wrapper">
           <img class="chatbot__avatar" src="img/masclet.png" alt="Masclet Bot avatar" />
@@ -53,28 +37,16 @@
             <option value="fr">FR</option>
           </select>
         </div>
-        <button class="chatbot__toggle"
-                type="button"
-                aria-label="Minimizar chat"
-                aria-expanded="false">
-          <i data-lucide="message-circle"></i>
-        </button>
       </div>
 
-      <!-- Área de mensajes -->
       <div class="chatbot__body"
            role="log"
            aria-live="polite"
            aria-label="Mensajes del chat">
-        <!-- Los mensajes se insertan dinámicamente -->
       </div>
 
-      <!-- Sugerencias -->
-      <div class="suggestions" aria-label="Sugerencias">
-        <!-- Botones de sugerencia dinámicos -->
-      </div>
+      <div class="suggestions" aria-label="Sugerencias"></div>
 
-      <!-- Área de entrada -->
       <div class="input-area">
         <label for="chat-input" class="sr-only">Escribe tu pregunta</label>
         <input class="input-area__field"
@@ -92,13 +64,10 @@
           <i data-lucide="rotate-ccw" width="18" height="18"></i>
         </button>
       </div>
-
     </section>
   </main>
 
-  <!-- JS principal -->
   <script src="js/app.js" defer></script>
-  <!-- Inicializar iconos -->
   <script>
     lucide.createIcons();
   </script>

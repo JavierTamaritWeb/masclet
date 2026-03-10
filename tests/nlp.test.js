@@ -7,6 +7,11 @@ const {
   buscarConFuse,
   findDirectResponse,
   getTemporalAnswer,
+  resolveLanguageKey,
+  resolveLanguageData,
+  buildLanguageResponseState,
+  getLanguageConfig,
+  applyPageMetadata,
   resolveFuseRuntimeConfig,
   buildFuseDebugEntry,
   evaluateFuseStrategy,
@@ -17,9 +22,26 @@ const path = require('path');
 
 describe('NLP Engine & Three-Layer Search', () => {
   let kb;
+
+  const buildDirectResponses = (lang) => flattenKnowledgeBase(kb[lang])
+    .map((item) => {
+      const triggers = buildRegexTriggers(item.trigger);
+      if (!triggers.length) return null;
+
+      return {
+        trigger: triggers.length === 1 ? triggers[0] : triggers,
+        text: item.answer || item.text,
+        followUp: item.followUps || item.followUp || [],
+      };
+    })
+    .filter(Boolean);
+
+  const getResponseText = (response) => Array.isArray(response?.text)
+    ? response.text.join(' ')
+    : String(response?.text || '');
   
   beforeAll(() => {
-    const kbPath = path.resolve(__dirname, '../src/data/knowledgeBase.json');
+    const kbPath = path.resolve(__dirname, '../src/data/knowledge.json');
     kb = JSON.parse(fs.readFileSync(kbPath, 'utf8'));
   });
 
@@ -28,7 +50,9 @@ describe('NLP Engine & Three-Layer Search', () => {
     const flat = flattenKnowledgeBase(esData);
     
     // Verificar que hay elementos de diferentes categorías
-    const triggers = flat.map(i => i.trigger).flat();
+    const triggers = flat
+      .map((item) => Array.isArray(item.trigger) ? item.trigger.join(' ') : String(item.trigger))
+      .map((value) => cleanText(value));
     
     // Check for general knowledge
     expect(triggers.some(t => t.includes('hola'))).toBe(true);
@@ -37,7 +61,7 @@ describe('NLP Engine & Three-Layer Search', () => {
     expect(triggers.some(t => t.includes('vestimenta'))).toBe(true);
     
     // Check for nested category: pirotecnia
-    expect(triggers.some(t => t.includes('mascleta'))).toBe(true);
+    expect(triggers.some(t => t.includes('masclet'))).toBe(true);
     
     // Check for followUps
     const itemWithFollowUps = flat.find(i => i.followUps && i.followUps.length > 0);
@@ -59,10 +83,39 @@ describe('NLP Engine & Three-Layer Search', () => {
     const esData = kb.es;
     const flat = flattenKnowledgeBase(esData);
     
-    // Buscar el item de la mascletà que tiene un array de triggers
-    const mascletaItem = flat.find(i => Array.isArray(i.trigger) && i.trigger.includes('mascleta'));
-    expect(mascletaItem).toBeDefined();
-    expect(mascletaItem.answer).toBeDefined();
+    const itemWithTriggerArray = flat.find((item) => Array.isArray(item.trigger) && item.trigger.length > 1);
+
+    expect(itemWithTriggerArray).toBeDefined();
+    expect(buildRegexTriggers(itemWithTriggerArray.trigger)).toHaveLength(itemWithTriggerArray.trigger.length);
+  });
+
+  test('buildRegexTriggers should support explicit regex triggers', () => {
+    const [trigger] = buildRegexTriggers('regex:^\\s*(?:who\\s+are\\s+you)\\s*[?!.]*\\s*$');
+
+    expect(trigger).toBeInstanceOf(RegExp);
+    expect(trigger.test('who are you?')).toBe(true);
+    expect(trigger.test('what are you?')).toBe(false);
+  });
+
+  test('language helpers should resolve selected language and localized defaults', () => {
+    expect(resolveLanguageKey('EN')).toBe('en');
+    expect(resolveLanguageKey('xx')).toBe('es');
+
+    const resolved = resolveLanguageData(kb, 'va');
+    const runtimeState = buildLanguageResponseState(resolved.langData, resolved.language);
+
+    expect(resolved.language).toBe('va');
+    expect(runtimeState.responses.length).toBeGreaterThan(0);
+    expect(runtimeState.defaultFollowUps).toEqual(
+      expect.arrayContaining(['Com funciona aquest xatbot?', 'Cremà'])
+    );
+    expect(getLanguageConfig('fr').ui.inputPlaceholder).toContain('Écrivez');
+    expect(getLanguageConfig('en').page.documentTitle).toBe('Masclet Fallas Bot');
+    expect(getLanguageConfig('va').page.headerSubtitle).toContain('Pregunta\'m');
+  });
+
+  test('applyPageMetadata should be a no-op in environments without document', () => {
+    expect(() => applyPageMetadata(getLanguageConfig('es'))).not.toThrow();
   });
 
   test('buildFuseDataset should generate normalized searchable fields and tolerate missing keywords', () => {
@@ -143,44 +196,157 @@ describe('NLP Engine & Three-Layer Search', () => {
   });
 
   test('identity queries should resolve directly as Masclet', () => {
-    const flat = flattenKnowledgeBase(kb.es);
-    const directResponses = flat
-      .map((item) => {
-        const triggers = buildRegexTriggers(item.trigger);
-        if (!triggers.length) return null;
+    const directResponses = buildDirectResponses('es');
 
-        return {
-          trigger: triggers.length === 1 ? triggers[0] : triggers,
-          text: item.answer || item.text,
-          followUp: item.followUps || item.followUp || [],
-        };
-      })
-      .filter(Boolean);
+    ['como te llamas', 'quien eres', '¿quién eres?'].forEach((query) => {
+      const directMatch = findDirectResponse(query, directResponses);
+      const responseText = getResponseText(directMatch);
 
-    const directMatch = findDirectResponse('como te llamas', directResponses);
-    const responseText = Array.isArray(directMatch?.text)
-      ? directMatch.text.join(' ')
-      : String(directMatch?.text || '');
+      expect(directMatch).toBeDefined();
+      expect(cleanText(responseText)).toContain('masclet');
+      expect(cleanText(responseText)).not.toContain('masclet bot');
+    });
+  });
 
-    expect(directMatch).toBeDefined();
-    expect(cleanText(responseText)).toContain('masclet');
-    expect(cleanText(responseText)).not.toContain('masclet bot');
+  test('identity queries should resolve directly in va, en and fr', () => {
+    [
+      { lang: 'va', query: 'com te dius' },
+      { lang: 'en', query: 'who are you?' },
+      { lang: 'fr', query: 'qui es-tu ?' },
+    ].forEach(({ lang, query }) => {
+      const directResponses = buildDirectResponses(lang);
+      const directMatch = findDirectResponse(query, directResponses);
+      const responseText = getResponseText(directMatch);
+
+      expect(directMatch).toBeDefined();
+      expect(cleanText(responseText)).toContain('masclet');
+    });
+  });
+
+  test('favorite color personality queries should resolve directly in all languages', () => {
+    [
+      { lang: 'es', query: 'que color te gusta?', expected: 'rojo' },
+      { lang: 'va', query: "quin color t'agrada?", expected: 'roig' },
+      { lang: 'en', query: 'what is your favorite color?', expected: 'red' },
+      { lang: 'fr', query: 'quelle couleur aimes-tu ?', expected: 'rouge' },
+    ].forEach(({ lang, query, expected }) => {
+      const directResponses = buildDirectResponses(lang);
+      const directMatch = findDirectResponse(query, directResponses);
+      const responseText = getResponseText(directMatch);
+
+      expect(directMatch).toBeDefined();
+      expect(cleanText(responseText)).toContain(expected);
+    });
+  });
+
+  test('personality queries about petards and gunpowder should resolve directly in Spanish', () => {
+    const directResponses = buildDirectResponses('es');
+
+    const petardoMatch = findDirectResponse('que petardo te gusta mas?', directResponses);
+    expect(cleanText(getResponseText(petardoMatch))).toContain('tro bac');
+
+    ['te gusta el olor a pólvora?', 'te gusta olor a pólvora?', 'te gusta el olor de pólvora?', 'que olor te gusta?'].forEach((query) => {
+      const polvoraMatch = findDirectResponse(query, directResponses);
+      expect(cleanText(getResponseText(polvoraMatch))).toContain('polvora');
+      expect(cleanText(getResponseText(polvoraMatch))).toContain('fallas');
+    });
+  });
+
+  test('favorite smell personality queries should resolve directly in va, en and fr', () => {
+    [
+      { lang: 'va', query: "quina olor t'agrada?", expected: 'polvora' },
+      { lang: 'en', query: 'what smell do you like?', expected: 'gunpowder' },
+      { lang: 'fr', query: 'quelle odeur aimes-tu ?', expected: 'poudre' },
+    ].forEach(({ lang, query, expected }) => {
+      const directResponses = buildDirectResponses(lang);
+      const directMatch = findDirectResponse(query, directResponses);
+      const responseText = getResponseText(directMatch);
+
+      expect(directMatch).toBeDefined();
+      expect(cleanText(responseText)).toContain(expected);
+    });
+  });
+
+  test('Valencian wellness queries should resolve directly instead of falling back to a generic greeting', () => {
+    const directResponses = buildDirectResponses('va');
+
+    ['com estas?', 'com estàs?', 'què tal?'].forEach((query) => {
+      const directMatch = findDirectResponse(query, directResponses);
+      const responseText = getResponseText(directMatch);
+
+      expect(directMatch).toBeDefined();
+      expect(cleanText(responseText)).toContain('estic be');
+      expect(cleanText(responseText)).not.toContain('puc ajudar');
+    });
+  });
+
+  test('Named greetings should resolve directly in va, en and fr', () => {
+    [
+      { lang: 'va', query: 'hola masclet', expected: 'masclet' },
+      { lang: 'en', query: 'hello masclet', expected: 'masclet' },
+      { lang: 'fr', query: 'bonjour masclet', expected: 'masclet' },
+    ].forEach(({ lang, query, expected }) => {
+      const directResponses = buildDirectResponses(lang);
+      const directMatch = findDirectResponse(query, directResponses);
+      const responseText = getResponseText(directMatch);
+
+      expect(directMatch).not.toBeNull();
+      expect(cleanText(responseText)).toContain(expected);
+    });
+  });
+
+  test('English and French wellness prompts should stay separate from generic greetings', () => {
+    [
+      { lang: 'en', query: "what's up?", expected: 'doing well', rejected: 'assist you' },
+      { lang: 'fr', query: 'ça va ?', expected: 'vais bien', rejected: 'puis je vous aider' },
+    ].forEach(({ lang, query, expected, rejected }) => {
+      const directResponses = buildDirectResponses(lang);
+      const directMatch = findDirectResponse(query, directResponses);
+      const responseText = getResponseText(directMatch);
+      const normalizedText = cleanText(responseText);
+
+      expect(directMatch).not.toBeNull();
+      expect(normalizedText).toContain(expected);
+      expect(normalizedText).not.toContain(rejected);
+    });
+  });
+
+  test('Spanish regex trigger families should disambiguate mascleta and indumentaria queries', () => {
+    const directResponses = buildDirectResponses('es');
+
+    const mascletaMatch = findDirectResponse('¿qué es la mascletà?', directResponses);
+    expect(cleanText(getResponseText(mascletaMatch))).toContain('14:00');
+
+    const falleraMatch = findDirectResponse('vestido de fallera', directResponses);
+    expect(cleanText(getResponseText(falleraMatch))).toContain('corpino');
+
+    const falleroMatch = findDirectResponse('vestido fallero', directResponses);
+    expect(cleanText(getResponseText(falleroMatch))).toContain('barretina');
+  });
+
+  test('Spanish general prompt families should stay exact and leave themed queries to Fuse', () => {
+    const directResponses = buildDirectResponses('es');
+
+    const holaBotMatch = findDirectResponse('hola bot', directResponses);
+    expect(holaBotMatch).not.toBeNull();
+    expect(cleanText(getResponseText(holaBotMatch))).toContain('asistirte');
+    expect(cleanText(getResponseText(holaBotMatch))).not.toContain('chispa');
+
+    ['ayúdame', 'información', 'dime algo', 'quiero saber de las fallas', 'plan para el día'].forEach((query) => {
+      expect(findDirectResponse(query, directResponses)).not.toBeNull();
+    });
+
+    expect(findDirectResponse('dime sobre la mascletà', directResponses)).toBeNull();
+
+    actualizarFuse(flattenKnowledgeBase(kb.es));
+    const mascletaResults = buscarConFuse('dime sobre la mascletà');
+
+    expect(mascletaResults.length).toBeGreaterThan(0);
+    expect(cleanText(getResponseText(mascletaResults[0].item))).toContain('mascleta');
   });
 
   test('cremà date queries should resolve directly across phrasing variants', () => {
-    const flat = flattenKnowledgeBase(kb.es);
-    const directResponses = flat
-      .map((item) => {
-        const triggers = buildRegexTriggers(item.trigger);
-        if (!triggers.length) return null;
-
-        return {
-          trigger: triggers.length === 1 ? triggers[0] : triggers,
-          text: item.answer || item.text,
-          followUp: item.followUps || item.followUp || [],
-        };
-      })
-      .filter(Boolean);
+    const directResponses = buildDirectResponses('es');
 
     [
       'que dia es la cremá',
@@ -188,9 +354,7 @@ describe('NLP Engine & Three-Layer Search', () => {
       'qué noche es la crema',
     ].forEach((query) => {
       const directMatch = findDirectResponse(query, directResponses);
-      const responseText = Array.isArray(directMatch?.text)
-        ? directMatch.text.join(' ')
-        : String(directMatch?.text || '');
+      const responseText = getResponseText(directMatch);
 
       expect(directMatch).not.toBeNull();
       expect(cleanText(responseText)).toContain('19 marzo');

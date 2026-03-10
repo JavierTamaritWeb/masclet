@@ -25,13 +25,43 @@ function convertYoutube(url) {
 const hasDocument = typeof document !== 'undefined';
 const chatEl = hasDocument ? document.querySelector('.chatbot') : null;
 const headerEl = hasDocument ? document.querySelector('.chatbot__header') : null;
+const pageHeaderTitleEl = hasDocument ? document.querySelector('.page-header__title') : null;
+const pageHeaderSubtitleEl = hasDocument ? document.querySelector('.page-header__subtitle') : null;
+const titleEl = hasDocument ? document.querySelector('.chatbot__title') : null;
 const toggleBtn = hasDocument ? document.querySelector('.chatbot__toggle') : null;
+const languageLabelEl = hasDocument ? document.querySelector('label[for="chat-language"]') : null;
+const languageSelectEl = hasDocument ? document.querySelector('.chatbot__language-select') : null;
 const messagesEl = hasDocument ? document.querySelector('.chatbot__body') : null;
 const suggestionsEl = hasDocument ? document.querySelector('.suggestions') : null;
+const inputLabelEl = hasDocument ? document.querySelector('label[for="chat-input"]') : null;
 const inputEl = hasDocument ? document.querySelector('.input-area__field') : null;
 const sendBtn = hasDocument ? document.querySelector('.input-area__send') : null;
 const resetBtn = hasDocument ? document.querySelector('.input-area__reset') : null;
+const descriptionMetaEl = hasDocument ? document.querySelector('meta[name="description"]') : null;
 const wrapper = hasDocument ? document.querySelector('.chat-wrapper') : null;
+
+function getRuntimeSearchParams() {
+  if (!hasDocument || typeof window === 'undefined') return null;
+
+  try {
+    return new URLSearchParams(window.location.search);
+  } catch {
+    return null;
+  }
+}
+
+function readRuntimeQueryParam(name) {
+  const params = getRuntimeSearchParams();
+  return params?.get(name) ?? null;
+}
+
+function getKnowledgeBaseUrl() {
+  return readRuntimeQueryParam('kbUrl') || 'data/knowledge.json';
+}
+
+function isStaticChatMode() {
+  return chatEl?.classList.contains('chatbot--static');
+}
 
 // ---- Stop words (palabras comunes a filtrar) ----
 const stopWordsList = [
@@ -70,7 +100,12 @@ let dy = 0;
 
 if (hasDocument) {
   headerEl?.addEventListener('mousedown', (e) => {
-    if (e.target === toggleBtn) return;
+    if (isStaticChatMode()) return;
+
+    const interactiveTarget = typeof e.target?.closest === 'function'
+      ? e.target.closest('.chatbot__toggle, .chatbot__language')
+      : null;
+    if (interactiveTarget) return;
     dragging = true;
     chatEl.style.right = 'auto';
     chatEl.style.bottom = 'auto';
@@ -81,7 +116,7 @@ if (hasDocument) {
   });
 
   document.addEventListener('mousemove', (e) => {
-    if (!dragging) return;
+    if (!dragging || isStaticChatMode()) return;
     let newLeft = e.clientX - dx;
     let newTop = e.clientY - dy;
     const chatWidth = chatEl.offsetWidth;
@@ -110,6 +145,7 @@ if (hasDocument) {
     toggleBtn.innerHTML = `<i data-lucide="${isMin ? 'message-circle' : 'chevron-down'}"></i>`;
     if (window.lucide) window.lucide.createIcons();
     toggleBtn.setAttribute('aria-expanded', String(!isMin));
+    updateToggleButtonLabel(isMin);
   });
 
   window.addEventListener('resize', checkScreenSize);
@@ -120,10 +156,14 @@ let respuestas = [];
 let fuse;
 let respuestasPlanas = [];
 let defaultFollowUps = [];
+let knowledgeBaseData = null;
+let currentLanguage = 'es';
 
 // ---- Configuración de búsqueda difusa ----
 const DEFAULT_LANGUAGE = 'es';
 const DATE_LOCALE = 'es-ES';
+const LANGUAGE_STORAGE_KEY = 'masclet:language';
+const REGEX_TRIGGER_PREFIX = 'regex:';
 const FUSE_DIRECT_RESPONSE_SCORE = 0.6;
 const FUSE_GUIDANCE_SCORE = 0.78;
 const FUSE_GUIDANCE_RESULT_LIMIT = 3;
@@ -143,6 +183,164 @@ const FUSE_DIRECT_STORAGE_KEY = 'masclet:fuse-direct';
 const FUSE_GUIDANCE_STORAGE_KEY = 'masclet:fuse-guidance';
 const FUSE_LOG_STORAGE_KEY = 'masclet:fuse-log';
 const FUSE_LOG_LIMIT = 60;
+const LANGUAGE_CONFIGS = {
+  es: {
+    label: 'ES',
+    dateLocale: 'es-ES',
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    staticFallbackSuggestions: ['Plantà', 'Cremà', 'Traje de fallera', 'Buñuelos'],
+    page: {
+      documentLanguage: 'es',
+      documentTitle: 'Masclet Bot Fallero',
+      documentDescription: 'Masclet Bot Fallero: tu chatbot interactivo sobre las Fallas de Valencia. Pregunta sobre cultura, gastronomía, vestimenta y tradiciones falleras.',
+      headerTitle: '🎆 Masclet Bot Fallero',
+      headerSubtitle: '¡Hola! Soy Masclet, el bot fallero. Pregúntame lo que quieras.',
+    },
+    ui: {
+      title: 'Masclet Bot',
+      languageLabel: 'Idioma del chat',
+      chatAriaLabel: 'Chat con Masclet Bot',
+      messagesAriaLabel: 'Mensajes del chat',
+      suggestionsAriaLabel: 'Sugerencias',
+      inputLabel: 'Escribe tu pregunta',
+      inputPlaceholder: 'Escribe tu pregunta...',
+      sendButtonLabel: 'Enviar mensaje',
+      resetButtonLabel: 'Reiniciar conversación',
+      resetButtonTitle: 'Reiniciar conversación',
+      openChatLabel: 'Abrir chat',
+      minimizeChatLabel: 'Minimizar chat',
+      welcomeMessage: '¡BOOM! 🎇 Soy Masclet. Salúdame con "hola".',
+      resetMessage: '¡Aquí estoy de nuevo! ¿Qué necesitas?',
+      loadErrorText: '¡Uy! No he podido cargar mis respuestas.',
+      unexpectedErrorText: '¡Ups! Algo falló.',
+      guidedFallbackText: 'No tengo una coincidencia exacta, pero estas sugerencias están cerca de lo que buscas.',
+      globalFallbackText: 'No encontré una coincidencia clara, pero puedo orientarte con estas sugerencias.',
+      contextualGreetings: {
+        morning: '¡Buenos días!',
+        afternoon: '¡Buenas tardes!',
+        evening: '¡Buenas noches!',
+      },
+      greetingMatcher: /hola|salud/i,
+    },
+  },
+  va: {
+    label: 'VA',
+    dateLocale: 'ca-ES',
+    dayNames: ['Diumenge', 'Dilluns', 'Dimarts', 'Dimecres', 'Dijous', 'Divendres', 'Dissabte'],
+    staticFallbackSuggestions: ['Plantà', 'Cremà', 'Vestit de fallera', 'Bunyols'],
+    page: {
+      documentLanguage: 'ca',
+      documentTitle: 'Masclet Bot Faller',
+      documentDescription: 'Masclet Bot Faller: el teu xatbot interactiu sobre les Falles de València. Pregunta sobre cultura, gastronomia, indumentària i tradicions falleres.',
+      headerTitle: '🎆 Masclet Bot Faller',
+      headerSubtitle: "Hola! Sóc Masclet, el bot faller. Pregunta'm el que vulgues.",
+    },
+    ui: {
+      title: 'Masclet Bot',
+      languageLabel: 'Idioma del xat',
+      chatAriaLabel: 'Xat amb Masclet Bot',
+      messagesAriaLabel: 'Missatges del xat',
+      suggestionsAriaLabel: 'Suggeriments',
+      inputLabel: 'Escriu la teua pregunta',
+      inputPlaceholder: 'Escriu la teua pregunta...',
+      sendButtonLabel: 'Enviar missatge',
+      resetButtonLabel: 'Reiniciar conversa',
+      resetButtonTitle: 'Reiniciar conversa',
+      openChatLabel: 'Obrir xat',
+      minimizeChatLabel: 'Minimitzar xat',
+      welcomeMessage: '¡BOOM! 🎇 Sóc Masclet. Saluda\'m amb "hola" o "ei".',
+      resetMessage: 'Ja estic ací de nou! Què necessites?',
+      loadErrorText: 'Ai! No he pogut carregar les meues respostes.',
+      unexpectedErrorText: 'Ai! Alguna cosa ha fallat.',
+      guidedFallbackText: 'No tinc una coincidència exacta, però estos suggeriments s\'acosten al que busques.',
+      globalFallbackText: 'No he trobat una coincidència clara, però puc orientar-te amb estos suggeriments.',
+      contextualGreetings: {
+        morning: 'Bon dia!',
+        afternoon: 'Bona vesprada!',
+        evening: 'Bona nit!',
+      },
+      greetingMatcher: /hola|salutacions/i,
+    },
+  },
+  en: {
+    label: 'EN',
+    dateLocale: 'en-GB',
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    staticFallbackSuggestions: ['Plantà', 'Cremà', 'Fallera dress', 'Fritters'],
+    page: {
+      documentLanguage: 'en',
+      documentTitle: 'Masclet Fallas Bot',
+      documentDescription: 'Masclet Fallas Bot: your interactive chatbot about the Fallas festival in Valencia. Ask about culture, food, clothing and Fallas traditions.',
+      headerTitle: '🎆 Masclet Fallas Bot',
+      headerSubtitle: 'Hi! I am Masclet, your Fallas bot. Ask me anything you want.',
+    },
+    ui: {
+      title: 'Masclet Bot',
+      languageLabel: 'Chat language',
+      chatAriaLabel: 'Chat with Masclet Bot',
+      messagesAriaLabel: 'Chat messages',
+      suggestionsAriaLabel: 'Suggestions',
+      inputLabel: 'Type your question',
+      inputPlaceholder: 'Type your question...',
+      sendButtonLabel: 'Send message',
+      resetButtonLabel: 'Reset conversation',
+      resetButtonTitle: 'Reset conversation',
+      openChatLabel: 'Open chat',
+      minimizeChatLabel: 'Minimize chat',
+      welcomeMessage: 'BOOM! 🎇 I\'m Masclet. Say hi with "hello".',
+      resetMessage: 'I\'m back again! What do you need?',
+      loadErrorText: 'Oops! I couldn\'t load my answers.',
+      unexpectedErrorText: 'Oops! Something went wrong.',
+      guidedFallbackText: 'I don\'t have an exact match, but these suggestions are close to what you need.',
+      globalFallbackText: 'I couldn\'t find a clear match, but I can guide you with these suggestions.',
+      contextualGreetings: {
+        morning: 'Good morning!',
+        afternoon: 'Good afternoon!',
+        evening: 'Good evening!',
+      },
+      greetingMatcher: /hello|greetings/i,
+    },
+  },
+  fr: {
+    label: 'FR',
+    dateLocale: 'fr-FR',
+    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+    staticFallbackSuggestions: ['Plantà', 'Cremà', 'Robe fallera', 'Beignets'],
+    page: {
+      documentLanguage: 'fr',
+      documentTitle: 'Masclet Bot des Fallas',
+      documentDescription: 'Masclet Bot des Fallas : votre chatbot interactif sur les Fallas de Valence. Posez des questions sur la culture, la gastronomie, les tenues et les traditions falleras.',
+      headerTitle: '🎆 Masclet Bot des Fallas',
+      headerSubtitle: 'Bonjour ! Je suis Masclet, le bot des Fallas. Posez-moi la question que vous voulez.',
+    },
+    ui: {
+      title: 'Masclet Bot',
+      languageLabel: 'Langue du chat',
+      chatAriaLabel: 'Chat avec Masclet Bot',
+      messagesAriaLabel: 'Messages du chat',
+      suggestionsAriaLabel: 'Suggestions',
+      inputLabel: 'Écrivez votre question',
+      inputPlaceholder: 'Écrivez votre question...',
+      sendButtonLabel: 'Envoyer le message',
+      resetButtonLabel: 'Réinitialiser la conversation',
+      resetButtonTitle: 'Réinitialiser la conversation',
+      openChatLabel: 'Ouvrir le chat',
+      minimizeChatLabel: 'Réduire le chat',
+      welcomeMessage: 'BOOM! 🎇 Je suis Masclet. Saluez-moi avec "bonjour".',
+      resetMessage: 'Me revoilà ! De quoi avez-vous besoin ?',
+      loadErrorText: 'Oups ! Je n\'ai pas pu charger mes réponses.',
+      unexpectedErrorText: 'Oups ! Quelque chose a échoué.',
+      guidedFallbackText: 'Je n\'ai pas de correspondance exacte, mais ces suggestions sont proches de ce que vous cherchez.',
+      globalFallbackText: 'Je n\'ai pas trouvé de correspondance claire, mais je peux vous guider avec ces suggestions.',
+      contextualGreetings: {
+        morning: 'Bonjour !',
+        afternoon: 'Bon après-midi !',
+        evening: 'Bonsoir !',
+      },
+      greetingMatcher: /bonjour|salut|coucou/i,
+    },
+  },
+};
 const FUSE_OPTIONS = {
   keys: [
     { name: 'combo', weight: 0.45 },
@@ -254,6 +452,141 @@ function writeBrowserStorage(key, value) {
   }
 }
 
+function resolveLanguageKey(language, availableLanguages = Object.keys(LANGUAGE_CONFIGS)) {
+  const normalizedLanguage = typeof language === 'string'
+    ? language.trim().toLowerCase()
+    : '';
+
+  if (availableLanguages.includes(normalizedLanguage)) {
+    return normalizedLanguage;
+  }
+
+  if (availableLanguages.includes(DEFAULT_LANGUAGE)) {
+    return DEFAULT_LANGUAGE;
+  }
+
+  return availableLanguages[0] || DEFAULT_LANGUAGE;
+}
+
+function getLanguageConfig(language = currentLanguage) {
+  return LANGUAGE_CONFIGS[resolveLanguageKey(language)] || LANGUAGE_CONFIGS[DEFAULT_LANGUAGE];
+}
+
+function resolveInitialLanguage() {
+  return resolveLanguageKey(
+    readRuntimeQueryParam('lang')
+    ?? readBrowserStorage(LANGUAGE_STORAGE_KEY)
+    ?? DEFAULT_LANGUAGE
+  );
+}
+
+function resolveLanguageData(data, language = DEFAULT_LANGUAGE) {
+  const safeData = data && typeof data === 'object' ? data : {};
+  const availableLanguages = Object.keys(safeData).filter((key) => safeData[key] && typeof safeData[key] === 'object');
+  const resolvedLanguage = resolveLanguageKey(
+    language,
+    availableLanguages.length ? availableLanguages : Object.keys(LANGUAGE_CONFIGS)
+  );
+
+  return {
+    language: resolvedLanguage,
+    langData: safeData[resolvedLanguage] || safeData[DEFAULT_LANGUAGE] || safeData.es || null,
+  };
+}
+
+function buildLanguageResponseState(langData, language = DEFAULT_LANGUAGE) {
+  const safeLangData = langData && typeof langData === 'object' ? langData : {};
+  const responsesFlat = flattenKnowledgeBase(safeLangData);
+  const responses = responsesFlat
+    .map((item) => {
+      const triggers = buildRegexTriggers(item.trigger);
+      if (!triggers.length) return null;
+
+      const normalizedFollowUps = normalizeFollowUp(item);
+
+      return {
+        trigger: triggers.length === 1 ? triggers[0] : triggers,
+        text: item.answer || item.text,
+        imagen: item.image || item.imagen || (item.images ? item.images[0] : null),
+        video: item.video || (item.videos ? item.videos[0] : null),
+        followUp: normalizedFollowUps,
+      };
+    })
+    .filter(Boolean);
+
+  const staticFallbackSuggestions = getLanguageConfig(language).staticFallbackSuggestions;
+  const localizedDefaultFollowUps = mergeUniqueStrings([
+    ...normalizeStringList(safeLangData.defaultFollowUps),
+    ...staticFallbackSuggestions,
+  ]);
+
+  return {
+    responses,
+    responsesFlat,
+    defaultFollowUps: localizedDefaultFollowUps,
+  };
+}
+
+function updateToggleButtonLabel(isMinimized = chatEl?.classList.contains('chatbot--minimized')) {
+  if (!toggleBtn) return;
+
+  const config = getLanguageConfig();
+  toggleBtn.setAttribute(
+    'aria-label',
+    isMinimized ? config.ui.openChatLabel : config.ui.minimizeChatLabel
+  );
+}
+
+function applyPageMetadata(config = getLanguageConfig()) {
+  if (!hasDocument) return;
+
+  const pageConfig = config.page || {};
+
+  pageHeaderTitleEl && (pageHeaderTitleEl.textContent = pageConfig.headerTitle || 'Masclet Bot');
+  pageHeaderSubtitleEl && (pageHeaderSubtitleEl.textContent = pageConfig.headerSubtitle || '');
+
+  if (pageConfig.documentTitle) {
+    document.title = pageConfig.documentTitle;
+  }
+
+  if (pageConfig.documentDescription) {
+    descriptionMetaEl?.setAttribute('content', pageConfig.documentDescription);
+  }
+
+  document.documentElement?.setAttribute(
+    'lang',
+    pageConfig.documentLanguage || currentLanguage || DEFAULT_LANGUAGE
+  );
+}
+
+function applyLanguageUi() {
+  if (!hasDocument) return;
+
+  const config = getLanguageConfig();
+
+  applyPageMetadata(config);
+
+  titleEl && (titleEl.textContent = config.ui.title);
+  languageLabelEl && (languageLabelEl.textContent = config.ui.languageLabel);
+  languageSelectEl && (languageSelectEl.value = currentLanguage);
+  languageSelectEl?.setAttribute('aria-label', config.ui.languageLabel);
+  chatEl?.setAttribute('aria-label', config.ui.chatAriaLabel);
+  messagesEl?.setAttribute('aria-label', config.ui.messagesAriaLabel);
+  suggestionsEl?.setAttribute('aria-label', config.ui.suggestionsAriaLabel);
+  inputLabelEl && (inputLabelEl.textContent = config.ui.inputLabel);
+  if (inputEl) inputEl.placeholder = config.ui.inputPlaceholder;
+  sendBtn?.setAttribute('aria-label', config.ui.sendButtonLabel);
+  resetBtn?.setAttribute('aria-label', config.ui.resetButtonLabel);
+  resetBtn?.setAttribute('title', config.ui.resetButtonTitle);
+  updateToggleButtonLabel();
+}
+
+currentLanguage = resolveInitialLanguage();
+
+if (hasDocument) {
+  applyLanguageUi();
+}
+
 function resolveFuseRuntimeConfig(overrides = {}) {
   const directResponseScore = parseFuseScore(overrides.directResponseScore) ?? FUSE_DIRECT_RESPONSE_SCORE;
   const guidanceScore = Math.max(
@@ -302,13 +635,23 @@ function looksLikeRegexPattern(value) {
   return /[\\^$.*+?()[\]{}|]/.test(value);
 }
 
+function getExplicitRegexTriggerPattern(value) {
+  if (typeof value !== 'string') return null;
+
+  const trimmedValue = value.trim();
+  if (!trimmedValue.toLowerCase().startsWith(REGEX_TRIGGER_PREFIX)) return null;
+
+  const pattern = trimmedValue.slice(REGEX_TRIGGER_PREFIX.length).trim();
+  return pattern || null;
+}
+
 function buildLiteralTriggerRegex(value) {
   const tokens = String(value)
     .trim()
     .split(/\s+/)
     .map((token) => escapeRegExp(token));
 
-  return new RegExp(`^\\s*${tokens.join('\\s+')}\\s*[?¿!¡.]*\\s*$`, 'i');
+  return new RegExp(`^\\s*[¿¡]?\\s*${tokens.join('\\s+')}\\s*[?¿!¡.]*\\s*$`, 'i');
 }
 
 function normalizeTemporalQuestion(query) {
@@ -324,10 +667,10 @@ function getTemporalAnswer(query) {
   if (!normalizedQuery) return null;
 
   const now = new Date();
-  const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+  const { dayNames: days, dateLocale } = getLanguageConfig();
   const dayName = days[now.getDay()];
   const dayNumber = now.getDate();
-  const monthName = now.toLocaleString(DATE_LOCALE, { month: 'long' });
+  const monthName = now.toLocaleString(dateLocale || DATE_LOCALE, { month: 'long' });
   const year = now.getFullYear();
 
   if (/^en que fecha estamos(?: hoy)?$/.test(normalizedQuery)) {
@@ -363,14 +706,17 @@ function buildRegexTriggers(trigger) {
 
     if (typeof entry !== 'string' || !entry.trim()) return;
 
+    const explicitPattern = getExplicitRegexTriggerPattern(entry);
+    const patternSource = explicitPattern ?? entry;
+
     try {
       regexTriggers.push(
-        looksLikeRegexPattern(entry)
-          ? new RegExp(entry, 'i')
-          : buildLiteralTriggerRegex(entry)
+        explicitPattern || looksLikeRegexPattern(patternSource)
+          ? new RegExp(patternSource, 'i')
+          : buildLiteralTriggerRegex(patternSource)
       );
     } catch {
-      regexTriggers.push(buildLiteralTriggerRegex(entry));
+      regexTriggers.push(buildLiteralTriggerRegex(patternSource));
     }
   });
 
@@ -380,11 +726,12 @@ function buildRegexTriggers(trigger) {
 function triggerToString(trigger) {
   if (!trigger) return '';
   if (trigger instanceof RegExp) return trigger.source;
+  if (typeof trigger === 'string') return getExplicitRegexTriggerPattern(trigger) ?? trigger;
   if (Array.isArray(trigger)) {
     return trigger
       .map((entry) => {
         if (entry instanceof RegExp) return entry.source;
-        if (typeof entry === 'string') return entry;
+        if (typeof entry === 'string') return getExplicitRegexTriggerPattern(entry) ?? entry;
         return '';
       })
       .filter(Boolean)
@@ -445,7 +792,7 @@ function findDirectResponse(query, responseList = respuestas) {
 }
 
 function checkScreenSize() {
-  if (!hasDocument || !chatEl) return;
+  if (!hasDocument || !chatEl || isStaticChatMode()) return;
 
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -467,41 +814,51 @@ function checkScreenSize() {
 }
 
 // ---- Cargar respuestas desde JSON ----
-async function cargarRespuestas() {
+async function fetchKnowledgeBaseData() {
+  if (knowledgeBaseData) return knowledgeBaseData;
+
+  const resp = await fetch(getKnowledgeBaseUrl());
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+  knowledgeBaseData = await resp.json();
+  return knowledgeBaseData;
+}
+
+function applyLanguageData(data, language = currentLanguage) {
+  const { language: resolvedLanguage, langData } = resolveLanguageData(data, language);
+  if (!langData) {
+    throw new Error(`Missing language block for ${resolvedLanguage}`);
+  }
+
+  const languageState = buildLanguageResponseState(langData, resolvedLanguage);
+
+  currentLanguage = resolvedLanguage;
+  respuestas = languageState.responses;
+  respuestasPlanas = languageState.responsesFlat;
+  defaultFollowUps = languageState.defaultFollowUps;
+  actualizarFuse(respuestasPlanas);
+
+  if (hasDocument) {
+    writeBrowserStorage(LANGUAGE_STORAGE_KEY, resolvedLanguage);
+    applyLanguageUi();
+  }
+
+  return {
+    language: resolvedLanguage,
+    langData,
+  };
+}
+
+async function cargarRespuestas(language = currentLanguage) {
   try {
-    const resp = await fetch('data/knowledgeBase.json');
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const data = await resp.json();
-    
-    // Asumimos español por defecto ("es")
-    const langData = data[DEFAULT_LANGUAGE] || data.es || data;
-    defaultFollowUps = mergeUniqueStrings([
-      ...normalizeStringList(langData.defaultFollowUps),
-      ...STATIC_FALLBACK_SUGGESTIONS,
-    ]);
-    respuestasPlanas = flattenKnowledgeBase(langData);
-
-    respuestas = respuestasPlanas
-      .map((item) => {
-        const triggers = buildRegexTriggers(item.trigger);
-        if (!triggers.length) return null;
-
-        const normalizedFollowUps = normalizeFollowUp(item);
-
-        return {
-          trigger: triggers.length === 1 ? triggers[0] : triggers,
-          text: item.answer || item.text,
-          imagen: item.image || item.imagen || (item.images ? item.images[0] : null),
-          video: item.video || (item.videos ? item.videos[0] : null),
-          followUp: normalizedFollowUps,
-        };
-      })
-      .filter(Boolean);
-
-    actualizarFuse(respuestasPlanas);
+    const data = await fetchKnowledgeBaseData();
+    return applyLanguageData(data, language);
   } catch (err) {
     console.error('Error cargando JSON:', err);
-    typeMessage('¡Uy! No he podido cargar mis respuestas.');
+    currentLanguage = resolveLanguageKey(language);
+    applyLanguageUi();
+    typeMessage(getLanguageConfig(currentLanguage).ui.loadErrorText);
+    return null;
   }
 }
 
@@ -683,12 +1040,34 @@ const lastResponses = {};
 const repeatCount = {};
 const conversationHistory = {};
 
+function clearObjectValues(target) {
+  Object.keys(target).forEach((key) => delete target[key]);
+}
+
+function resetConversationState({ announcement = null, focusInput = true } = {}) {
+  clearObjectValues(lastResponses);
+  clearObjectValues(repeatCount);
+  clearObjectValues(conversationHistory);
+
+  if (!hasDocument) return;
+
+  messagesEl.innerHTML = '';
+  suggestionsEl.innerHTML = '';
+
+  if (announcement) {
+    typeMessage(announcement, true);
+  }
+
+  if (focusInput) {
+    inputEl?.focus();
+  }
+}
+
 // ---- Estrategia 3 capas: directo -> Fuse -> fallback guiado ----
 function getFallbackSuggestionPool(extraSuggestions = []) {
   return mergeUniqueStrings([
     ...normalizeStringList(extraSuggestions),
     ...defaultFollowUps,
-    ...STATIC_FALLBACK_SUGGESTIONS,
   ]);
 }
 
@@ -727,7 +1106,7 @@ function buildGuidedFallbackResponse(query, results, fallbackSuggestions = getFa
   ], FALLBACK_SUGGESTION_LIMIT);
 
   return {
-    text: 'No tengo una coincidencia exacta, pero estas sugerencias están cerca de lo que buscas.',
+    text: getLanguageConfig().ui.guidedFallbackText,
     followUp,
     imagen: null,
     video: null,
@@ -741,7 +1120,7 @@ function buildGlobalFallbackResponse(query, fallbackSuggestions = getFallbackSug
   ], FALLBACK_SUGGESTION_LIMIT);
 
   return {
-    text: 'No encontré una coincidencia clara, pero puedo orientarte con estas sugerencias.',
+    text: getLanguageConfig().ui.globalFallbackText,
     followUp,
     imagen: null,
     video: null,
@@ -914,7 +1293,7 @@ async function handleQuestion(q) {
     }, delay);
   } catch (err) {
     console.error(err);
-    typeMessage('¡Ups! Algo falló.');
+    typeMessage(getLanguageConfig().ui.unexpectedErrorText);
   }
 }
 
@@ -931,12 +1310,20 @@ if (hasDocument) {
     if (e.key === 'Enter') sendBtn.click();
   });
 
+  languageSelectEl?.addEventListener('change', async (e) => {
+    const nextLanguage = e.target.value;
+    const result = await cargarRespuestas(nextLanguage);
+    if (!result) return;
+
+    resetConversationState({
+      announcement: getLanguageConfig().ui.welcomeMessage,
+    });
+  });
+
   resetBtn?.addEventListener('click', () => {
-    messagesEl.innerHTML = '';
-    suggestionsEl.innerHTML = '';
-    Object.keys(conversationHistory).forEach((key) => delete conversationHistory[key]);
-    typeMessage('¡Aquí estoy de nuevo! ¿Qué necesitas?', true);
-    inputEl.focus();
+    resetConversationState({
+      announcement: getLanguageConfig().ui.resetMessage,
+    });
   });
 }
 
@@ -953,6 +1340,11 @@ if (typeof module !== 'undefined' && module.exports) {
     buscarConFuse,
     sanitizeUserQuery,
     getTemporalAnswer,
+    resolveLanguageKey,
+    resolveLanguageData,
+    buildLanguageResponseState,
+    getLanguageConfig,
+    applyPageMetadata,
     findDirectResponse,
     collectFollowUpsFromFuseResults,
     resolveFuseRuntimeConfig,
@@ -965,19 +1357,20 @@ if (typeof module !== 'undefined' && module.exports) {
 
 // ---- Datos contextuales (saludo según hora) ----
 function addContextualData(text) {
+  const config = getLanguageConfig();
   const now = new Date();
   const hour = now.getHours();
   let saludoContextual = '';
 
   if (hour < 12) {
-    saludoContextual = '¡Buenos días!';
+    saludoContextual = config.ui.contextualGreetings.morning;
   } else if (hour < 18) {
-    saludoContextual = '¡Buenas tardes!';
+    saludoContextual = config.ui.contextualGreetings.afternoon;
   } else {
-    saludoContextual = '¡Buenas noches!';
+    saludoContextual = config.ui.contextualGreetings.evening;
   }
 
-  if (/hola|salúdame/i.test(text)) {
+  if (config.ui.greetingMatcher.test(text)) {
     return saludoContextual + ' ' + text;
   }
   return text;
@@ -1002,9 +1395,12 @@ function mostrarAgrupados(agrupados) {
 
 if (hasDocument) {
   window.onload = async () => {
-    inputEl?.focus();
-    await cargarRespuestas();
-    typeMessage('¡BOOM! 🎇 Soy Masclet. Salúdame con "hola".', true);
+    const result = await cargarRespuestas(currentLanguage);
+    if (result) {
+      resetConversationState({
+        announcement: getLanguageConfig().ui.welcomeMessage,
+      });
+    }
     checkScreenSize();
   };
 }

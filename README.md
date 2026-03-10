@@ -1,86 +1,212 @@
-# 🎆 Masclet Bot Fallero
+# Masclet
 
-**Tu asistente virtual interactivo sobre las Fallas de València**
+Masclet es un chatbot sobre las Fallas de València con dos superficies de uso:
 
-[![Construido con SASS](https://img.shields.io/badge/Sass-C69-white.svg?style=flat&logo=sass)](https://sass-lang.com/)
-[![Automatizado con Gulp 5](https://img.shields.io/badge/Gulp-CF4647-white.svg?style=flat&logo=gulp)](https://gulpjs.com/)
-[![Íconos Lucide](https://img.shields.io/badge/Lucide-Icons-F472B6.svg?style=flat&logo=lucide)](https://lucide.dev/)
-[![Búsquedas con Fuse.js](https://img.shields.io/badge/Fuse.js-B9E0CD-black.svg?style=flat)](https://fusejs.io/)
-[![Accesibilidad Lista](https://img.shields.io/badge/A11y-✓-success.svg?style=flat)](#%EF%B8%8F-accesibilidad-a11y)
+- una demo completa en `src/index.html`
+- un widget standalone en `src/chatbot.html`, pensado para cargarse dentro de un `iframe`
 
----
+El proyecto combina coincidencia directa, búsqueda difusa con Fuse.js y sugerencias guiadas sobre una base de conocimiento multilenguaje centralizada en `src/data/knowledge.json`.
 
-Masclet Bot es un chatbot diseñado con una arquitectura moderna que emplea un motor de búsqueda difusa (`Fuse.js`) y semántica del lenguaje para ofrecer respuestas relacionadas con cultura, eventos, gastronomía y monumentos de las Fallas.
+## Qué incluye
 
-Destaca por su **diseño Glassmorphism premium**, animaciones CSS fluidas (como indicadores de "escribiendo" y sombras reactivas), y un sistema dinámico de íconos vectorizados con **Lucide**, garantizando una experiencia de usuario (UX) inmersiva y de vanguardia.
+- Selector de idioma con soporte para `es`, `va`, `en` y `fr`.
+- Persistencia de idioma activo en navegador.
+- Motor de respuesta en tres capas: coincidencia directa, Fuse.js y fallback guiado.
+- Base de conocimiento única con bloques por idioma y categorías anidadas.
+- Widget embebible mediante `window.MascletEmbed.init()` o atributos `data-*`.
+- Suite Jest para validar matching, Fuse y helpers de idioma.
 
-## 🚀 Arquitectura del Proyecto
+## Requisitos
 
-El código está estructurado mediante un pipeline de compilado optimizado usando **Gulp 5 (ES Modules)** y **Dart Sass**, dividiendo claramente el entorno de desarrollo y el de producción.
+- Node.js 18 o superior.
+- npm.
 
-### 📂 `src/` (Entorno de Desarrollo)
-
-Aquí se encuentra todo el código fuente que deberás editar. Gulp se encarga de procesar esta carpeta:
-
-- **`scss/`**: Estilos modulares organizados bajo la arquitectura 7-1 adaptada y nomenclatura **BEM**.
-  - `abstracts/_variables.scss`: Modifica aquí los **Tokens de Diseño** (colores, sombras, tipografías, variables de animación).
-  - `abstracts/_mixins.scss`: Mixins utilitarios para media queries y accesibilidad.
-  - `components/`: Contiene los bloques aislados (`.chatbot`, `.message`, `.input-area`).
-  - **Uso de Módulos (Dart Sass)**: En los componentes, las variables se importan y usan con el espacio de nombres `v.` (ej. `v.$spacing-10`) y los mixins con `m.` (ej. `@include m.smooth-transition`).
-- **`js/`**:
-  - `app.js`: Script principal con Lógica UI (incluyendo la inyección dinámica de íconos **Lucide**), procesamiento de inputs y NLP.
-- **`data/`**:
-  - `knowledgeBase.json`: Base de conocimiento principal que alimenta las respuestas del bot.
-- **`img/`**: Assets estáticos (avatares, etc).
-- **`index.html`**: Estructura principal con HTML Semántico. Mantiene enlaces relativos internos apuntando a las futuras versiones compiladas.
-
-### 📦 `dist/` (Entorno de Producción)
-
-> [!WARNING]
-> **No edites los archivos de esta carpeta.** Son el resultado directo de la compilación.
-
-Cuando ejecutas las tareas de construcción, Gulp compila SCSS a CSS minificado (`css/main.min.css`) y copia el resto de recursos idénticos (`js/`, `data/`, `index.html`) dentro de `dist/`, dejándolo listo para su despliegue en producción.
-
----
-
-## 🛠 Instalación y Uso (NPM + Gulp)
-
-Requiere disponer de **Node.js (v18+)** en el sistema para usar Gulp 5 en modo ESM.
-
-### 1. Instalar dependencias
-
-Instala todas las herramientas de compilación con:
+## Arranque rápido
 
 ```bash
 npm install
+npm run dev
 ```
 
-### 2. Comandos Disponibles
+`npm run dev` ejecuta Gulp en modo desarrollo, genera `dist/`, arranca BrowserSync en `http://localhost:3000` y vigila cambios en `src/`.
 
-| Comando de Terminal | Qué hace internamente | Resultado Interfaz |
-| :------------------ | :-------------------- | :----------------- |
-| `npm run dev` o `npx gulp dev` | Inicia `BrowserSync` en `http://localhost:3000` sirviendo desde `dist/`. Vigila en tiempo real todos los cambios que hagas en `src/` (HTML, JS, SCSS) e inyecta las actualizaciones en el navegador al momento. | ⚡️ Entorno de Trabajo |
-| `npm run build` o `npx gulp build` | Ejecuta el pipeline final: Limpia/copia recursos de `src/` a `dist/` y compila + minifica el SCSS hacia `dist/css/main.min.css`. | 🏗 Listo para Producción |
-| `npm run sass` o `npx gulp sass` | Compila exclusivamente tus archivos analíticos `.scss` hacia `.css` expandido y minificado dentro de `dist/`. | 🎨 CSS Actualizado |
+## Scripts disponibles
 
----
+| Script | Qué hace |
+| :----- | :------- |
+| `npm run dev` | Ejecuta la tarea por defecto de Gulp: limpia y reconstruye `dist/`, arranca BrowserSync y observa cambios en HTML, JS, SCSS, imágenes y datos. |
+| `npm run build` | Limpia `dist/`, copia recursos estáticos y compila todos los entrypoints SCSS a CSS expandido y minificado. |
+| `npm run sass` | Recompila solo `src/scss/*.scss` excepto parciales `_*.scss` y deja los resultados en `dist/css`. |
+| `npm test` | Ejecuta la suite Jest de NLP y helpers del runtime. |
 
-## 🎨 Estilos y Nomenclatura (BEM)
+## Estructura del proyecto
 
-Para evitar colisión de especificidades de estilos y propiciar escalabilidad, todo el proyecto SCSS se rige bajo la metodología **BEM** (Block__Element--Modifier).
+```text
+src/
+  index.html            # demo principal
+  chatbot.html          # versión standalone para iframe
+  data/knowledge.json   # base de conocimiento multilenguaje
+  img/                  # recursos estáticos
+  js/app.js             # runtime del chat, idiomas y motor de búsqueda
+  js/masclet-embed.js   # loader del widget embebible
+  scss/                 # estilos fuente
+tests/
+  nlp.test.js           # regresiones del motor de matching
+gulpfile.mjs            # pipeline de build y servidor local
+package.json            # scripts y dependencias de desarrollo
+```
 
-Ejemplos principales aplicados:
+## Cómo funciona el build
 
-- **Bloques** (`.chatbot`, `.message`, `.input-area`).
-- **Elementos** (`.chatbot__header`, `.input-area__send`).
-- **Modificadores** (`.chatbot--minimized`, `.message--user`, `.message--bot`).
+- El build no transpila ni empaqueta JavaScript: copia `src/**/*.js` tal cual a `dist/js`.
+- Los HTML cargan dependencias de navegador por CDN: Fuse.js, Lodash, Compromise y Lucide.
+- Gulp compila cada archivo SCSS de primer nivel en `src/scss/` y genera versión expandida y `.min.css`.
+- `src/data/` se copia íntegro a `dist/data`.
+- `dist/` se elimina antes de cada build para evitar artefactos obsoletos.
 
----
+No edites `dist/` manualmente. Siempre trabaja sobre `src/`.
 
-## ♿️ Accesibilidad (A11y)
+## Base de conocimiento multilenguaje
 
-El proyecto está diseñado pensando en todos los usuarios, incluyendo las siguientes integraciones semánticas de base:
+`src/data/knowledge.json` tiene un bloque por idioma (`es`, `va`, `en`, `fr`). Cada bloque puede incluir:
 
-- **Etiquetas ARIA dinámicas** (`aria-expanded`, `aria-label`) para anunciar el estado del acordeón o widget de chat.
-- **Zonas Vivas (Live Regions)** (`aria-live="polite"` y `role="log"`) alrededor del historial para que los lectores de pantalla puedan leer nuevos mensajes entrantes rítmicamente.
-- **Estados Activos y de Foco** definidos con el pseudo-elemento `:focus-visible` (disponible por mixins en SCSS) para potenciar visualmente el flujo a través del teclado sin alterar los clics del ratón.
+- `knowledgeBase`: respuestas generales y de entrada.
+- `defaultFollowUps`: sugerencias base para fallback.
+- categorías anidadas como `vestimenta`, `comidaTipica`, `festejosReligiosos`, `festejosPopulares`, `monumentos` o `puestosPersonal`.
+
+El runtime aplana el árbol de forma recursiva, así que una entrada puede vivir en `knowledgeBase` o dentro de una subcategoría sin cambiar la forma de búsqueda.
+
+Ejemplo mínimo:
+
+```json
+{
+  "es": {
+    "knowledgeBase": [
+      {
+        "trigger": "hola masclet",
+        "keywords": ["saludo", "inicio"],
+        "answer": ["Hola, soy Masclet."],
+        "followUps": ["Pregúntame por la mascletà"]
+      }
+    ],
+    "defaultFollowUps": ["¿Qué es la plantà?"]
+  }
+}
+```
+
+Campos soportados por entrada:
+
+- `trigger`: string, array de strings o `RegExp`.
+- `answer` o `text`: string o array de respuestas.
+- `keywords`: términos adicionales para Fuse.js.
+- `followUps` o `followUp`: sugerencias relacionadas.
+- `image` o `imagen`, `images`, `video`, `videos`: media opcional. Si se usan arrays, el runtime consume el primer elemento.
+
+## Reglas para mantener `knowledge.json`
+
+- Usa texto plano en `trigger` para coincidencias literales o casi literales. El runtime lo convierte a una regex acotada.
+- Usa `regex:` cuando necesites una familia de expresiones. Ejemplo: `regex:^\\s*(hola|buenas)\\s*$`.
+- Los patrones heredados con metacaracteres regex sin prefijo siguen funcionando, pero para entradas nuevas conviene usar `regex:` de forma explícita.
+- No conviertas la capa directa en una bolsa de intenciones amplias. Para cobertura semántica adicional, añade `keywords` y deja el trabajo a Fuse.js.
+- Mantén separadas las familias de saludo nominal, saludo genérico y bienestar en cada idioma para evitar colisiones.
+- Si añades un idioma nuevo, no basta con tocar `knowledge.json`: también hay que ampliar `LANGUAGE_CONFIGS` en `src/js/app.js` y añadir la opción al selector en `src/index.html` y `src/chatbot.html`.
+
+## Flujo de respuesta
+
+1. Capa 1, coincidencia directa.
+   Se evalúan los `trigger` ya compilados. Está pensada para preguntas exactas, identidades, saludos y patrones controlados.
+2. Capa 2, búsqueda difusa con Fuse.js.
+   Usa una combinación ponderada de trigger, keywords, texto normalizado y follow-ups.
+3. Capa 3, fallback guiado.
+   Si no hay coincidencia clara, el runtime reutiliza `followUps` de los mejores candidatos y, si hace falta, completa con sugerencias estáticas localizadas.
+
+Parámetros útiles de runtime:
+
+- `lang=es|va|en|fr`: fuerza el idioma inicial.
+- `kbUrl=/ruta/al/knowledge.json`: sobreescribe la URL de la base de conocimiento.
+- `debugFuse=1`: activa logging de depuración.
+- `fuseDirect=0.60`: ajusta temporalmente el umbral de respuesta directa.
+- `fuseGuidance=0.78`: ajusta temporalmente el umbral de sugerencias.
+
+El idioma activo se persiste en `localStorage` bajo la clave `masclet:language`. Las sesiones de depuración Fuse se guardan en `masclet:fuse-log`.
+
+## Widget embebible
+
+Tras `npm run build`, el paquete mínimo para incrustar Masclet en otra web es:
+
+- `dist/chatbot.html`
+- `dist/css/chatbot.min.css`
+- `dist/js/masclet-embed.js`
+- `dist/data/knowledge.json` si quieres servir la base desde el mismo despliegue
+
+Ejemplo con autoarranque:
+
+```html
+<script
+  src="https://tu-dominio.com/masclet/js/masclet-embed.js"
+  data-masclet-auto-init="true"
+  data-masclet-language="va"
+  data-masclet-iframe-path="chatbot.html"
+  data-masclet-kb-url="data/knowledge.json"
+  data-masclet-open-label="Obrir Masclet"
+  data-masclet-close-label="Tancar Masclet">
+</script>
+```
+
+Ejemplo programático:
+
+```html
+<script src="https://tu-dominio.com/masclet/js/masclet-embed.js"></script>
+<script>
+  window.MascletEmbed.init({
+    language: 'en',
+    iframePath: 'chatbot.html',
+    kbUrl: 'data/knowledge.json',
+    openByDefault: true,
+    width: 420,
+    height: 720
+  });
+</script>
+```
+
+Opciones soportadas por el loader:
+
+- `language`
+- `iframePath`
+- `kbUrl`
+- `openByDefault`
+- `bottom`
+- `right`
+- `width`
+- `height`
+- `zIndex`
+- `title`
+- `openLabel`
+- `closeLabel`
+- `mount`
+- `basePath`
+
+`window.MascletEmbed.init()` reutiliza la instancia existente si el widget ya está montado.
+
+## Accesibilidad y UI
+
+- El chat usa regiones vivas (`role="log"` y `aria-live="polite"`) para anunciar mensajes.
+- Botones y toggles actualizan etiquetas ARIA según idioma y estado.
+- La metadata visible y documental de la página se localiza desde `LANGUAGE_CONFIGS.page`.
+- `chatbot.html` ejecuta el runtime en modo estático y `index.html` en modo minimizable.
+
+## Flujo recomendado para cambios
+
+1. Edita siempre `src/`.
+2. Si tocas estilos o estructura, prueba `npm run dev`.
+3. Si tocas matching, idiomas o `knowledge.json`, añade o ajusta tests en `tests/nlp.test.js`.
+4. Valida siempre con:
+
+```bash
+npm test
+npm run build
+```
+
+## Estado del proyecto
+
+La suite actual cubre matching directo, Fuse, helpers de idioma y regresiones multilenguaje en `tests/nlp.test.js`.

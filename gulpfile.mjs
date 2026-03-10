@@ -43,7 +43,7 @@ const paths = {
 // ---- Compilar SCSS → CSS (dev: expandido + sourcemaps) ----
 function compileSass() {
   return gulp
-    .src('src/scss/main.scss')
+    .src(['src/scss/*.scss', '!src/scss/_*.scss'])
     .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
     .pipe(autoprefixer({ cascade: false }))
     .pipe(gulp.dest(paths.scss.dest))

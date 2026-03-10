@@ -2,25 +2,35 @@
   "es": {
     "knowledgeBase": [
       {
-        "trigger": "^\\s*[¿]?\\s*c[oó]mo\\s+est[aáà]s?\\s*[?¿]*\\s*$",
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:c[oó]mo\\s+est[aáà]s?|qu[eé]\\s+tal|qu[eé]\\s+pasa)\\s*[?¿!¡.]*\\s*$",
         "answer": [
-          "Estoy genial, ¡gracias por preguntar!",
-          "Muy bien, listo para compartir la mejor información sobre las Fallas."
-        ],
-        "followUps": []
-      },
-      {
-        "trigger": "^\\s*[¿]?\\s*qu[eé]\\s+tal\\s*[?¿]*\\s*$",
-        "answer": [
-          "¡Todo bien! ¿Y tú qué tal?",
-          "Muy bien, gracias. ¿En qué puedo ayudarte?"
+          "Todo en orden por aquí. ¿Y tú qué tal?",
+          "Estoy muy bien y con ganas de hablar de Fallas. ¿En qué te ayudo?"
         ],
         "followUps": ["¿Te interesa algún tema en particular?"]
       },
-
-       {
-        "trigger": "^(hola|buenos\\s+d[ií]a[s]?|buenas\\s+tardes|buenas\\s+noches|ey|hey)\\b",
-          "keywords": ["saludo fallero", "bienvenida fallas", "iniciar conversacion", "asistente de fallas", "hola masclet"],
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:todo\\s+bien|todo\\s+va\\s+bien)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "Me alegro de que estés bien. ¿En qué tema puedo ayudarte?",
+          "Perfecto. Cuéntame, ¿sobre qué te gustaría saber más?"
+        ],
+        "followUps": ["¿Cultura, gastronomía o vestimenta fallera?"]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*hola\\s*,?\\s*(?:bot|masclet)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "¡Hola! Soy Masclet, ¿cómo puedo asistirte hoy?",
+          "¡Ey! Aquí Masclet, listo para ayudarte."
+        ],
+        "followUps": [
+          "¿Qué te gustaría saber?",
+          "¿Quieres recomendaciones sobre eventos falleros?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:hola|buenos\\s+d[ií]a[s]?|buenas\\s+tardes|buenas\\s+noches|buenas|saludos?|ey|hey)\\s*[?¿!¡.]*\\s*$",
+        "keywords": ["saludo fallero", "bienvenida fallas", "iniciar conversacion", "asistente de fallas", "hola masclet"],
         "answer": [
           "¡Hola! 🎉 Soy Masclet, tu bot fallero con chispa. ¿En qué te ayudo hoy?",
           "¡Ey! ¿Qué tal? Soy Masclet, listo para lo que necesites.",
@@ -33,126 +43,50 @@
         ]
       },
       {
-        "trigger": "^(?:[¿]?sobre\\s+qué\\s+tema\\s+quieres\\s+hablar\\??)$",
+        "trigger": "regex:^\\s*[¿¡]?\\s*sobre\\s+qu[eé]\\s+tema\\s+quieres\\s+hablar\\s*[?¿!¡.]*\\s*$",
         "answer": "Cuéntame, ¿te interesa hablar acerca de cultura, gastronomía, vestimenta o eventos falleros?",
         "followUps": []
       },
       {
-        "trigger": "^(?:[¿]?te\\s+interesa\\s+conocer\\s+alg[uú]n\\s+dato\\s+de\\s+las\\s+Fallas\\??)$",
+        "trigger": "regex:^\\s*[¿¡]?\\s*te\\s+interesa\\s+conocer\\s+alg[uú]n\\s+dato\\s+de\\s+las\\s+fallas\\s*[?¿!¡.]*\\s*$",
         "keywords": ["curiosidades falleras", "datos de las fallas", "historia valenciana", "tradiciones falleras", "saber mas de fallas"],
         "answer": "Puedo contarte desde la historia, tradiciones y curiosidades de las Fallas. ¿Qué te gustaría saber?",
         "followUps": []
       },
       {
-        "trigger": "^(?:hola\\s+bot|hola,\\s+bot)\\b",
-        "answer": [
-          "¡Hola! Soy Masclet, ¿cómo puedo asistirte hoy?",
-          "¡Ey! Aquí Masclet, listo para ayudarte."
-        ],
-        "followUps": [
-          "¿Qué te gustaría saber?",
-          "¿Quieres recomendaciones sobre eventos falleros?"
-        ]
-      },
-            {
-        "trigger": "^(?:[¿]?qué\\s+te\\s+gustaría\\s+saber\\??)$",
+        "trigger": "regex:^\\s*[¿¡]?\\s*qu[eé]\\s+te\\s+gustar[ií]a\\s+saber\\s*[?¿!¡.]*\\s*$",
         "answer": "Puedes preguntarme sobre cultura, gastronomía, tradiciones o cualquier aspecto relacionado con las Fallas. ¿Sobre qué tema te gustaría información en específico?",
         "followUps": ["cultura", "gastronomía", "tradiciones", "eventos falleros"]
       },
       {
-        "trigger": "^(?:[¿]?quieres\\s+recomendaciones\\s+sobre\\s+eventos\\s+falleros\\??)$",
+        "trigger": "regex:^\\s*[¿¡]?\\s*quieres\\s+recomendaciones\\s+sobre\\s+eventos\\s+falleros\\s*[?¿!¡.]*\\s*$",
         "answer": "Te puedo recomendar algunos eventos destacados de las Fallas, desde la mascletà hasta la cremà. ¿Te gustaría saber cuál es el más relevante?",
         "followUps": []
       },
-
       {
-        "trigger": "^(?:buenas)\\b",
-        "answer": [
-          "¡Buenas! ¿En qué puedo asistirte hoy?",
-          "Buenas, soy Masclet. ¿Qué tema te interesa?"
-        ],
-        "followUps": ["¿Cultura fallera, gastronomía o tradiciones?"]
-      },
-            {
-        "trigger": "^(?:[¿]?cultura\\s+fallera,\\s+gastronom[ií]a\\s+o\\s+tradiciones\\??)$",
+        "trigger": "regex:^\\s*[¿¡]?\\s*cultura\\s+fallera(?:,)?\\s+gastronom[ií]a\\s+o\\s+tradiciones\\s*[?¿!¡.]*\\s*$",
         "answer": "Puedes preguntarme sobre cultura fallera, gastronomía o tradiciones. ¿Qué tema te interesa?",
         "followUps": []
       },
       {
-        "trigger": "^(?:saludos)\\b",
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:necesito\\s+ayuda|ay[úu]dame|me\\s+ayudas?|puedes\\s+ayudarme)\\s*[?¿!¡.]*\\s*$",
         "answer": [
-          "¡Saludos! Soy Masclet, encantado de verte. ¿Qué necesitas?",
-          "Saludos, ¿en qué puedo ayudarte hoy?"
-        ],
-        "followUps": ["¿Quieres información sobre eventos o historia fallera?"]
-      },
-      {
-        "trigger": "^(?:qué\\s+pasa)\\b",
-        "answer": [
-          "Todo va genial por aquí, ¿y tú?",
-          "Aquí todo en marcha. ¿Con qué tema te puedo ayudar?"
-        ],
-        "followUps": ["¿Te interesa saber sobre la cultura o la comida fallera?"]
-      },
-      {
-        "trigger": "^(?:todo\\s+bien)\\b",
-        "answer": [
-          "Me alegro de que estés bien. ¿En qué tema puedo ayudarte?",
-          "¡Perfecto! Cuéntame, ¿sobre qué te gustaría saber más?"
-        ],
-        "followUps": ["¿Cultura, gastronomía o vestimenta fallera?"]
-      },
-      {
-        "trigger": "^(?:necesito\\s+ayuda)\\b",
-        "answer": [
-          "¡Claro! Estoy aquí para ayudarte. ¿Qué necesitas saber?",
-          "Dime, ¿en qué área requieres mayor información? (vestimenta, comida, eventos...)"
+          "Claro, estoy aquí para ayudarte. ¿Qué necesitas saber?",
+          "Por supuesto. Dime en qué área necesitas más información: vestimenta, comida, eventos o historia."
         ],
         "followUps": ["¿Te interesa la historia o los detalles técnicos de algún tema?"]
       },
       {
-        "trigger": "^(?:ay[úu]dame)\\b",
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:dime\\s+algo|cu[eé]ntame(?:\\s+algo)?|info(?:rmaci[oó]n)?|dame\\s+info(?:rmaci[oó]n)?|quiero\\s+info(?:rmaci[oó]n)?)\\s*[?¿!¡.]*\\s*$",
+        "keywords": ["ayuda general", "informacion de fallas", "consultas falleras", "datos sobre valencia", "asistente cultural"],
         "answer": [
-          "Por supuesto, ¿cuál es tu duda?",
-          "Estoy aquí para asistirte, cuéntame lo que necesitas."
-        ],
-        "followUps": ["¿Podría ser sobre tradiciones o recetas falleras?"]
-      },
-      {
-        "trigger": "^(?:dime\\s+algo)\\b",
-        "answer": [
-          "¡Con gusto! ¿Qué te gustaría saber?",
-          "Te ofrezco información sobre cultura, comida y eventos. ¿Qué tema te llama la atención?"
-        ],
-        "followUps": ["¿Quizás sobre vestimenta típica o historia de las Fallas?"]
-      },
-      {
-        "trigger": "^(?:cu[eé]ntame)\\b",
-        "answer": [
-          "Cuéntame, ¿sobre qué aspecto de las Fallas te interesaría saber?",
-          "Estoy listo para compartir datos interesantes, ¿qué tema prefieres?"
-        ],
-        "followUps": ["¿Vestimenta, gastronomía o fiestas?"]
-      },
-      {
-        "trigger": "^(?:info)\\b",
-        "answer": [
-          "Puedo ofrecerte info variada: desde tradición y eventos hasta recetas y vestimenta.",
-          "La información sobre las Fallas es muy amplia. ¿Qué te interesa en particular?"
+          "Puedo ofrecerte información sobre historia, tradiciones, gastronomía, pirotecnia y vestimenta fallera. ¿Qué tema te interesa?",
+          "Tengo información muy variada sobre las Fallas. Dime en qué aspecto te gustaría profundizar."
         ],
         "followUps": ["¿Cultura, gastronomía o festividades?"]
       },
       {
-        "trigger": "^(?:informaci[oó]n)\\b",
-        "keywords": ["ayuda general", "informacion de fallas", "consultas falleras", "datos sobre valencia", "asistente cultural"],
-        "answer": [
-          "Tengo información completa sobre las Fallas: historia, comida, vestimenta y mucho más.",
-          "Si buscas datos interesantes, dime en qué área te gustaría profundizar."
-        ],
-        "followUps": ["¿Quieres detalles sobre alguna tradición en particular?"]
-      },
-      {
-        "trigger": ["cuál es tu nombre", "cual es tu nombre", "cómo te llamas", "como te llamas"],
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:cu[aá]l\\s+es\\s+(?:tu\\s+)?nombre|c[oó]mo\\s+te\\s+llamas|qui[eé]n\\s+eres)\\s*[?¿!¡.]*\\s*$",
         "keywords": ["nombre del chatbot", "como se llama el bot", "identidad de masclet", "quien eres", "nombre del asistente"],
         "answer": [
           "Soy Masclet, tu asistente fallero. ¿En qué puedo ayudarte?",
@@ -161,61 +95,56 @@
         "followUps": ["¿Necesitas información sobre un tema específico?"]
       },
       {
-        "trigger": "^(?:qu[eé]\\s+tal\\s+si\\s+hablamos\\s+de)\\b",
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:cu[aá]l\\s+es\\s+tu\\s+color\\s+favorit[oa]|qu[eé]\\s+color\\s+te\\s+gusta|tienes\\s+alg[uú]n\\s+color\\s+favorit[oa])\\s*[?¿!¡.]*\\s*$",
+        "keywords": ["color favorito masclet", "que color te gusta", "gustos de masclet", "personalidad de masclet"],
         "answer": [
-          "Esa es una buena idea. ¿Sobre qué tema te gustaría conversar?",
-          "Perfecto, dime el tema y te cuento lo que sé."
+          "Mi color favorito es el rojo. Tiene nervio, tiene calor y combina muy bien con el carácter fallero.",
+          "Rojo, sin dudarlo. Es un color con fuerza, como una traca bien tirada y una plaza encendida de emoción."
         ],
-        "followUps": ["¿Quizás sobre gastronomía o tradiciones falleras?"]
+        "followUps": []
       },
       {
-        "trigger": "^(?:quiero\\s+saber\\s+de\\s+las\\s+fallas)\\b",
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:cu[aá]l\\s+es\\s+tu\\s+petardo\\s+favorito|qu[eé]\\s+petardo\\s+te\\s+gusta(?:\\s+m[aá]s)?|qu[eé]\\s+petardo\\s+prefieres)\\s*[?¿!¡.]*\\s*$",
+        "keywords": ["petardo favorito masclet", "que petardo te gusta", "tro de bac masclet", "gustos pirotecnicos de masclet"],
+        "answer": [
+          "Si hablamos de petardos, me quedo con el tro de bac. Tiene ese golpe seco y valiente que no necesita presumir para hacerse notar.",
+          "Mi debilidad pirotécnica es el tro de bac: pequeño, contundente y con mucho carácter fallero."
+        ],
+        "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:te\\s+gusta\\s+(?:el\\s+)?olor\\s+(?:a|de)\\s+p[oó]lvora|qu[eé]\\s+te\\s+parece\\s+el\\s+olor\\s+(?:a|de)\\s+p[oó]lvora|te\\s+gusta\\s+la\\s+p[oó]lvora|qu[eé]\\s+olor\\s+te\\s+gusta|cu[aá]l\\s+es\\s+tu\\s+olor\\s+favorito)\\s*[?¿!¡.]*\\s*$",
+        "keywords": ["olor a polvora masclet", "te gusta la polvora", "aroma de polvora", "masclet personalidad"],
+        "answer": [
+          "Mucho. Cuando el aire huele a pólvora, yo ya estoy en modo Fallas: calle despierta, banda afinando y ganas de fiesta.",
+          "Claro que sí. El olor a pólvora me suena a día grande, a plaza llena y a chispa bien entendida."
+        ],
+        "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:quiero\\s+saber\\s+(?:de|sobre)\\s+las\\s+fallas|dime\\s+sobre(?:\\s+las\\s+fallas)?|cu[eé]ntame\\s+sobre\\s+las\\s+fallas|qu[eé]\\s+tal\\s+si\\s+hablamos\\s+de(?:\\s+las\\s+fallas)?)\\s*[?¿!¡.]*\\s*$",
         "keywords": ["conocer las fallas", "fiesta valenciana", "aprender sobre fallas", "informacion fallera", "tradicion de valencia"],
         "answer": [
-          "Las Fallas son una fiesta de ingenio y tradición. ¿Cuál aspecto te interesa?",
-          "Puedo contarte desde historia hasta gastronomía y vestimenta de las Fallas. ¿Qué prefieres?"
+          "Las Fallas son una fiesta de ingenio, sátira y tradición. Puedo contarte desde historia hasta gastronomía y vestimenta. ¿Qué prefieres?",
+          "Perfecto. Si quieres una visión general, te cuento tradiciones, actos principales y curiosidades falleras. ¿Por dónde empezamos?"
         ],
         "followUps": ["¿Historia? ¿Eventos? ¿Recetas tradicionales?"]
       },
       {
-        "trigger": "^(?:dime\\s+sobre)\\b",
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:qu[eé]\\s+me\\s+recomiendas?|sugi[eé]re(?:me)?|recomi[eé]ndame\\s+algo)\\s*[?¿!¡.]*\\s*$",
         "answer": [
-          "¡Claro! ¿Sobre qué tema específico necesitas información?",
-          "Puedes preguntarme sobre cualquier aspecto de las Fallas. ¿Qué te llama la atención?"
+          "Te recomiendo empezar por los actos grandes: mascletà, Ofrenda y cremà. Si prefieres, también puedo llevarte por gastronomía o indumentaria.",
+          "Si quieres una buena ruta, empezaría por vestimenta y gastronomía, dos pilares muy visibles de la cultura fallera."
         ],
-        "followUps": ["¿Cultura, recetas o festividades?"]
+        "followUps": ["¿Trajes de fallera o recetas de paella?"]
       },
       {
-        "trigger": "^(?:hoy)\\b",
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:hoy|qu[eé]\\s+hay\\s+hoy|qu[eé]\\s+se\\s+hace\\s+hoy|plan\\s+para\\s+el\\s+d[ií]a)\\s*[?¿!¡.]*\\s*$",
         "answer": [
           "Hoy es un día ideal para celebrar las tradiciones falleras. ¿Quieres saber qué eventos se realizan?",
           "Si te interesa, puedo contarte más sobre las actividades de hoy en las Fallas."
         ],
         "followUps": ["¿Qué te gustaría conocer: gastronomía, vestimenta o eventos?"]
-      },
-      {
-        "trigger": "^(?:qu[eé]\\s+me\\s+recomiendas)\\b",
-        "answer": [
-          "Te recomiendo explorar nuestros contenidos sobre vestimenta y gastronomía, dos pilares de la cultura fallera.",
-          "Si buscas algo especial, ¿qué tal conocer los platos típicos o los trajes tradicionales?"
-        ],
-        "followUps": ["¿Trajes de fallera o recetas de paella?"]
-      },
-      {
-        "trigger": "^(?:sugiere)\\b",
-        "answer": [
-          "Te sugiero que empieces por una visita virtual a los monumentos fallers o que explores recetas tradicionales.",
-          "Considera revisar nuestras secciones de cultura y gastronomía para una visión completa."
-        ],
-        "followUps": ["¿Por cuál tema te gustaría empezar?"]
-      },
-      {
-        "trigger": "^(?:plan\\s+para\\s+el\\s+d[ií]a)\\b",
-        "answer": [
-          "Hoy te recomiendo conocer el calendario de eventos y disfrutar de la auténtica paella valenciana.",
-          "Un buen plan es informarte de las actividades y deleitarte con la gastronomía local."
-        ],
-        "followUps": ["¿Te interesa saber sobre los eventos o los platos típicos?"]
       },
       {
         "trigger": ["banda", "musica", "música", "banda de musica", "banda musical", "conjunto musical"],
@@ -230,19 +159,19 @@
         "followUps": ["¿Cómo hacer buñuelos?", "¿Dónde comprar pasteles de boniato?", "¿Qué son los fartons?"]
       },
       {
-        "trigger": ["buñuelos de calabaza", "buñuelos de viento", "bunyols"],
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:buñuelos?\\s+de\\s+(?:calabaza|viento)|bunyols)\\s*[?¿!¡.]*\\s*$",
         "keywords": ["masa frita", "calabaza frita", "dulce de feria", "meriendas falleras", "bunyols de carabassa"],
         "answer": "Los buñuelos de calabaza son el dulce tradicional de las Fallas. Se hacen con puré de calabaza asada, harina, levadura y se fríen hasta dorarse. Se espolvorean con azúcar.",
         "followUps": ["¿Receta completa de buñuelos?", "¿Dónde comprar los mejores?", "¿Cuándo se comen tradicionalmente?"]
       },
       {
-        "trigger": ["traje de fallera", "vestido fallero", "vestimenta fallera", "ropa fallera"],
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:(?:traje|vestido|ropa|vestimenta)\\s+(?:de\\s+)?fallera)\\s*[?¿!¡.]*\\s*$",
         "keywords": ["ropa tradicional valenciana mujer", "indumentaria valenciana", "vestido regional valenciano", "falda de seda", "corpiño"],
         "answer": "El traje de fallera es una vestimenta tradicional valenciana muy elaborada. Consta de corpiño, falda de seda, delantal, pañuelo de Manila, joyas tradicionales como pendientes y collares, y peineta.",
         "followUps": ["¿Qué tipo de telas se usan?", "¿Cuáles son las joyas tradicionales?", "¿Cómo se hace el peinado?"]
       },
       {
-        "trigger": ["traje de fallero", "vestido de fallero", "vestimenta fallero"],
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:(?:traje|vestido|ropa|vestimenta)\\s+(?:de\\s+)?fallero)\\s*[?¿!¡.]*\\s*$",
         "keywords": ["ropa tradicional valenciana hombre", "indumentaria masculina valenciana", "barretina", "faja fallera", "chaleco fallero"],
         "answer": "El traje de fallero incluye camisa blanca, chaleco, faja, pantalón negro, alpargatas y barretina. Es una vestimenta tradicional valenciana elegante y cómoda.",
         "followUps": ["¿Qué es la barretina?", "¿Cómo se ata la faja?", "¿Hay variaciones del traje?"]
@@ -266,13 +195,13 @@
         "followUps": ["¿Cómo se hace la horchata?", "¿Dónde comprar los mejores fartons?", "¿Hay otras formas de comerlos?"]
       },
       {
-        "trigger": ["que es una mascleta", "que es la mascleta", "mascleta sin acento", "que es una mascletà", "que es la mascletà", "mascletà con acento", "la mascleta", "la mascletà"],
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:(?:qu[eé]\\s+es\\s+)?(?:una?\\s+|la\\s+)?)?masclet[aà]\\s*[?¿!¡.]*\\s*$",
         "keywords": ["pirotecnia diurna", "petardos", "plaza del ayuntamiento", "disparo de fallas", "ruido fallero"],
         "answer": "La mascletà es un espectáculo pirotécnico diurno que se celebra a las 14:00 en la Plaza del Ayuntamiento. Es famosa por su ritmo y estruendo ensordecedor que hace vibrar toda la ciudad.",
         "followUps": ["¿Desde cuándo existe?", "¿Quién la dispara?", "¿Cuál es la mejor ubicación para verla?"]
       },
       {
-        "trigger": ["fallera mayor", "que hace la fallera mayor", "quien es la fallera mayor"],
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:fallera\\s+mayor|qu[eé]\\s+hace\\s+la\\s+fallera\\s+mayor|qui[eé]n\\s+es\\s+la\\s+fallera\\s+mayor)\\s*[?¿!¡.]*\\s*$",
         "keywords": ["representante de las fallas", "reina de las fallas", "cargo fallero", "embajadora fallera", "maxima representante"],
         "answer": "La Fallera Mayor es la máxima representante de las fiestas. Preside actos oficiales, procesiones y es embajadora de la cultura fallera durante todo su reinado.",
         "followUps": ["¿Cómo se elige?", "¿Cuánto dura el cargo?", "¿Qué requisitos hay?"]
@@ -917,13 +846,14 @@
       ],
       "pirotecnia": [
         {
-          "trigger": ["que es una mascleta", "que es la mascleta", "mascleta", "que es una mascletà", "que es la mascletà", "mascletà"],
+          "trigger": "regex:^\\s*[¿¡]?\\s*(?:(?:qu[eé]\\s+es\\s+)?(?:una?\\s+|la\\s+)?)?masclet[aà]\\s*[?¿!¡.]*\\s*$",
           "keywords": ["pirotecnia de dia", "estruendo fallero", "petardos en la plaza", "disparo de mediodia", "ritmo pirotecnico"],
           "answer": "La mascletà es un espectáculo pirotécnico diurno que combina miles de petardos en un crescendo sonoro impresionante. Se celebra a las 14:00 en la Plaza del Ayuntamiento.",
           "followUps": ["¿Desde cuándo existe?", "¿Quién la dispara?", "¿Cuál es la mejor ubicación para verla?"]
         },
         {
-          "trigger": ["que es un masclet", "masclet", "masclets", "petardos falleros", "petardo", "petardos"],
+          "trigger": "regex:^\\s*[¿¡]?\\s*(?:(?:qu[eé]\\s+es\\s+)?(?:un\\s+)?)?masclets?\\s*[?¿!¡.]*\\s*$",
+          "keywords": ["petardos falleros", "petardo", "petardos", "artificio pirotecnico", "trueno fallero"],
           "answer": "Masclet es un petardo colosal, disparado para lograr un efecto acústico que vibra en el centro de la festividad.",
           "image": "",
           "video": "",
@@ -1105,7 +1035,38 @@
     "knowledgeBase": [
 
       {
-        "trigger": "^(hola|bona\\s+diada|bona\\s+tarda|bona\\s+nit|què\\s+tal|ei|hey)\\b",
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:com\\s+est[aà]s?|com\\s+va(?:\\s+tot)?|qu[eè]\\s+tal|qu[eè]\\s+pasa)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "Estic bé, gràcies. I tu?",
+          "Molt bé, amb ganes de parlar de Falles. Què et ve de gust preguntar?"
+        ],
+        "followUps": [
+          "T'interessa algun tema en particular?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*tot\\s+b[eé](?:\\s+o\\s+qu[eè])?\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "M'alegra sentir-ho. Sobre quin tema et puc ajudar?",
+          "Perfecte. Conta'm, què t'agradaria saber sobre les Falles?"
+        ],
+        "followUps": [
+          "Cultura, gastronomia o indumentària fallera?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*hola\\s*,?\\s*(?:bot|masclet)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "Hola! Sóc Masclet, com puc ajudar-te avui?",
+          "Ei! Ací Masclet, preparat per ajudar-te."
+        ],
+        "followUps": [
+          "Què t'agradaria saber?",
+          "Vols recomanacions sobre esdeveniments fallers?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:hola|salutacions?|ei|hey|ep[ae]?|bona\\s+diada|bona\\s+tarda|bona\\s+nit|bon(?:s|es)?\\s+(?:dies?|tardes?|nits?))\\s*[?¿!¡.]*\\s*$",
         "answer": [
           "Hola! 🎉 Sóc Masclet, el teu bot faller amb espurna. En què et puc ajudar avui?",
           "Ei! Com va? Sóc Masclet, preparat per a tot el que necessites.",
@@ -1114,103 +1075,89 @@
         ],
         "followUps": [
           "Sobre quin tema vols parlar?",
-          "T'interessa conèixer algun dada de les Falles?"
+          "T'interessa conèixer alguna dada de les Falles?"
         ]           
       },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*sobre\\s+quin\\s+tema\\s+vols\\s+parlar\\s*[?¿!¡.]*\\s*$",
+        "answer": "Explica'm, t'interessa parlar sobre cultura, gastronomia, indumentària o esdeveniments fallers?",
+        "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*t['’]?interessa\\s+con[eé]ixer\\s+alguna\\s+dada\\s+de\\s+les\\s+falles\\s*[?¿!¡.]*\\s*$",
+        "answer": "Puc explicar-te des de la història, tradicions i curiositats de les Falles. Què t'agradaria saber?",
+        "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*qu[eè]\\s+t['’]?agradaria\\s+saber\\s*[?¿!¡.]*\\s*$",
+        "answer": "Pots preguntar-me sobre cultura, gastronomia, tradicions o qualsevol aspecte relacionat amb les Falles. Sobre quin tema vols informació en concret?",
+        "followUps": ["cultura", "gastronomia", "tradicions", "esdeveniments fallers"]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*vols\\s+recomanacions\\s+sobre\\s+esdeveniments\\s+fallers\\s*[?¿!¡.]*\\s*$",
+        "answer": "Et puc recomanar alguns esdeveniments destacats de les Falles, des de la mascletà fins a la cremà. Vols saber quin és el més rellevant?",
+        "followUps": []
+      },
         {
-            "trigger": "^(sobre\\s+quin\\s+tema\\s+vols\\s+parlar)$",
-            "answer": "Explica'm, t'interessa parlar sobre cultura, gastronomia, vestimenta o esdeveniments fallers?",
-            "followUps": []
+          "trigger": "regex:^\\s*[¿¡]?\\s*(?:com\\s+te\\s+dius|qui\\s+(?:eres|ets)|quin\\s+[ée]s\\s+el\\s+teu\\s+nom)\\s*[?¿!¡.]*\\s*$",
+          "keywords": ["nom del chatbot", "com es diu el bot", "identitat de masclet", "qui ets", "nom de l'assistent"],
+          "answer": [
+          "Sóc Masclet, el teu assistent faller. En què et puc ajudar?",
+          "Em diuen Masclet i estic preparat per orientar-te sobre les Falles."
+          ],
+          "followUps": ["Necessites informació sobre un tema específic?"]
         },
         {
-            "trigger": "^(t'interessa\\s+conèixer\\s+alguna\\s+dada\\s+de\\s+les\\s+Falles)$",
-            "answer": "Puc explicar-te des de la història, tradicions i curiositats de les Falles. Què t'agradaria saber?",
-            "followUps": []
+          "trigger": "regex:^\\s*[¿¡]?\\s*(?:quin\\s+[ée]s\\s+el\\s+teu\\s+color\\s+favorit|quin\\s+color\\s+t'?agrada|tens\\s+algun\\s+color\\s+favorit)\\s*[?¿!¡.]*\\s*$",
+          "keywords": ["color favorit de masclet", "quin color t'agrada", "gustos de masclet", "personalitat de masclet"],
+          "answer": [
+          "El meu color favorit és el roig. Té empenta, té calor i encaixa molt bé amb el caràcter faller.",
+          "Roig, sense dubtar-ho. És un color amb força, com una traca ben llançada i una plaça plena d'emoció."
+          ],
+          "followUps": []
         },
         {
-            "trigger": "^(hola\\s+bot|hola,\\s+bot)\\b",
+          "trigger": "regex:^\\s*[¿¡]?\\s*(?:quin\\s+[ée]s\\s+el\\s+teu\\s+petard\\s+favorit|quin\\s+petard\\s+t'?agrada(?:\\s+m[eé]s)?|quin\\s+petard\\s+prefereixes)\\s*[?¿!¡.]*\\s*$",
+          "keywords": ["petard favorit de masclet", "quin petard t'agrada", "tro de bac masclet", "gustos pirotecnics de masclet"],
+          "answer": [
+          "Si parlem de petards, em quede amb el tro de bac. Té eixe colp sec i valent que no necessita fer-se el gran per fer-se notar.",
+          "La meua debilitat pirotècnica és el tro de bac: menut, contundent i amb molt de caràcter faller."
+          ],
+          "followUps": []
+        },
+        {
+          "trigger": "regex:^\\s*[¿¡]?\\s*(?:t'?agrada\\s+l['’]?olor\\s+(?:de|a)\\s+la\\s+p[oó]lvora|qu[eè]\\s+et\\s+pareix\\s+l['’]?olor\\s+(?:de|a)\\s+la\\s+p[oó]lvora|t'?agrada\\s+la\\s+p[oó]lvora|quina\\s+olor\\s+t'?agrada|quin\\s+[ée]s\\s+el\\s+teu\\s+olor\\s+favorit)\\s*[?¿!¡.]*\\s*$",
+          "keywords": ["olor de polvora masclet", "t'agrada la polvora", "aroma de polvora", "personalitat masclet"],
+          "answer": [
+          "Molt. Quan l'aire fa olor de pólvora, jo ja em pose en mode Falles: carrer despert, banda afinant i ganes de festa.",
+          "Clar que sí. L'olor de pólvora em sona a dia gran, a plaça plena i a xispa ben entesa."
+          ],
+          "followUps": []
+        },
+        {
+          "trigger": "regex:^\\s*[¿¡]?\\s*(?:vull\\s+saber\\s+(?:de|sobre)\\s+les\\s+falles|digues\\s+sobre(?:\\s+les\\s+falles)?|qu[eè]\\s+tal\\s+si\\s+parlem\\s+de(?:\\s+les\\s+falles)?)\\s*[?¿!¡.]*\\s*$",
+          "answer": [
+          "Les Falles són una festa d'enginy i tradició. Puc contar-te història, gastronomia, indumentària i actes principals. Què prefereixes?",
+          "Perfecte. Si vols una visió general, et parle de tradicions, esdeveniments i curiositats falleres. Per on comencem?"
+          ],
+          "followUps": ["història", "esdeveniments", "receptes tradicionals"]
+        },
+        {
+            "trigger": "regex:^\\s*[¿¡]?\\s*(?:qu[eè]\\s+em\\s+recomanes|suggerix(?:-me)?|recomana['’]?m\\s+alguna\\s+cosa)\\s*[?¿!¡.]*\\s*$",
             "answer": [
-          "Hola! Sóc Masclet, com puc ajudar-te avui?",
-          "Ei! Ací Masclet, preparat per ajudar-te."
-            ],
-            "followUps": [
-            "Què t'agradaria saber?",
-            "Vols recomanacions sobre esdeveniments fallers?"
-            ]
-        },
-        {
-            "trigger": "^qu[eè]\\s+tal\\s+si\\s+parlem\\s+de",
-            "answer": [
-            "Eixa és una bona idea. Sobre quin tema t'agradaria conversar?",
-            "Perfecte, digues el tema i et conte el que sé."
-            ],
-            "followUps": ["gastronomia", "tradicions", "esdeveniments fallers"]
-        },
-        {
-            "trigger": "^vull\\s+saber\\s+sobre\\s+les\\s+falles$",
-            "answer": [
-            "Les Falles són una festa d'enginy i tradició. Quin aspecte t'interessa?",
-            "Puc explicar-te des de la història fins a la gastronomia i vestimenta de les Falles. Què prefereixes?"
-            ],
-            "followUps": ["història", "esdeveniments", "receptes tradicionals"]
-        },
-        {
-            "trigger": "^digues\\s+sobre",
-            "answer": [
-            "Clar! Sobre quin tema específic necessites informació?",
-            "Pots preguntar-me sobre qualsevol aspecte de les Falles. Què et crida l'atenció?"
-            ],
-            "followUps": ["cultura", "receptes", "festes"]
-        },
-        {
-            "trigger": "^avui$",
-            "answer": [
-            "Avui és un dia ideal per a celebrar les tradicions falleres. Vols saber quins esdeveniments es realitzen?",
-            "Si t'interessa, puc explicar-te més sobre les activitats d'avui en les Falles."
-            ],
-            "followUps": ["gastronomia", "vestimenta", "esdeveniments"]
-        },
-        {
-            "trigger": "^què\\s+em\\s+recomanes$",
-            "answer": [
-            "Et recomane explorar els nostres continguts sobre vestimenta i gastronomia, dos pilars de la cultura fallera.",
-            "Si busques alguna cosa especial, què tal conèixer els plats típics o els vestits tradicionals?"
+            "Et recomane començar pels actes grans: mascletà, Ofrena i cremà. Si vols, també et puc portar per gastronomia o indumentària.",
+          "Si busques una bona ruta, jo començaria per indumentària i gastronomia, dos pilars molt visibles de la cultura fallera."
             ],
             "followUps": ["vestits de fallera", "receptes de paella"]
         },
         {
-            "trigger": "^suggerix$",
+            "trigger": "regex:^\\s*[¿¡]?\\s*(?:avui|qu[eè]\\s+hi\\s+ha\\s+avui|qu[eè]\\s+es\\s+fa\\s+avui|pla\\s+per\\s+al\\s+d[ií]a)\\s*[?¿!¡.]*\\s*$",
             "answer": [
-            "Et suggereixc que comences per una visita virtual als monuments fallers o que explores receptes tradicionals.",
-            "Considera revisar les nostres seccions de cultura i gastronomia per a una visió completa."
+            "Avui és un dia ideal per a celebrar les tradicions falleres. Vols saber quins esdeveniments es fan?",
+            "Si t'interessa, puc contar-te més sobre les activitats d'avui en les Falles."
             ],
-            "followUps": ["Quin tema vols començar?"]
+          "followUps": ["gastronomia", "indumentària", "esdeveniments"]
         },
-        {
-          "trigger": "^pla\\s+per\\s+al\\s+d[ií]a$",
-          "answer": [
-          "Avui et recomane conèixer el calendari d'esdeveniments i gaudir de l'autèntica paella valenciana.",
-          "Un bon pla és informar-te de les activitats i delectar-te amb la gastronomia local."
-          ],
-          "followUps": ["Vols saber sobre els esdeveniments o els plats típics?"]
-        }, 
-      {
-        "trigger": ["^\\s*(¡+)?\\s*(hola|buenas|salutacions|hey|ei|ep[a|e]?)\\s*(!+)?\\s*$", "^\\s*(¡+)?\\s*bon(s|es)?\\s+(dies?|tardes?|nits?)\\s*(!+)?\\s*$", "^\\s*(¿+)?\\s*qu[eè]\\s+tal\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*com\\s+(est[aà](s|u|eu)?|va(s|u|eu)?)\\s*(\\?+)?\\s*$"],
-        "answer": "Hola! En què puc ajudar-te?",
-        "followUps": [
-          "Com estàs?",
-          "Quins serveis oferixes?",
-          "Pots ajudar-me amb algo específic?"
-        ]
-      },
-      {
-        "trigger": ["^\\s*(¿+)?\\s*com\\s+(est[aà](s|u|eu)?|va(s|u|eu)?|te\\s+(trobes?|sents?))\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*qu[eè]\\s+tal\\s+(est[aà](s|u|eu)?|va(s|u|eu)?)?\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*tot\\s+(b[eé]n?|ok|okay|perfecte|genial)\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*com\\s+(va|anda)\\s+(tot|la\\s+cosa|el\\s+dia)\\s*(\\?+)?\\s*$"],
-        "answer": "Estic bé, gràcies. I tu?",
-        "followUps": [
-          "Què pots fer per mi?",
-          "Tens alguna funció especial?"
-        ]
-      },
       {
         "trigger": ["^\\s*(¿+)?\\s*com\\s+funciona\\s+(aquest\\s+|el\\s+)?x[aà]t\\s*[_-]?bot\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*(com\\s+)?funciona(ment)?\\s+(del?\\s+)?x[aà]t\\s*[_-]?bot\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*qu[eè]\\s+(fa|és|significa)\\s+(aquest\\s+|un\\s+)?x[aà]t\\s*[_-]?bot\\s*(\\?+)?\\s*$", "^\\s*(¿+)?\\s*(explica('|')m|digues-me)\\s+(com\\s+)?funciona\\s*(a(i|í)x[oò]|el\\s+bot)\\s*(\\?+)?\\s*$"],
         "answer": "Aquest xatbot utilitza la llibreria Fuse.js per a proporcionar respostes intel·ligents basades en coincidències de text. Pots interactuar amb mi escrivint preguntes i rebràs respostes rellevants.",
@@ -1251,20 +1198,20 @@
         "followUps": ["Recepta completa de bunyols?", "On comprar els millors?", "Quan es mengen tradicionalment?"]
       },
       {
-        "trigger": ["^(?:vestit)\\s+de\\s+fallera$", "^(?:traje)\\s+faller$", "^(?:vestimenta)\\s+fallera$"],
-        "keywords": ["indumentaria valenciana dona", "vestit regional", "falda de seda", "mocador de manila", "joies falleres"],
-        "answer": "El vestit de fallera és una vestimenta tradicional valenciana molt elaborada. Consta de cosset, faldilla de seda, davantal, mocador de Manila, joies tradicionals com arracades i collars, i pinta.",
+        "trigger": ["^(?:vestit)\\s+de\\s+fallera$", "^(?:indument[àa]ria)\\s+fallera$"],
+        "keywords": ["indumentària valenciana de dona", "vestit regional", "falda de seda", "mocador de manila", "joies falleres"],
+        "answer": "El vestit de fallera és una indumentària tradicional valenciana molt elaborada. Consta de cosset, faldilla de seda, davantal, mocador de Manila, joies tradicionals com arracades i collars, i pinta.",
         "followUps": ["Quin tipus de teles s'usen?", "Quines són les joies tradicionals?", "Com es fa el pentinat?"]
       },
       {
-        "trigger": ["^(?:vestit)\\s+de\\s+faller$", "^(?:traje)\\s+de\\s+faller$"],
-        "keywords": ["indumentaria valenciana home", "armilla i faixa", "barretina", "espardenyes", "traje tradicional masculi"],
-        "answer": "El vestit de faller inclou camisa blanca, armilla, faixa, pantaló negre, espardenyes i barretina. És una vestimenta tradicional valenciana elegant i còmoda.",
+        "trigger": ["^(?:vestit)\\s+de\\s+faller$", "^(?:indument[àa]ria)\\s+fallera\\s+masculina$"],
+        "keywords": ["indumentària valenciana d'home", "armilla i faixa", "barretina", "espardenyes", "vestit tradicional masculí"],
+        "answer": "El vestit de faller inclou camisa blanca, armilla, faixa, pantaló negre, espardenyes i barretina. És una indumentària tradicional valenciana elegant i còmoda.",
         "followUps": ["Què és la barretina?", "Com es lliga la faixa?", "Hi ha variacions del vestit?"]
       },
       {
         "trigger": ["^(?:paella)\\s+valenciana$", "^(?:paella)$", "^(?:recepta)\\s+paella$"],
-        "keywords": ["arròs valencia", "plat tipic", "socarrat", "pollastre i conill", "cuina valenciana"],
+        "keywords": ["arròs valencià", "plat típic", "socarrat", "pollastre i conill", "cuina valenciana"],
         "answer": "La paella valenciana és el plat més emblemàtic de València. Els ingredients tradicionals són: arròs bomba, pollastre, conill, garrofó, baioqueta, tomaquet, pebrella, safrà i oli d'oliva.",
         "followUps": ["Com es fa pas a pas?", "On menjar la millor paella?", "Què és el socarrat?"]
       }
@@ -1277,117 +1224,128 @@
     "vestimenta": {
       "mujeres": [
         {
-          "trigger": ["^(?:fallera)\\s+dress$", "^(?:traditional)\\s+valencian\\s+costume$"],
-          "answer": "The fallera dress is a traditional Valencian costume with elaborate details. It consists of a bodice, skirt, apron, Manila shawl, and traditional jewelry like earrings and necklaces.",
-          "followUps": ["What fabrics are used?", "What are the traditional jewels?", "Are there regional differences?"]
+          "trigger": ["^(?:vestit)\\s+de\\s+fallera$", "^(?:indument[àa]ria)\\s+valenciana\\s+tradicional$"],
+          "answer": "El vestit de fallera és una indumentària tradicional valenciana molt elaborada. Consta de cosset, falda, davantal, mocador de Manila i joies tradicionals com arracades i collars.",
+          "followUps": ["Quins teixits s'utilitzen?", "Quines són les joies tradicionals?", "Hi ha diferències regionals?"]
         }
       ],
       "hombres": [
         {
-          "trigger": ["^(?:fallero)\\s+outfit$", "^(?:men)\\s+traditional\\s+costume$"],
-          "answer": "The fallero outfit includes a white shirt, vest, sash, black pants, espadrilles, and barretina (traditional cap). It's an elegant and comfortable traditional Valencian attire.",
-          "followUps": ["What is a barretina?", "How to tie the sash?", "Are there variations?"]
+          "trigger": ["^(?:vestit)\\s+de\\s+faller$", "^(?:indument[àa]ria)\\s+tradicional\\s+masculina$"],
+          "answer": "El vestit de faller inclou camisa blanca, armilla, faixa, pantaló negre, espardenyes i barretina. És una indumentària tradicional valenciana elegant i còmoda.",
+          "followUps": ["Què és la barretina?", "Com es lliga la faixa?", "Hi ha variacions del vestit?"]
         }
       ]
     },
     "comidaTipica": {
       "dulce": [
         {
-          "trigger": ["^(?:buñuelos)$", "^(?:traditional)\\s+sweets$"],
-          "answer": "Buñuelos de viento are the traditional Fallas sweets. They're made with fried dough and sprinkled with sugar. They're essential during the Fallas festivities.",
-          "followUps": ["How are buñuelos made?", "What other sweets are there?", "When are they traditionally eaten?"]
+          "trigger": ["^(?:bunyols?)$", "^(?:dol[cç]os?)\\s+tradicionals$"],
+          "answer": "Els bunyols de vent són una de les dolçaines més tradicionals de les Falles. Es fan amb massa fregida, s'empolvoren amb sucre i són imprescindibles durant la festa.",
+          "followUps": ["Com es fan els bunyols?", "Quins altres dolços hi ha?", "Quan es mengen tradicionalment?"]
         }
       ],
       "salada": [
         {
-          "trigger": ["^(?:valencian)\\s+paella$", "^(?:how)\\s+to\\s+make\\s+paella$"],
-          "answer": "Valencian paella is the most emblematic dish. It's made with rice, beans, green beans, chicken, rabbit, saffron, and olive oil in a paella pan over wood fire.",
-          "followUps": ["What ingredients exactly?", "How to make the sofrito?", "What wood to use?"]
+          "trigger": ["^(?:paella)\\s+valenciana$", "^(?:com)\\s+fer\\s+paella$"],
+          "answer": "La paella valenciana és el plat més emblemàtic. Es fa amb arròs, garrofó, bajoqueta, pollastre, conill, safrà i oli d'oliva en una paella sobre foc de llenya.",
+          "followUps": ["Quins ingredients porta exactament?", "Com es fa el sofregit?", "Quina llenya s'utilitza?"]
         }
       ]
     },
     "festejosReligiosos": {
       "patrones": [
         {
-          "trigger": ["^(?:virgin)\\s+of\\s+the\\s+helpless$", "^(?:patron)\\s+of\\s+valencia$"],
-          "answer": "The Virgin of the Helpless is Valencia's patron saint. Her festivity is celebrated on the second Sunday of May with processions and massive flower offerings.",
-          "followUps": ["When is the offering?", "How to participate in the procession?", "Where is the basilica?"]
+          "trigger": ["^(?:mare)\\s+de\\s+d[eé]u\\s+dels\\s+desemparats$", "^(?:patrona)\\s+de\\s+val[eè]ncia$"],
+          "answer": "La Mare de Déu dels Desemparats és la patrona de València. La seua festa se celebra el segon diumenge de maig amb processons i ofrenes florals multitudinàries.",
+          "followUps": ["Quan és l'ofrena?", "Com participar en la processó?", "On és la basílica?"]
         }
       ],
       "procesiones": [
         {
-          "trigger": ["^(?:corpus)\\s+christi\\s+procession$", "^(?:flower)\\s+carpets$"],
-          "answer": "The Corpus Christi procession is a religious tradition where flower carpets are created on the streets. Falleras mayores and authorities participate.",
-          "followUps": ["When is Corpus?", "How are carpets made?", "What route does it take?"]
+          "trigger": ["^(?:process[oó])\\s+del\\s+corpus$", "^(?:catifes?)\\s+de\\s+flors$"],
+          "answer": "La processó del Corpus Christi és una tradició religiosa en què es fan catifes de flors pels carrers. Hi participen falleres majors i autoritats.",
+          "followUps": ["Quan és el Corpus?", "Com es fan les catifes?", "Quin recorregut té?"]
         }
       ],
       "ofrendas": [
         {
-          "trigger": ["^(?:flower)\\s+offering$", "^(?:how)\\s+to\\s+participate\\s+in\\s+offering$"],
+          "trigger": ["^(?:ofrena)\\s+de\\s+flors$", "^(?:com)\\s+participar\\s+en\\s+l['’]ofrena$"],
           "keywords": ["ofrena de flors", "mare de deu dels desemparats", "mantell floral", "acte religios", "participar en l'ofrena"],
-          "answer": "The flower offering to the Virgin of the Helpless is one of the most emotional acts. Thousands of falleras and falleros deposit flowers forming a giant mantle.",
-          "followUps": ["What flowers are used?", "How long does the offering last?", "How to register?"]
+          "answer": "L'ofrena de flors a la Mare de Déu dels Desemparats és un dels actes més emotius. Milers de falleres i fallers dipositen flors fins a formar un gran mantell.",
+          "followUps": ["Quines flors s'hi utilitzen?", "Quant dura l'ofrena?", "Com s'hi pot inscriure algú?"]
         }
       ]
     },
     "festejosPopulares": {
       "tradiciones": [
         {
-          "trigger": ["^(?:plantà)$", "^(?:when)\\s+are\\s+fallas\\s+erected$"],
-          "keywords": ["planta de les falles", "muntar monuments", "alçar ninots", "inici de la festa", "muntatge faller"],
-          "answer": "The plantà is when the falla monuments are assembled in their final locations. It usually takes place between March 15th and 16th.",
-          "followUps": ["How long does assembly take?", "Who assembles them?", "Can the process be watched?"]
+          "trigger": ["^(?:plant[aà])$", "^(?:quan)\\s+es\\s+planten\\s+les\\s+falles$"],
+          "keywords": ["plantà de les falles", "muntar monuments", "alçar ninots", "inici de la festa", "muntatge faller"],
+          "answer": "La plantà és el moment en què els monuments fallers es munten a la seua ubicació definitiva. Sol fer-se entre el 15 i el 16 de març.",
+          "followUps": ["Quant tarda el muntatge?", "Qui les munta?", "Es pot vore el procés?"]
         },
         {
-          "trigger": ["^(?:cremà)$", "^(?:when)\\s+are\\s+fallas\\s+burned$"],
-          "answer": "The cremà is the final act where all falla monuments are burned on the night of March 19th, St. Joseph's Day. It's the most emotional moment of the festivities.",
-          "followUps": ["What time does it start?", "Which burns first?", "What is saved from fire?"]
+          "trigger": ["^(?:crem[aà])$", "^(?:quan)\\s+es\\s+cremen\\s+les\\s+falles$"],
+          "answer": "La cremà és l'acte final en què es cremen tots els monuments fallers la nit del 19 de març, dia de Sant Josep. És el moment més emotiu de la festa.",
+          "followUps": ["A quina hora comença?", "Quina es crema primer?", "Què se salva del foc?"]
         }
       ],
       "pirotecnia": [
         {
-          "trigger": ["^(?:mascletà)$", "^(?:when)\\s+is\\s+the\\s+mascletà$"],
-          "keywords": ["mascleta", "pirotecnia diurna", "disparada de migdia", "soroll faller", "placa de l'ajuntament"],
-          "answer": "The mascletà is a daytime fireworks show held at 2:00 PM in the Town Hall Square. It's famous for its rhythm and deafening noise.",
-          "followUps": ["Since when has it existed?", "Who shoots it?", "What's the best viewing location?"]
+          "trigger": ["^(?:masclet[aà])$", "^(?:quan)\\s+[ée]s\\s+la\\s+masclet[aà]$"],
+          "keywords": ["mascletà", "pirotècnia diürna", "disparada de migdia", "soroll faller", "plaça de l'ajuntament"],
+          "answer": "La mascletà és un espectacle pirotècnic diürn que se celebra a les 14.00 a la plaça de l'Ajuntament. És famosa pel seu ritme i per l'estrèpit eixordador.",
+          "followUps": ["Des de quan existeix?", "Qui la dispara?", "Quin és el millor lloc per a vore-la?"]
         }
       ],
       "musica": [
         {
-          "trigger": ["^(?:music)\\s+band$", "^(?:falla)\\s+music$"],
-          "answer": "Music bands accompany all falla events. They play pasodobles, hymns, and traditional Valencian marches that bring the celebrations to life.",
-          "followUps": ["What songs are traditional?", "How to join a band?", "When do they perform?"]
+          "trigger": ["^(?:banda)\\s+de\\s+m[uú]sica$", "^(?:m[uú]sica)\\s+fallera$"],
+          "answer": "Les bandes de música acompanyen tots els actes fallers. Interpreten pasdobles, himnes i marxes tradicionals valencianes que donen vida a la festa.",
+          "followUps": ["Quines peces són tradicionals?", "Com es pot entrar en una banda?", "Quan actuen?"]
         }
       ],
       "baile": [
         {
-          "trigger": ["^(?:muixeranga)$", "^(?:traditional)\\s+dances$"],
-          "answer": "Muixeranga is a traditional Valencian dance with human towers. It's danced during Fallas festivities and is UNESCO Intangible Cultural Heritage.",
-          "followUps": ["How is a tower formed?", "Where can it be seen?", "How to learn to dance it?"]
+          "trigger": ["^(?:muixeranga)$", "^(?:danses)\\s+tradicionals$"],
+          "answer": "La muixeranga és una dansa tradicional valenciana amb torres humanes. Es balla durant les Falles i és Patrimoni Cultural Immaterial de la Humanitat.",
+          "followUps": ["Com es forma una torre?", "On es pot veure?", "Com es pot aprendre a ballar-la?"]
         }
       ]
     },
     "monumentos": [
       {
-        "trigger": ["^(?:what)\\s+are\\s+fallas$", "^(?:falla)\\s+monuments$"],
-        "keywords": ["monuments fallers", "ninots", "satira valenciana", "carto pedra", "artistes fallers"],
-        "answer": "Fallas are artistic monuments made of cardboard, wood, and cork representing satirical scenes. They're built over months and burned in the cremà.",
-        "followUps": ["Who designs them?", "How much do they cost?", "How are themes chosen?"]
+        "trigger": ["^(?:qu[eè])\\s+s[oó]n\\s+les\\s+falles$", "^(?:monuments)\\s+fallers$"],
+        "keywords": ["monuments fallers", "ninots", "sàtira valenciana", "cartó pedra", "artistes fallers"],
+        "answer": "Les falles són monuments artístics de cartó, fusta i suro que representen escenes satíriques. Es construeixen durant mesos i es cremen en la cremà.",
+        "followUps": ["Qui les dissenya?", "Quant costen?", "Com es trien els temes?"]
       }
     ],
     "puestosPersonal": [
       {
-        "trigger": ["^(?:fallera)\\s+mayor$", "^(?:what)\\s+does\\s+fallera\\s+mayor\\s+do$"],
-        "keywords": ["fallera major", "representant de les falles", "ambaixadora fallera", "maxima representant", "carrec festiu"],
-        "answer": "The Fallera Mayor is the maximum representative of the festivities. She presides over official acts, processions, and is an ambassador of falla culture during her reign.",
-        "followUps": ["How is she chosen?", "How long does the position last?", "What are the requirements?"]
+        "trigger": ["^(?:fallera)\\s+major$", "^(?:qu[eè])\\s+fa\\s+la\\s+fallera\\s+major$"],
+        "keywords": ["fallera major", "representant de les falles", "ambaixadora fallera", "màxima representant", "càrrec festiu"],
+        "answer": "La Fallera Major és la màxima representant de la festa. Presideix actes oficials, processons i és ambaixadora de la cultura fallera durant el seu regnat.",
+        "followUps": ["Com s'elegeix?", "Quant dura el càrrec?", "Quins requisits hi ha?"]
       }
     ]
   },
   "en": {
     "knowledgeBase": [
       {
-        "trigger": ["^\\s*(hello|hi|hey|greetings?|hiya|howdy)\\s*(!+)?\\s*$", "^\\s*good\\s+(morning|afternoon|evening|day)\\s*(!+)?\\s*$", "^\\s*what'?s\\s+up\\s*(\\?+)?\\s*$", "^\\s*(yo|sup|wassup|what'?s\\s+good)\\s*(\\?+)?\\s*$"],
+        "trigger": "regex:^\\s*(?:hello|hi|hey)\\s*,?\\s*(?:masclet|bot)\\s*[!?.]*\\s*$",
+        "answer": [
+          "Hello! I'm Masclet. How can I assist you today?",
+          "Hi, I'm Masclet and I'm ready to help."
+        ],
+        "followUps": [
+          "What would you like to know?",
+          "Do you want recommendations about Fallas events?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*(?:hello|hi|hey|greetings?|hiya|howdy|yo|sup|wassup|what'?s\\s+good|good\\s+(?:morning|afternoon|evening|day))\\s*[!?.]*\\s*$",
         "answer": "Hello! How can I assist you?",
         "followUps": [
           "How are you?",
@@ -1396,7 +1354,7 @@
         ]
       },
       {
-        "trigger": ["^\\s*how\\s+(are\\s+you|'?re\\s+you|ya\\s+doing|you\\s+doing)\\s*(\\?+)?\\s*$", "^\\s*how'?s\\s+it\\s+(going|hanging)\\s*(\\?+)?\\s*$", "^\\s*what'?s\\s+up\\s*(with\\s+you)?\\s*(\\?+)?\\s*$", "^\\s*(how\\s+do\\s+you\\s+do|how\\s+are\\s+things|you\\s+(good|ok|alright))\\s*(\\?+)?\\s*$"],
+        "trigger": "regex:^\\s*(?:how\\s+(?:are\\s+you|ya\\s+doing|you\\s+doing)|how'?s\\s+it\\s+(?:going|hanging)|what'?s\\s+up(?:\\s+with\\s+you)?|how\\s+do\\s+you\\s+do|how\\s+are\\s+things|you\\s+(?:good|ok|alright))\\s*[?!.]*\\s*$",
         "answer": "I'm doing well, thank you. How about you?",
         "followUps": [
           "What can you do for me?",
@@ -1422,6 +1380,42 @@
       {
         "trigger": ["^\\s*do\\s+i\\s+need\\s+(an?\\s+)?account\\s*(\\?+)?\\s*$", "^\\s*(is\\s+)?(registration|signup|sign-up)\\s+(required|needed|necessary)\\s*(\\?+)?\\s*$", "^\\s*do\\s+i\\s+(have\\s+to|need\\s+to)\\s+(register|sign\\s+up|create\\s+an?\\s+account)\\s*(\\?+)?\\s*$", "^\\s*(must|should)\\s+i\\s+(register|create\\s+an?\\s+account)\\s*(\\?+)?\\s*$"],
         "answer": "No, you don't need an account to use this chatbot. It's a free service accessible to all website visitors.",
+        "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*(?:what'?s\\s+your\\s+name|who\\s+are\\s+you|what\\s+are\\s+you\\s+called)\\s*[?!.]*\\s*$",
+        "keywords": ["chatbot name", "assistant name", "masclet identity", "who are you", "bot introduction"],
+        "answer": [
+          "I'm Masclet, your falla assistant. How can I help you?",
+          "My name is Masclet and I'm ready to guide you through the Fallas."
+        ],
+        "followUps": ["Do you need information about a specific topic?"]
+      },
+      {
+        "trigger": "regex:^\\s*(?:(?:what(?:'s|\\s+is))\\s+your\\s+favorite\\s+color|what\\s+color\\s+do\\s+you\\s+like|do\\s+you\\s+have\\s+a\\s+favorite\\s+color)\\s*[?!.]*\\s*$",
+        "keywords": ["masclet favorite color", "what color do you like", "masclet personality", "favorite color"],
+        "answer": [
+          "My favorite color is red. It has nerve, warmth and the same bold energy that runs through the Fallas.",
+          "Red, without hesitation. It feels strong and lively, like a square buzzing just before the mascletà starts."
+        ],
+        "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*(?:what'?s\\s+your\\s+favorite\\s+firecracker|what\\s+firecracker\\s+do\\s+you\\s+like(?:\\s+most)?|which\\s+firecracker\\s+do\\s+you\\s+prefer)\\s*[?!.]*\\s*$",
+        "keywords": ["masclet favorite firecracker", "what firecracker do you like", "tro de bac masclet", "masclet personality"],
+        "answer": [
+          "If we're talking about firecrackers, my pick is the tro de bac. It is short, sharp and full of character.",
+          "I have a soft spot for the tro de bac: compact, punchy and very fallero in spirit."
+        ],
+        "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*(?:do\\s+you\\s+like\\s+(?:the\\s+)?smell\\s+of\\s+gunpowder|how\\s+do\\s+you\\s+feel\\s+about\\s+the\\s+smell\\s+of\\s+gunpowder|do\\s+you\\s+like\\s+gunpowder|what\\s+smell\\s+do\\s+you\\s+like|what\\s+is\\s+your\\s+favorite\\s+smell)\\s*[?!.]*\\s*$",
+        "keywords": ["smell of gunpowder masclet", "do you like gunpowder", "gunpowder aroma", "masclet personality"],
+        "answer": [
+          "Very much. When the air smells like gunpowder, I know the city is waking up in full Fallas mode.",
+          "Absolutely. The smell of gunpowder feels like a big day ahead: people gathering, music tuning up and sparks on the way."
+        ],
         "followUps": []
       },
       {
@@ -1579,7 +1573,18 @@
   "fr": {
     "knowledgeBase": [
       {
-        "trigger": ["^\\s*(bonjour|salut|bonsoir|bonne\\s+(journ[eé]e|soir[eé]e)|re)\\s*(!+)?\\s*$", "^\\s*(hey|coucou|hello)\\s*(!+)?\\s*$", "^\\s*(ça\\s+va|quoi\\s+de\\s+neuf)\\s*(\\?+)?\\s*$"],
+        "trigger": "regex:^\\s*(?:bonjour|salut|coucou|hello|hey)\\s*,?\\s*(?:masclet|bot)\\s*[!?.]*\\s*$",
+        "answer": [
+          "Bonjour ! Je suis Masclet. Comment puis-je vous aider aujourd'hui ?",
+          "Salut, c'est Masclet. Je suis prêt à vous aider."
+        ],
+        "followUps": [
+          "Que voulez-vous savoir ?",
+          "Souhaitez-vous des recommandations sur les événements des Fallas ?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*(?:bonjour|salut|bonsoir|bonne\\s+(?:journ[eé]e|soir[eé]e)|re|hey|coucou|hello)\\s*[!?.]*\\s*$",
         "answer": "Bonjour! Comment puis-je vous aider?",
         "followUps": [
           "Comment allez-vous?",
@@ -1588,7 +1593,7 @@
         ]
       },
       {
-        "trigger": ["^\\s*comment\\s+(ça\\s+va|allez-vous|vous\\s+portez-vous|tu\\s+vas?)\\s*(\\?+)?\\s*$", "^\\s*(ça\\s+va|tu\\s+vas?)\\s+(bien)?\\s*(\\?+)?\\s*$", "^\\s*tout\\s+(va\\s+bien|est\\s+ok)\\s*(\\?+)?\\s*$", "^\\s*(vous\\s+allez|tu\\s+vas)\\s+(comment|bien)\\s*(\\?+)?\\s*$"],
+        "trigger": "regex:^\\s*(?:comment\\s+(?:ça\\s+va|allez-?vous|vous\\s+portez-?vous|tu\\s+vas?)|ça\\s+va(?:\\s+bien)?|tu\\s+vas?(?:\\s+bien)?|tout\\s+(?:va\\s+bien|est\\s+ok)|(?:vous\\s+allez|tu\\s+vas)\\s+(?:comment|bien)|quoi\\s+de\\s+neuf)\\s*[?!.]*\\s*$",
         "answer": "Je vais bien, merci. Et vous?",
         "followUps": [
           "Que pouvez-vous faire pour moi?",
@@ -1614,6 +1619,42 @@
       {
         "trigger": ["^\\s*do\\s+j'ai\\s+besoin\\s+(d'un?\\s+)?compte\\s*(\\?+)?\\s*$", "^\\s*(est\\s+)?(l'inscription|la création|s'inscrire)\\s+(requise|nécessaire)\\s*(\\?+)?\\s*$", "^\\s*do\\s+j'ai\\s+(à|besoin)\\s+(m'inscrire|créer\\s+un?\\s+compte)\\s*(\\?+)?\\s*$", "^\\s*(dois|devrais)\\s+j'ai\\s+(m'inscrire|créer\\s+un?\\s+compte)\\s*(\\?+)?\\s*$"],
         "answer": "Non, vous n'avez pas besoin d'un compte pour utiliser ce chatbot. C'est un service gratuit et accessible à tous les visiteurs du site web.",
+        "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*(?:comment\\s+t['’]?appelles?-?tu|quel\\s+est\\s+ton\\s+nom|qui\\s+es-?tu)\\s*[?!.]*\\s*$",
+        "keywords": ["nom du chatbot", "identité de masclet", "qui es-tu", "nom de l'assistant", "présentation du bot"],
+        "answer": [
+          "Je suis Masclet, votre assistant fallero. Comment puis-je vous aider ?",
+          "Mon nom est Masclet et je suis prêt à vous guider à travers les Fallas."
+        ],
+        "followUps": ["Avez-vous besoin d'informations sur un sujet précis ?"]
+      },
+      {
+        "trigger": "regex:^\\s*(?:quelle\\s+est\\s+ta\\s+couleur\\s+pr[ée]f[ée]r[ée]e|quelle\\s+couleur\\s+aimes?-?tu|as-?tu\\s+une\\s+couleur\\s+pr[ée]f[ée]r[ée]e)\\s*[?!.]*\\s*$",
+        "keywords": ["couleur préférée de masclet", "quelle couleur aimes-tu", "personnalité de masclet", "couleur favorite"],
+        "answer": [
+          "Ma couleur préférée, c'est le rouge. Il a de l'élan, de la chaleur et un vrai tempérament fallero.",
+          "Rouge, sans hésiter. C'est une couleur vive et pleine de force, comme la place juste avant la mascletà."
+        ],
+        "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*(?:quel\\s+est\\s+ton\\s+p[ée]tard\\s+pr[ée]f[ée]r[ée]|quel\\s+p[ée]tard\\s+aimes?-?tu(?:\\s+le\\s+plus)?|quel\\s+p[ée]tard\\s+pr[ée]f[èe]res?-?tu)\\s*[?!.]*\\s*$",
+        "keywords": ["pétard préféré de masclet", "quel pétard aimes-tu", "tro de bac masclet", "personnalité de masclet"],
+        "answer": [
+          "Si l'on parle de pétards, je choisis le tro de bac. Il est bref, sec et plein de caractère.",
+          "J'ai un faible pour le tro de bac : compact, percutant et très fallero dans l'âme."
+        ],
+        "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*(?:aimes?-?tu\\s+l['’]odeur\\s+de\\s+la\\s+poudre|que\\s+penses?-?tu\\s+de\\s+l['’]odeur\\s+de\\s+la\\s+poudre|aimes?-?tu\\s+la\\s+poudre|quelle\\s+odeur\\s+aimes?-?tu|quelle\\s+est\\s+ton\\s+odeur\\s+pr[ée]f[ée]r[ée]e)\\s*[?!.]*\\s*$",
+        "keywords": ["odeur de poudre masclet", "aimes-tu la poudre", "arome de poudre", "personnalité de masclet"],
+        "answer": [
+          "Oui, beaucoup. Quand l'air sent la poudre, j'ai l'impression que la ville se réveille en plein esprit des Fallas.",
+          "Bien sûr. L'odeur de la poudre annonce pour moi une grande journée: la foule arrive, la musique s'accorde et l'étincelle n'est plus loin."
+        ],
         "followUps": []
       },
       {
