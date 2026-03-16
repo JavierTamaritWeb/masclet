@@ -5,16 +5,17 @@ Masclet es un chatbot sobre las Fallas de València con dos superficies de uso:
 - una demo completa en `src/index.html`
 - un widget standalone en `src/chatbot.html`, pensado para cargarse dentro de un `iframe`
 
-El proyecto combina coincidencia directa, búsqueda difusa con Fuse.js y sugerencias guiadas sobre una base de conocimiento multilenguaje centralizada en `src/data/knowledge.json`.
+El proyecto combina resolución temporal, clasificación CASCADE por familias, coincidencia directa por regex, búsqueda difusa con Fuse.js y sugerencias guiadas sobre una base de conocimiento multilenguaje centralizada en `src/data/knowledge.json`.
 
 ## Qué incluye
 
 - Selector de idioma con soporte para `es`, `va`, `en` y `fr`.
 - Persistencia de idioma activo en navegador.
-- Motor de respuesta en tres capas: coincidencia directa, Fuse.js y fallback guiado.
-- Base de conocimiento única con bloques por idioma y categorías anidadas.
+- Motor de respuesta en cinco capas: temporal, CASCADE, coincidencia directa, Fuse.js y fallback guiado.
+- Sistema CASCADE de clasificación por familias temáticas antes de la búsqueda global.
+- Base de conocimiento única con bloques por idioma y categorías anidadas (256 intents ES, 38 VA, 30 EN, 29 FR).
 - Widget embebible mediante `window.MascletEmbed.init()` o atributos `data-*`.
-- Suite Jest para validar matching, Fuse y helpers de idioma.
+- Suite Jest con 197 tests para validar matching directo, CASCADE, Fuse, helpers de idioma y regresiones multilenguaje.
 
 ## Requisitos
 
@@ -35,7 +36,7 @@ npm run dev
 | Script | Qué hace |
 | :----- | :------- |
 | `npm run dev` | Ejecuta la tarea por defecto de Gulp: limpia y reconstruye `dist/`, arranca BrowserSync y observa cambios en HTML, JS, SCSS, imágenes y datos. |
-| `npm run build` | Limpia `dist/`, copia recursos estáticos y compila todos los entrypoints SCSS a CSS expandido y minificado. |
+| `npm run build` | Limpia `dist/`, copia recursos estáticos, genera variantes `.webp` y `.avif` para cada `.png` y `.jpg/.jpeg` de `src/img`, y compila todos los entrypoints SCSS a CSS expandido y minificado. |
 | `npm run sass` | Recompila solo `src/scss/*.scss` excepto parciales `_*.scss` y deja los resultados en `dist/css`. |
 | `npm test` | Ejecuta la suite Jest de NLP y helpers del runtime. |
 
@@ -61,6 +62,7 @@ package.json            # scripts y dependencias de desarrollo
 - El build no transpila ni empaqueta JavaScript: copia `src/**/*.js` tal cual a `dist/js`.
 - Los HTML cargan dependencias de navegador por CDN: Fuse.js, Lodash, Compromise y Lucide.
 - Gulp compila cada archivo SCSS de primer nivel en `src/scss/` y genera versión expandida y `.min.css`.
+- `src/img/` se copia a `dist/img` conservando los originales y además genera versiones `.webp` y `.avif` optimizadas para peso, manteniendo la misma estructura de carpetas.
 - `src/data/` se copia íntegro a `dist/data`.
 - `dist/` se elimina antes de cada build para evitar artefactos obsoletos.
 
@@ -75,6 +77,38 @@ No edites `dist/` manualmente. Siempre trabaja sobre `src/`.
 - categorías anidadas como `vestimenta`, `comidaTipica`, `festejosReligiosos`, `festejosPopulares`, `monumentos` o `puestosPersonal`.
 
 El runtime aplana el árbol de forma recursiva, así que una entrada puede vivir en `knowledgeBase` o dentro de una subcategoría sin cambiar la forma de búsqueda.
+
+### Mapa de categorías (bloque `es`)
+
+```text
+knowledgeBase ................... 39 intents (saludos, identidad, personalidad, genéricos)
+vestimenta/
+  mujeres ...................... 36 intents
+  hombres ...................... 14 intents
+  historia ..................... 10 intents
+  tejidos ......................  6 intents
+  peinado ......................  7 intents
+  orfebreria ...................  5 intents
+comidaTipica/
+  dulce ........................ 11 intents
+  salada ....................... 27 intents
+festejosReligiosos/
+  patrones .....................  5 intents
+  procesiones ..................  3 intents
+  ofrendas ..................... 13 intents
+festejosPopulares/
+  tradiciones .................. 21 intents
+  pirotecnia ...................  7 intents
+  musica .......................  4 intents
+  baile ........................  3 intents
+  historia ..................... 10 intents
+  organizacion .................  6 intents
+  logistica ....................  8 intents
+monumentos ...................... 17 intents
+puestosPersonal .................  4 intents
+                               ─────────────
+                          Total  256 intents
+```
 
 Ejemplo mínimo:
 
@@ -111,14 +145,34 @@ Campos soportados por entrada:
 - Mantén separadas las familias de saludo nominal, saludo genérico y bienestar en cada idioma para evitar colisiones.
 - Si añades un idioma nuevo, no basta con tocar `knowledge.json`: también hay que ampliar `LANGUAGE_CONFIGS` en `src/js/app.js` y añadir la opción al selector en `src/index.html` y `src/chatbot.html`.
 
+### Buenas prácticas para triggers regex
+
+- Usar `faller[ao]?` (no `faller`) antes de fin de patrón, para casar con "fallera" y "fallero".
+- `\w` en JavaScript no captura caracteres acentuados; usar `[a-záéíóúüñç]` si se necesita clase de carácter amplia.
+- Anclar con `\s*[?¿!¡.]*\s*$` al final para tolerar signos de puntuación opcionales.
+- Acomodar plurales con `(?:las?\s+)?falleras?` en vez de `(?:la\s+)?fallera`.
+- Añadir variantes verbales en alternaciones: `(?:tiene|lleva|(?:se\s+)?pone)` para cubrir formulaciones naturales.
+- Añadir prefijos opcionales tipo `(?:cuál es|cómo se llama)\s+` para preguntas expresadas de formas distintas.
+- Evitar `node -e` con código inline complejo: el terminal puede estropear comillas; usar archivos temporales.
+
 ## Flujo de respuesta
 
-1. Capa 1, coincidencia directa.
-   Se evalúan los `trigger` ya compilados. Está pensada para preguntas exactas, identidades, saludos y patrones controlados.
-2. Capa 2, búsqueda difusa con Fuse.js.
-   Usa una combinación ponderada de trigger, keywords, texto normalizado y follow-ups.
-3. Capa 3, fallback guiado.
-   Si no hay coincidencia clara, el runtime reutiliza `followUps` de los mejores candidatos y, si hace falta, completa con sugerencias estáticas localizadas.
+El motor resuelve cada consulta recorriendo cinco capas en orden de prioridad:
+
+1. **Capa temporal.**
+   Preguntas sobre día, hora, fecha o año se responden directamente con información dinámica localizada (`getTemporalAnswer`). Se evalúa antes que cualquier otra capa. Soporta ES, VA, EN y FR.
+
+2. **Capa CASCADE.**
+   El sistema clasifica la consulta en una o varias *familias temáticas* (`conversation`, `personality`, `events`, `history`, `organization`, `logistics`, `gastronomy`, `attire`) mediante regex multilenguaje (`CASCADE_QUERY_PATTERNS`). Si encaja en alguna familia, la búsqueda se acota al subconjunto de respuestas correspondiente usando metadatos `kbPath`. El texto de la consulta se limpia de relleno coloquial (`dime sobre`, `quiero saber`, etc.) con `buildCascadeSearchQueries` antes de buscar.
+
+3. **Capa directa (regex).**
+   Se intenta casar la consulta contra todos los `trigger` compilados. Pensada para preguntas exactas, identidades, saludos y patrones controlados. En contexto CASCADE, solo se busca dentro de la familia detectada.
+
+4. **Capa Fuse.js (búsqueda difusa).**
+   Usa una combinación ponderada de trigger, keywords, texto normalizado y follow-ups. En contexto CASCADE, opera sobre el subconjunto de la familia; fuera de CASCADE, busca en todo el dataset. Un score por debajo de `fuseDirect` (default `0.60`) devuelve respuesta directa; entre `fuseDirect` y `fuseGuidance` (default `0.78`) genera un fallback guiado con los mejores candidatos.
+
+5. **Capa fallback guiado.**
+   Si no hay coincidencia clara, el runtime reutiliza `followUps` de los mejores candidatos de Fuse y, si hace falta, completa con sugerencias estáticas localizadas (`defaultFollowUps`).
 
 Parámetros útiles de runtime:
 
@@ -207,6 +261,24 @@ npm test
 npm run build
 ```
 
+## Tests
+
+La suite Jest (`tests/nlp.test.js`) contiene **197 tests** organizados en cuatro bloques:
+
+| Bloque | Tests | Cobertura |
+| :----- | ----: | :-------- |
+| Helpers y utilidades | ~20 | `flattenKnowledgeBase`, `cleanText`, `buildRegexTriggers`, `buildFuseDataset`, `buildModernImageSources`, `applyPageMetadata`, runtime config, debug entries |
+| Resolución temporal | ~4 | Variantes ES de día/hora/año, localización VA/EN/FR, prompts de agenda excluidos |
+| CASCADE y capas | ~8 | `detectCascadeFamilies`, `resolveCascadeStrategy`, prioridad de familias, separación fallero/fallera |
+| Matching directo (regex) | ~140 | Q1–Q139: 80 intents generales + 43 indumentaria + 21 joyería/orfebrería; variantes informales y multilenguaje |
+| Fuse difusa y fallback | ~25 | Typos, keywords, multilenguaje VA/EN/FR, `evaluateFuseStrategy`, identidad, personalidad |
+
+Ejecución:
+
+```bash
+npm test
+```
+
 ## Estado del proyecto
 
-La suite actual cubre matching directo, Fuse, helpers de idioma y regresiones multilenguaje en `tests/nlp.test.js`.
+La base de conocimiento cubre **256 intents en español** repartidos en 8 categorías principales (ver mapa arriba), más bloques iniciales en valenciano (38), inglés (30) y francés (29). El sistema CASCADE clasifica las consultas en **8 familias temáticas** para acotar las búsquedas. Los 197 tests cubren matching directo, CASCADE, Fuse, helpers de idioma y regresiones multilenguaje.

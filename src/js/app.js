@@ -341,6 +341,330 @@ const LANGUAGE_CONFIGS = {
     },
   },
 };
+const TEMPORAL_NORMALIZATION_RULES = {
+  es: [
+    [/\bdias\b/g, 'dia'],
+    [/\bfechas\b/g, 'fecha'],
+    [/\bhoras\b/g, 'hora'],
+    [/\banos\b/g, 'ano'],
+  ],
+  va: [
+    [/\bdies\b/g, 'dia'],
+    [/\bdates\b/g, 'data'],
+    [/\bhores\b/g, 'hora'],
+    [/\banys\b/g, 'any'],
+  ],
+  en: [
+    [/\bdays\b/g, 'day'],
+    [/\bdates\b/g, 'date'],
+    [/\bhours\b/g, 'hour'],
+    [/\byears\b/g, 'year'],
+    [/\bwhat s\b/g, 'what is'],
+    [/\btoday s\b/g, 'today'],
+  ],
+  fr: [
+    [/\bjours\b/g, 'jour'],
+    [/\bheures\b/g, 'heure'],
+    [/\bannees\b/g, 'annee'],
+    [/\bd aujourd hui\b/g, 'aujourd hui'],
+  ],
+};
+const TEMPORAL_INTENT_PATTERNS = {
+  es: {
+    date: [
+      /^(?:dime\s+)?(?:en\s+)?que\s+fecha\s+(?:estamos|es)(?:\s+hoy)?$/,
+      /^(?:dime\s+)?(?:que|cual)\s+es\s+(?:la\s+)?fecha(?:\s+(?:de\s+)?hoy)?$/,
+      /^(?:la\s+)?fecha(?:\s+(?:de\s+)?hoy)?$/,
+    ],
+    year: [
+      /^(?:dime\s+)?(?:en\s+)?que\s+ano\s+estamos(?:\s+hoy)?$/,
+      /^(?:dime\s+)?(?:que|cual)\s+es\s+(?:el\s+)?ano(?:\s+(?:actual|de\s+hoy))?$/,
+      /^(?:el\s+)?ano\s+actual$/,
+    ],
+    time: [
+      /^(?:dime\s+)?(?:que|cual)\s+hora\s+(?:es|son)(?:\s+(?:ahora|hoy))?$/,
+      /^(?:dime\s+)?(?:que|cual)\s+hora\s+tenemos(?:\s+ahora)?$/,
+      /^(?:la\s+)?hora\s+(?:actual|de\s+ahora)$/,
+    ],
+    day: [
+      /^(?:dime\s+)?(?:que|cual)\s+(?:el\s+)?dia\s+(?:es|estamos)(?:\s+hoy)?$/,
+      /^(?:en\s+)?que\s+dia\s+estamos(?:\s+hoy)?$/,
+      /^(?:dime\s+)?(?:que|cual)\s+es\s+(?:el\s+)?dia(?:\s+de)?(?:\s+hoy)?$/,
+    ],
+  },
+  va: {
+    date: [
+      /^(?:digues(?:\s+me)?\s+)?(?:en\s+)?quina\s+data\s+(?:estem|es)(?:\s+(?:hui|avui))?$/,
+      /^(?:digues(?:\s+me)?\s+)?(?:quina|que)\s+es\s+(?:la\s+)?data(?:\s+(?:de\s+)?(?:hui|avui))?$/,
+      /^(?:la\s+)?data(?:\s+(?:de\s+)?(?:hui|avui))?$/,
+    ],
+    year: [
+      /^(?:digues(?:\s+me)?\s+)?(?:en\s+)?quin\s+any\s+estem(?:\s+(?:hui|avui))?$/,
+      /^(?:digues(?:\s+me)?\s+)?(?:quin|que)\s+es\s+(?:l\s+)?any(?:\s+(?:actual|de\s+(?:hui|avui)))?$/,
+      /^(?:l\s+)?any\s+actual$/,
+    ],
+    time: [
+      /^(?:digues(?:\s+me)?\s+)?quina\s+hora\s+(?:es|son)(?:\s+(?:ara|hui|avui))?$/,
+      /^(?:digues(?:\s+me)?\s+)?quina\s+hora\s+tenim(?:\s+ara)?$/,
+      /^(?:l\s+)?hora\s+(?:actual|d\s+ara)$/,
+    ],
+    day: [
+      /^(?:digues(?:\s+me)?\s+)?(?:quin|que)\s+(?:el\s+)?dia\s+(?:es|estem)(?:\s+(?:hui|avui))?$/,
+      /^(?:en\s+)?quin\s+dia\s+estem(?:\s+(?:hui|avui))?$/,
+      /^(?:digues(?:\s+me)?\s+)?(?:quin|que)\s+es\s+(?:el\s+)?dia(?:\s+de)?(?:\s+(?:hui|avui))?$/,
+    ],
+  },
+  en: {
+    date: [
+      /^(?:tell\s+me\s+)?what\s+is\s+(?:the\s+)?date(?:\s+today)?$/,
+      /^(?:tell\s+me\s+)?what\s+date\s+is\s+it(?:\s+today)?$/,
+      /^(?:the\s+)?date(?:\s+today)?$/,
+      /^date\s+today$/,
+    ],
+    year: [
+      /^(?:tell\s+me\s+)?what\s+year\s+is\s+it(?:\s+today)?$/,
+      /^(?:tell\s+me\s+)?what\s+year\s+are\s+we\s+in(?:\s+today)?$/,
+      /^(?:tell\s+me\s+)?which\s+year\s+are\s+we\s+in(?:\s+today)?$/,
+      /^(?:the\s+)?current\s+year$/,
+    ],
+    time: [
+      /^(?:tell\s+me\s+)?what\s+(?:time|hour)\s+is\s+it(?:\s+(?:now|today))?$/,
+      /^(?:the\s+)?current\s+time$/,
+      /^time\s+now$/,
+    ],
+    day: [
+      /^(?:tell\s+me\s+)?what\s+day\s+is\s+it(?:\s+today)?$/,
+      /^(?:tell\s+me\s+)?which\s+day\s+is\s+it(?:\s+today)?$/,
+      /^(?:tell\s+me\s+)?what\s+is\s+(?:the\s+)?day(?:\s+today)?$/,
+    ],
+  },
+  fr: {
+    date: [
+      /^(?:dis(?:\s+moi)?\s+)?quelle\s+date\s+(?:sommes\s+nous|est(?:\s+ce)?)?(?:\s+aujourd\s+hui)?$/,
+      /^(?:dis(?:\s+moi)?\s+)?quelle\s+est\s+(?:la\s+)?date(?:\s+aujourd\s+hui)?$/,
+      /^(?:la\s+)?date(?:\s+aujourd\s+hui)?$/,
+    ],
+    year: [
+      /^(?:dis(?:\s+moi)?\s+)?en\s+quelle\s+annee\s+sommes\s+nous(?:\s+aujourd\s+hui)?$/,
+      /^(?:dis(?:\s+moi)?\s+)?quelle\s+annee\s+(?:sommes\s+nous|est(?:\s+ce)?)$/,
+      /^(?:l\s+)?annee\s+actuelle$/,
+    ],
+    time: [
+      /^(?:dis(?:\s+moi)?\s+)?quelle\s+heure\s+est\s+il(?:\s+maintenant)?$/,
+      /^(?:dis(?:\s+moi)?\s+)?il\s+est\s+quelle\s+heure(?:\s+maintenant)?$/,
+      /^(?:l\s+)?heure\s+actuelle$/,
+    ],
+    day: [
+      /^(?:dis(?:\s+moi)?\s+)?quel\s+jour\s+(?:sommes\s+nous|est(?:\s+ce)?)?(?:\s+aujourd\s+hui)?$/,
+      /^(?:dis(?:\s+moi)?\s+)?quel\s+est\s+(?:le\s+)?jour(?:\s+aujourd\s+hui)?$/,
+    ],
+  },
+};
+const TEMPORAL_RESPONSE_BUILDERS = {
+  es: {
+    date: ({ dayName, dayNumber, monthName, year }) => `Hoy es ${dayName}, ${dayNumber} de ${monthName} del ${year}.`,
+    year: ({ year }) => `Estamos en ${year}.`,
+    time: ({ hours, minutes }) => `La hora actual es ${hours}:${minutes}.`,
+    day: ({ dayName, dayNumber, monthName }) => `Hoy es ${dayName}, ${dayNumber} de ${monthName}.`,
+  },
+  va: {
+    date: ({ dayName, dayNumber, monthName, year }) => `Hui és ${dayName}, ${dayNumber} de ${monthName} del ${year}.`,
+    year: ({ year }) => `Estem en ${year}.`,
+    time: ({ hours, minutes }) => `L'hora actual és ${hours}:${minutes}.`,
+    day: ({ dayName, dayNumber, monthName }) => `Hui és ${dayName}, ${dayNumber} de ${monthName}.`,
+  },
+  en: {
+    date: ({ dayName, dayNumber, monthName, year }) => `Today is ${dayName}, ${dayNumber} ${monthName} ${year}.`,
+    year: ({ year }) => `We are in ${year}.`,
+    time: ({ hours, minutes }) => `The current time is ${hours}:${minutes}.`,
+    day: ({ dayName, dayNumber, monthName }) => `Today is ${dayName}, ${dayNumber} ${monthName}.`,
+  },
+  fr: {
+    date: ({ dayName, dayNumber, monthName, year }) => `Nous sommes ${dayName} ${dayNumber} ${monthName} ${year}.`,
+    year: ({ year }) => `Nous sommes en ${year}.`,
+    time: ({ hours, minutes }) => `Il est ${hours}:${minutes}.`,
+    day: ({ dayName, dayNumber, monthName }) => `Nous sommes ${dayName} ${dayNumber} ${monthName}.`,
+  },
+};
+const CASCADE_FAMILY_ORDER = ['conversation', 'personality', 'events', 'history', 'organization', 'logistics', 'gastronomy', 'attire'];
+const CASCADE_PATH_PATTERNS = {
+  events: [/^festejosreligiosos/, /^festejospopulares/, /^monumentos/],
+  history: [/^festejospopulares\.historia/, /^knowledgebase/],
+  organization: [/^festejospopulares\.organizacion/, /^puestospersonal/],
+  logistics: [/^festejospopulares\.logistica/],
+  gastronomy: [/^comidatipica/],
+  attire: [/^vestimenta/],
+};
+const CASCADE_QUERY_PATTERNS = {
+  es: {
+    conversation: [
+      /^(?:hola(?:\s+(?:masclet|bot))?|buen(?:os\s+dias?|as\s+tardes|as\s+noches)|saludos?|ey|hey|como\s+estas?|que\s+tal|todo\s+bien|necesito\s+ayuda|me\s+ayudas?|puedes\s+ayudarme|dime\s+algo|quiero\s+info(?:rmacion)?|dame\s+info(?:rmacion)?)$/,
+    ],
+    personality: [
+      /(?:como\s+te\s+llamas|quien\s+eres|cual\s+es\s+tu\s+nombre|que\s+color\s+te\s+gusta|color\s+favorit|petardo\s+favorit|olor\s+favorit|que\s+olor\s+te\s+gusta|polvora)/,
+    ],
+    events: [
+      /\b(?:mascleta|masclet|crema|ofrenda|virgen|crida|planta|ninot|procesion(?:es)?|fallera\s+mayor|monumento(?:s)?|falla(?:s)?|desperta|cabalgata|alba\s+falles|nit\s+del\s+foc|fuegos\s+artificiales|exposicion\s+(?:del\s+)?ninot|ninot\s+indultat|llibret|misa\s+solemne|decibelios)\b/,
+    ],
+    history: [
+      /\b(?:origen|historia|parot|carpinteros|facula|tradicion|fundacion|suspendid|cancelad|primer\s+documento|traca|1777|1886|1939|gremio|mitja\s+quaresma|cruilles|etimologia|significa(?:do)?\s+falla)\b/,
+    ],
+    organization: [
+      /\b(?:jcf|junta\s+central|comision(?:es)?\s+fallera|presidente|interagrupacion|gala\s+(?:de\s+la\s+)?(?:indumentaria|pirotecnia)|normativa|organiza|sede\s+(?:de\s+la\s+)?jcf|puestos?\s+directivos?)\b/,
+    ],
+    logistics: [
+      /\b(?:aparcar|parking|transporte|ropa\s+crema|zonas?\s+tranquil|asfalto|arena|carpas?|accesibilidad|verbenas?|pmr|movilidad\s+reducida|calles\s+cortadas|proteccion\s+(?:del\s+)?(?:asfalto|suelo))\b/,
+    ],
+    gastronomy: [
+      /\b(?:paella|arroz|socarrat|bunuelos?|bunyols|horchata|fartons?|churros?|dulces?|postres?|reposteria|comida\s+valenciana|boniato|esmorcar|almuerzo|cremaet|cremat)\b/,
+    ],
+    attire: [
+      /\b(?:vestimenta|indumentaria|traje|vestido|fallera|fallero|peineta|manteleta|aderezo|barretina|faja|faixa|corpino|corpi[nñ]o|espolines?|rodetes?|rascamonyos?|pinta|ahuecador|alcaor|bluson|pa[nñ]uelo|sarag[uü]ell|torrent[ií]|mocador|negrilla|chopet[ií]|chambra|mantilla|enaguas?|postice?r[ií]a|joia|espejuelos?|mallas?|farolet|orfebrer[ií]a|orfebres?|pinchos?|bunyols?\s+d[']?or)\b/,
+    ],
+  },
+  va: {
+    conversation: [
+      /^(?:hola(?:\s+(?:masclet|bot))?|salutacions?|ei|hey|com\s+estas?|com\s+va|tot\s+be|necessite\s+ajuda|em\s+pots\s+ajudar|digues\s+algo|vull\s+informacio)$/,
+    ],
+    personality: [
+      /(?:com\s+te\s+dius|qui\s+eres|qui\s+ets|quin\s+es\s+el\s+teu\s+nom|quin\s+color\s+t\s+agrada|color\s+favorit|petard\s+favorit|quina\s+olor\s+t\s+agrada|polvora)/,
+    ],
+    events: [
+      /\b(?:mascleta|masclet|crema|ofrena|verge|crida|planta|ninot|processo|processons?|fallera\s+major|monument(?:s)?|falla(?:es)?|desperta|cavalcada|alba\s+falles|nit\s+del\s+foc|focs\s+artificials|exposicio\s+(?:del\s+)?ninot)\b/,
+    ],
+    history: [
+      /\b(?:origen|historia|parot|fusters|facula|tradicio|fundacio|suspes|cancelad|primer\s+document|traca|1777|1886|1939|gremi|mitja\s+quaresma)\b/,
+    ],
+    organization: [
+      /\b(?:jcf|junta\s+central|comissio|president|interagrupacio|gala|normativa|organitza|seu\s+jcf)\b/,
+    ],
+    logistics: [
+      /\b(?:aparcar|parking|transport|roba\s+crema|zones?\s+tranquil|asfalt|arena|carpes?|accessibilitat|verbenes?|pmr|mobilitat\s+reduida)\b/,
+    ],
+    gastronomy: [
+      /\b(?:paella|arros|socarrat|bunyols?|orxata|fartons?|xurros?|dolcos?|postres?|rebosteria|menjar\s+valencia|moniato)\b/,
+    ],
+    attire: [
+      /\b(?:indumentaria|vestit|vestimenta|fallera|faller|pinta|manteleta|adrec|barretina|faixa|cosset)\b/,
+    ],
+  },
+  en: {
+    conversation: [
+      /^(?:hello(?:\s+masclet)?|hi(?:\s+masclet)?|greetings|how\s+are\s+you|what\s+s\s+up|i\s+need\s+help|can\s+you\s+help\s+me|tell\s+me\s+something|i\s+want\s+information)$/,
+    ],
+    personality: [
+      /(?:who\s+are\s+you|what\s+is\s+your\s+name|favorite\s+color|favorite\s+firecracker|what\s+smell\s+do\s+you\s+like|gunpowder)/,
+    ],
+    events: [
+      /\b(?:mascleta|masclet|crema|offering|virgin|crida|planta|ninot|procession(?:s)?|fallera\s+mayor|monument(?:s)?|fallas?|fireworks|exhibition)\b/,
+    ],
+    history: [
+      /\b(?:origin|history|parot|carpenters|tradition|founded|suspended|cancelled|first\s+document|1777|1886|1939)\b/,
+    ],
+    organization: [
+      /\b(?:jcf|central\s+board|commission|president|organization|gala|regulations|headquarters)\b/,
+    ],
+    logistics: [
+      /\b(?:parking|transport|clothing\s+crema|quiet\s+areas?|asphalt|sand|tents?|accessibility|reduced\s+mobility)\b/,
+    ],
+    gastronomy: [
+      /\b(?:paella|rice|socarrat|fritter(?:s)?|horchata|fartons?|churros?|sweets?|desserts?|pastries|food)\b/,
+    ],
+    attire: [
+      /\b(?:attire|dress|clothing|fallera|fallero|comb|mantilla|adornment|barretina|sash|bodice)\b/,
+    ],
+  },
+  fr: {
+    conversation: [
+      /^(?:bonjour(?:\s+masclet)?|salut(?:\s+masclet)?|coucou|comment\s+ca\s+va|j\s+ai\s+besoin\s+d\s+aide|peux\s+tu\s+m\s+aider|dis\s+moi\s+quelque\s+chose|je\s+veux\s+des\s+informations)$/,
+    ],
+    personality: [
+      /(?:qui\s+es\s+tu|quel\s+est\s+ton\s+nom|couleur\s+preferee|petard\s+prefere|quelle\s+odeur\s+aimes\s+tu|poudre)/,
+    ],
+    events: [
+      /\b(?:mascleta|masclet|crema|offrande|vierge|crida|planta|ninot|procession(?:s)?|fallera\s+mayor|monument(?:s)?|fallas?|feux\s+d\s+artifice|exposition)\b/,
+    ],
+    history: [
+      /\b(?:origine|histoire|parot|charpentiers|tradition|fondation|suspendu|annule|premier\s+document|1777|1886|1939)\b/,
+    ],
+    organization: [
+      /\b(?:jcf|junte\s+centrale|commission|president|organisation|gala|reglements|siege)\b/,
+    ],
+    logistics: [
+      /\b(?:parking|stationner|transport|vetements?\s+crema|zones?\s+tranquill|asphalte|sable|chapiteaux?|accessibilite|mobilite\s+reduite)\b/,
+    ],
+    gastronomy: [
+      /\b(?:paella|riz|socarrat|beignet(?:s)?|horchata|farton(?:s)?|churros?|douceurs?|desserts?|patisserie|gastronomie)\b/,
+    ],
+    attire: [
+      /\b(?:tenue|robe|vetement|fallera|fallero|peigne|mantille|ornement|barretina|ceinture|corsage)\b/,
+    ],
+  },
+};
+const CASCADE_RESPONSE_PATTERNS = {
+  es: {
+    conversation: [/\b(?:hola|saludos?|bienvenida|ayuda|informacion|consultas|asistente|masclet\s+bot)\b/],
+    personality: [/\b(?:masclet|color\s+favorito|petardo\s+favorito|olor\s+favorito|tro\s+de\s+bac|polvora)\b/],
+    events: [/\b(?:mascleta|masclet|crema|ofrenda|virgen|crida|planta|ninot|procesion(?:es)?|fallera\s+mayor|monumento(?:s)?|falla(?:s)?|desperta|cabalgata|nit\s+del\s+foc|fuegos\s+artificiales|exposicion|indultat|llibret|decibelios)\b/],
+    history: [/\b(?:origen|historia|parot|carpinteros|facula|tradicion|fundacion|suspendid|cancelad|traca|gremio|mitja\s+quaresma|1777|1886|1939)\b/],
+    organization: [/\b(?:jcf|junta\s+central|comision(?:es)?|presidente|interagrupacion|gala|normativa|organiza)\b/],
+    logistics: [/\b(?:aparcar|parking|transporte|ropa|zonas?\s+tranquil|asfalto|arena|carpas?|accesibilidad|verbenas?|pmr|movilidad\s+reducida)\b/],
+    gastronomy: [/\b(?:paella|arroz|socarrat|bunuelos?|bunyols|horchata|fartons?|churros?|dulces?|postres?|reposteria|boniato|esmorcar|cremaet)\b/],
+    attire: [/\b(?:vestimenta|indumentaria|traje|vestido|fallera|fallero|peineta|manteleta|aderezo|barretina|faja|faixa|corpino|corpiño|espolines?|rodetes?|rascamonyos?|ahuecador|bluson|panuelo|sarag[uü]ell|torrent[ií]|mocador|negrilla|chopet[ií]|chambra|mantilla|enaguas?|postice?r[ií]a|joia|espejuelos?|mallas?|farolet|orfebrer[ií]a|orfebres?|pinchos?|bunyols?\s+d[']?or)\b/],
+  },
+  va: {
+    conversation: [/\b(?:hola|salutacions?|ajuda|informacio|assistent|bot\s+faller)\b/],
+    personality: [/\b(?:masclet|color\s+favorit|petard\s+favorit|olor\s+favorita?|tro\s+de\s+bac|polvora)\b/],
+    events: [/\b(?:mascleta|masclet|crema|ofrena|verge|crida|planta|ninot|processons?|fallera\s+major|monument(?:s)?|falla(?:es)?|desperta|cavalcada|nit\s+del\s+foc)\b/],
+    history: [/\b(?:origen|historia|parot|fusters|tradicio|fundacio|suspes|cancelad|traca|gremi|mitja\s+quaresma)\b/],
+    organization: [/\b(?:jcf|junta\s+central|comissio|president|interagrupacio|gala|normativa|organitza)\b/],
+    logistics: [/\b(?:aparcar|parking|transport|roba|zones?\s+tranquil|asfalt|arena|carpes?|accessibilitat|verbenes?|pmr|mobilitat)\b/],
+    gastronomy: [/\b(?:paella|arros|socarrat|bunyols?|orxata|fartons?|xurros?|dolcos?|postres?|rebosteria|moniato)\b/],
+    attire: [/\b(?:indumentaria|vestit|vestimenta|fallera|faller|pinta|manteleta|adrec|barretina|faixa|cosset)\b/],
+  },
+  en: {
+    conversation: [/\b(?:hello|greetings|help|information|assistant|bot)\b/],
+    personality: [/\b(?:masclet|favorite\s+color|favorite\s+firecracker|smell|gunpowder)\b/],
+    events: [/\b(?:mascleta|masclet|crema|offering|virgin|crida|planta|ninot|procession(?:s)?|fallera\s+mayor|monument(?:s)?|fallas?|fireworks|exhibition)\b/],
+    history: [/\b(?:origin|history|parot|carpenters|tradition|founded|suspended|cancelled)\b/],
+    organization: [/\b(?:jcf|central\s+board|commission|president|organization|gala|regulations)\b/],
+    logistics: [/\b(?:parking|transport|clothing|quiet\s+areas?|asphalt|sand|tents?|accessibility|mobility)\b/],
+    gastronomy: [/\b(?:paella|rice|socarrat|fritter(?:s)?|horchata|fartons?|churros?|sweets?|desserts?|pastries|food)\b/],
+    attire: [/\b(?:attire|dress|clothing|fallera|fallero|comb|mantilla|adornment|barretina|sash|bodice)\b/],
+  },
+  fr: {
+    conversation: [/\b(?:bonjour|salut|aide|information|assistant|bot)\b/],
+    personality: [/\b(?:masclet|couleur\s+preferee|petard\s+prefere|odeur|poudre)\b/],
+    events: [/\b(?:mascleta|masclet|crema|offrande|vierge|crida|planta|ninot|procession(?:s)?|fallera\s+mayor|monument(?:s)?|fallas?|feux|exposition)\b/],
+    history: [/\b(?:origine|histoire|parot|charpentiers|tradition|fondation|suspendu|annule)\b/],
+    organization: [/\b(?:jcf|junte\s+centrale|commission|president|organisation|gala|reglements)\b/],
+    logistics: [/\b(?:parking|stationner|transport|vetements?|zones?\s+tranquill|asphalte|sable|chapiteaux?|accessibilite|mobilite)\b/],
+    gastronomy: [/\b(?:paella|riz|socarrat|beignet(?:s)?|horchata|farton(?:s)?|churros?|douceurs?|desserts?|patisserie|gastronomie)\b/],
+    attire: [/\b(?:tenue|robe|vetement|fallera|fallero|peigne|mantille|ornement|barretina|ceinture|corsage)\b/],
+  },
+};
+const CASCADE_SEARCH_CLEANUP_PATTERNS = {
+  es: [
+    [/^(?:dime|cuentame|hablame)\s+(?:de|sobre)\s+/g, ''],
+    [/^(?:quiero\s+saber|quiero)\s+(?:de|sobre)?\s*/g, ''],
+    [/^(?:informacion|info)\s+(?:de|sobre)\s+/g, ''],
+  ],
+  va: [
+    [/^(?:digues(?:\s+me)?|conta\s+me|parla\s+me)\s+(?:de|sobre)\s+/g, ''],
+    [/^(?:vull\s+saber|vull)\s+(?:de|sobre)?\s*/g, ''],
+    [/^(?:informacio)\s+(?:de|sobre)\s+/g, ''],
+  ],
+  en: [
+    [/^(?:tell\s+me|explain)\s+(?:about\s+)?/g, ''],
+    [/^(?:i\s+want\s+to\s+know|i\s+want)\s+(?:about\s+)?/g, ''],
+    [/^(?:information|info)\s+(?:about\s+)?/g, ''],
+  ],
+  fr: [
+    [/^(?:dis(?:\s+moi)?|explique(?:\s+moi)?)\s+(?:de|sur)\s+/g, ''],
+    [/^(?:je\s+veux\s+savoir|je\s+veux)\s+(?:de|sur)?\s*/g, ''],
+    [/^(?:information|infos?)\s+(?:sur\s+)?/g, ''],
+  ],
+};
 const FUSE_OPTIONS = {
   keys: [
     { name: 'combo', weight: 0.45 },
@@ -494,9 +818,100 @@ function resolveLanguageData(data, language = DEFAULT_LANGUAGE) {
   };
 }
 
+function normalizeMediaValue(...candidates) {
+  const normalizedValues = [];
+
+  candidates.forEach((candidate) => {
+    const candidateList = Array.isArray(candidate) ? candidate : [candidate];
+
+    candidateList.forEach((entry) => {
+      if (typeof entry !== 'string') return;
+
+      const normalizedEntry = entry.trim();
+      if (!normalizedEntry || normalizedValues.includes(normalizedEntry)) return;
+
+      normalizedValues.push(normalizedEntry);
+    });
+  });
+
+  if (!normalizedValues.length) return null;
+  return normalizedValues.length === 1 ? normalizedValues[0] : normalizedValues;
+}
+
+function normalizeCascadeText(value) {
+  return removeDiacritics(String(value || ''))
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function getCascadePatterns(source, language = currentLanguage) {
+  return source[resolveLanguageKey(language)] || source[DEFAULT_LANGUAGE] || {};
+}
+
+function matchesCascadeFamily(query, family, language = currentLanguage) {
+  const normalizedQuery = normalizeCascadeText(query);
+  if (!normalizedQuery) return false;
+
+  const familyPatterns = getCascadePatterns(CASCADE_QUERY_PATTERNS, language)[family] || [];
+  return familyPatterns.some((pattern) => pattern.test(normalizedQuery));
+}
+
+function detectCascadeFamilies(query, language = currentLanguage) {
+  return CASCADE_FAMILY_ORDER.filter((family) => matchesCascadeFamily(query, family, language));
+}
+
+function inferResponseFamilies(item, language = currentLanguage) {
+  const normalizedLanguage = resolveLanguageKey(language);
+  const normalizedPath = normalizeCascadeText(item.kbPath || '');
+  const combinedText = normalizeCascadeText([
+    triggerToString(item.trigger),
+    item.answer || item.text || '',
+    normalizeKeywords(item).join(' '),
+    normalizeFollowUp(item).join(' '),
+    item.kbPath || '',
+  ].join(' '));
+  const responsePatterns = getCascadePatterns(CASCADE_RESPONSE_PATTERNS, normalizedLanguage);
+
+  return CASCADE_FAMILY_ORDER.filter((family) => {
+    const pathPatterns = CASCADE_PATH_PATTERNS[family] || [];
+    const familyPatterns = responsePatterns[family] || [];
+
+    return pathPatterns.some((pattern) => pattern.test(normalizedPath))
+      || familyPatterns.some((pattern) => pattern.test(combinedText));
+  });
+}
+
+function buildCascadeSearchQueries(query, language = currentLanguage) {
+  const normalizedLanguage = resolveLanguageKey(language);
+  const cleanupPatterns = CASCADE_SEARCH_CLEANUP_PATTERNS[normalizedLanguage] || [];
+  const variants = [sanitizeUserQuery(query)];
+  let cleanedQuery = normalizeCascadeText(query);
+
+  cleanupPatterns.forEach(([pattern, replacement]) => {
+    cleanedQuery = cleanedQuery.replace(pattern, replacement).trim();
+  });
+
+  if (cleanedQuery) {
+    variants.push(cleanedQuery);
+  }
+
+  return mergeUniqueStrings(variants);
+}
+
+function filterItemsByCascadeFamily(items, family) {
+  return items.filter((item) => Array.isArray(item.families) && item.families.includes(family));
+}
+
 function buildLanguageResponseState(langData, language = DEFAULT_LANGUAGE) {
   const safeLangData = langData && typeof langData === 'object' ? langData : {};
-  const responsesFlat = flattenKnowledgeBase(safeLangData);
+  const resolvedLanguage = resolveLanguageKey(language);
+  const responsesFlat = flattenKnowledgeBase(safeLangData).map((item) => ({
+    ...item,
+    language: resolvedLanguage,
+    families: inferResponseFamilies(item, resolvedLanguage),
+  }));
   const responses = responsesFlat
     .map((item) => {
       const triggers = buildRegexTriggers(item.trigger);
@@ -507,9 +922,11 @@ function buildLanguageResponseState(langData, language = DEFAULT_LANGUAGE) {
       return {
         trigger: triggers.length === 1 ? triggers[0] : triggers,
         text: item.answer || item.text,
-        imagen: item.image || item.imagen || (item.images ? item.images[0] : null),
-        video: item.video || (item.videos ? item.videos[0] : null),
+        imagen: normalizeMediaValue(item.image, item.imagen, item.images),
+        video: normalizeMediaValue(item.video, item.videos),
         followUp: normalizedFollowUps,
+        kbPath: item.kbPath || '',
+        families: item.families || [],
       };
     })
     .filter(Boolean);
@@ -654,41 +1071,73 @@ function buildLiteralTriggerRegex(value) {
   return new RegExp(`^\\s*[¿¡]?\\s*${tokens.join('\\s+')}\\s*[?¿!¡.]*\\s*$`, 'i');
 }
 
-function normalizeTemporalQuestion(query) {
-  return removeDiacritics(sanitizeUserQuery(query))
+function normalizeTemporalQuestion(query, language = currentLanguage) {
+  const resolvedLanguage = resolveLanguageKey(language);
+  let normalizedQuery = removeDiacritics(sanitizeUserQuery(query))
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+
+  const normalizationRules = TEMPORAL_NORMALIZATION_RULES[resolvedLanguage] || TEMPORAL_NORMALIZATION_RULES[DEFAULT_LANGUAGE] || [];
+  normalizationRules.forEach(([pattern, replacement]) => {
+    normalizedQuery = normalizedQuery.replace(pattern, replacement);
+  });
+
+  return normalizedQuery.replace(/\s+/g, ' ').trim();
 }
 
-function getTemporalAnswer(query) {
-  const normalizedQuery = normalizeTemporalQuestion(query);
+function matchesTemporalIntent(normalizedQuery, patterns = []) {
+  return patterns.some((pattern) => pattern.test(normalizedQuery));
+}
+
+function buildTemporalResponsePayload(text) {
+  return {
+    text,
+    followUp: [],
+    imagen: null,
+    video: null,
+  };
+}
+
+function getTemporalAnswer(query, language = currentLanguage) {
+  const resolvedLanguage = resolveLanguageKey(language);
+  const normalizedQuery = normalizeTemporalQuestion(query, resolvedLanguage);
   if (!normalizedQuery) return null;
 
   const now = new Date();
-  const { dayNames: days, dateLocale } = getLanguageConfig();
+  const { dayNames: days, dateLocale } = getLanguageConfig(resolvedLanguage);
   const dayName = days[now.getDay()];
   const dayNumber = now.getDate();
   const monthName = now.toLocaleString(dateLocale || DATE_LOCALE, { month: 'long' });
   const year = now.getFullYear();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const temporalPatterns = TEMPORAL_INTENT_PATTERNS[resolvedLanguage] || TEMPORAL_INTENT_PATTERNS[DEFAULT_LANGUAGE];
+  const temporalResponses = TEMPORAL_RESPONSE_BUILDERS[resolvedLanguage] || TEMPORAL_RESPONSE_BUILDERS[DEFAULT_LANGUAGE];
+  const responseParts = {
+    dayName,
+    dayNumber,
+    monthName,
+    year,
+    hours,
+    minutes,
+  };
 
-  if (/^en que fecha estamos(?: hoy)?$/.test(normalizedQuery)) {
-    return { text: `Hoy es ${dayName}, ${dayNumber} de ${monthName} del ${year}.`, followUp: [], imagen: null, video: null };
+  if (matchesTemporalIntent(normalizedQuery, temporalPatterns.date)) {
+    return buildTemporalResponsePayload(temporalResponses.date(responseParts));
   }
 
-  if (/^en que ano estamos(?: hoy)?$/.test(normalizedQuery)) {
-    return { text: `Estamos en ${year}.`, followUp: [], imagen: null, video: null };
+  if (matchesTemporalIntent(normalizedQuery, temporalPatterns.year)) {
+    return buildTemporalResponsePayload(temporalResponses.year(responseParts));
   }
 
-  if (/^(?:que|cual) hora es(?: ahora| hoy)?$/.test(normalizedQuery)) {
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    return { text: `La hora actual es ${hours}:${minutes}.`, followUp: [], imagen: null, video: null };
+  if (matchesTemporalIntent(normalizedQuery, temporalPatterns.time)) {
+    return buildTemporalResponsePayload(temporalResponses.time(responseParts));
   }
 
-  if (/^(?:que|cual) dia es(?: hoy)?$/.test(normalizedQuery) || /^que dia estamos(?: hoy)?$/.test(normalizedQuery)) {
-    return { text: `Hoy es ${dayName}, ${dayNumber} de ${monthName}.`, followUp: [], imagen: null, video: null };
+  if (matchesTemporalIntent(normalizedQuery, temporalPatterns.day)) {
+    return buildTemporalResponsePayload(temporalResponses.day(responseParts));
   }
 
   return null;
@@ -721,6 +1170,67 @@ function buildRegexTriggers(trigger) {
   });
 
   return regexTriggers;
+}
+
+function buildModernImageSources(imagePath) {
+  if (typeof imagePath !== 'string') return null;
+
+  const normalizedPath = imagePath.trim();
+  const extensionPattern = /\.(png|jpe?g)(?=($|[?#]))/i;
+
+  if (!normalizedPath || !extensionPattern.test(normalizedPath)) {
+    return null;
+  }
+
+  return {
+    fallbackSrc: normalizedPath,
+    webpSrc: normalizedPath.replace(extensionPattern, '.webp'),
+    avifSrc: normalizedPath.replace(extensionPattern, '.avif'),
+  };
+}
+
+function createResponsiveImageElement(imagePath, {
+  alt = '',
+  imgClassName = '',
+  pictureClassName = '',
+  loading = 'lazy',
+  decoding = 'async',
+} = {}) {
+  if (typeof document === 'undefined' || typeof document.createElement !== 'function' || typeof imagePath !== 'string') {
+    return null;
+  }
+
+  const modernSources = buildModernImageSources(imagePath);
+  const fallbackSrc = modernSources?.fallbackSrc || imagePath.trim();
+
+  if (!fallbackSrc) return null;
+
+  const imgEl = document.createElement('img');
+  imgEl.src = fallbackSrc;
+  imgEl.alt = alt;
+  if (imgClassName) imgEl.className = imgClassName;
+  if (loading) imgEl.loading = loading;
+  if (decoding) imgEl.decoding = decoding;
+
+  if (!modernSources) {
+    return imgEl;
+  }
+
+  const pictureEl = document.createElement('picture');
+  if (pictureClassName) pictureEl.className = pictureClassName;
+
+  const avifSourceEl = document.createElement('source');
+  avifSourceEl.srcset = modernSources.avifSrc;
+  avifSourceEl.type = 'image/avif';
+  pictureEl.appendChild(avifSourceEl);
+
+  const webpSourceEl = document.createElement('source');
+  webpSourceEl.srcset = modernSources.webpSrc;
+  webpSourceEl.type = 'image/webp';
+  pictureEl.appendChild(webpSourceEl);
+
+  pictureEl.appendChild(imgEl);
+  return pictureEl;
 }
 
 function triggerToString(trigger) {
@@ -863,16 +1373,19 @@ async function cargarRespuestas(language = currentLanguage) {
 }
 
 // ---- Función recursiva para aplanar la base de conocimientos ----
-function flattenKnowledgeBase(obj) {
+function flattenKnowledgeBase(obj, path = []) {
   let items = [];
   
   if (Array.isArray(obj)) {
     obj.forEach(val => {
       if (val && typeof val === 'object') {
         if (val.trigger && (val.answer || val.text)) {
-          items.push(val);
+          items.push({
+            ...val,
+            kbPath: path.join('.'),
+          });
         } else {
-          items = items.concat(flattenKnowledgeBase(val));
+          items = items.concat(flattenKnowledgeBase(val, path));
         }
       }
     });
@@ -880,10 +1393,14 @@ function flattenKnowledgeBase(obj) {
     for (const key in obj) {
       const val = obj[key];
       if (val && typeof val === 'object') {
+        const nextPath = path.concat(key);
         if (val.trigger && (val.answer || val.text)) {
-          items.push(val);
+          items.push({
+            ...val,
+            kbPath: nextPath.join('.'),
+          });
         } else {
-          items = items.concat(flattenKnowledgeBase(val));
+          items = items.concat(flattenKnowledgeBase(val, nextPath));
         }
       }
     }
@@ -895,10 +1412,12 @@ function buildFuseDataset(data) {
   if (!Array.isArray(data)) return [];
 
   return data.map((item, index) => {
+    const resolvedLanguage = resolveLanguageKey(item.language || currentLanguage);
     const textRaw = item.answer || item.text || '';
     const textForFuse = Array.isArray(textRaw) ? textRaw.join(' ') : String(textRaw);
     const followUp = normalizeFollowUp(item);
     const keywords = normalizeKeywords(item);
+    const families = Array.isArray(item.families) ? item.families : inferResponseFamilies(item, resolvedLanguage);
     const followUpStr = followUp.join(' ');
     const keywordsStr = keywords.join(' ');
     const triggerStr = triggerToString(item.trigger);
@@ -908,10 +1427,13 @@ function buildFuseDataset(data) {
       ...item,
       entryId: `${index}:${idSource}`,
       text: textRaw,
-      imagen: item.image || item.imagen || (item.images ? item.images[0] : null),
-      video: item.video || (item.videos ? item.videos[0] : null),
+      imagen: normalizeMediaValue(item.image, item.imagen, item.images),
+      video: normalizeMediaValue(item.video, item.videos),
       followUp,
       keywords,
+      kbPath: item.kbPath || '',
+      language: resolvedLanguage,
+      families,
       normalized: cleanText(textForFuse),
       followUpStr: cleanText(followUpStr),
       keywordsStr: cleanText(keywordsStr),
@@ -951,6 +1473,22 @@ function buscarConFuse(query) {
 
   const queries = buildFuseQueries(query);
   const allResults = queries.flatMap((term) => fuse.search(term, { limit: FUSE_LIMIT }));
+  return dedupeFuseResults(allResults);
+}
+
+function searchFuseInDataset(query, data = respuestasPlanas) {
+  if (!query || !Array.isArray(data) || !data.length || !FuseCtor) return [];
+
+  if (data === respuestasPlanas) {
+    return buscarConFuse(query);
+  }
+
+  const dataset = data[0]?.entryId && data[0]?.combo
+    ? data
+    : buildFuseDataset(data);
+  const localFuse = new FuseCtor(dataset, FUSE_OPTIONS);
+  const queries = buildFuseQueries(query);
+  const allResults = queries.flatMap((term) => localFuse.search(term, { limit: FUSE_LIMIT }));
   return dedupeFuseResults(allResults);
 }
 
@@ -1161,6 +1699,53 @@ function evaluateFuseStrategy(query, fuseResults, fallbackSuggestions = getFallb
   };
 }
 
+function resolveCascadeStrategy(
+  query,
+  directResponses = respuestas,
+  flatResponses = respuestasPlanas,
+  language = currentLanguage,
+  fallbackSuggestions = getFallbackSuggestionPool(),
+  runtimeConfig = getFuseRuntimeConfig()
+) {
+  const matchedFamilies = detectCascadeFamilies(query, language);
+  if (!matchedFamilies.length) return null;
+
+  for (const family of matchedFamilies) {
+    const familyResponses = filterItemsByCascadeFamily(directResponses, family);
+    if (familyResponses.length) {
+      const scopedQueries = buildCascadeSearchQueries(query, language);
+      for (const candidateQuery of scopedQueries) {
+        const directMatch = findDirectResponse(candidateQuery, familyResponses);
+        if (directMatch) {
+          return {
+            mode: 'direct',
+            item: directMatch,
+            family,
+            cascade: true,
+          };
+        }
+      }
+    }
+
+    const familyFlatResponses = filterItemsByCascadeFamily(flatResponses, family);
+    if (!familyFlatResponses.length) continue;
+
+    const scopedQuery = buildCascadeSearchQueries(query, language).slice(-1)[0] || query;
+    const familyFuseResults = searchFuseInDataset(scopedQuery, familyFlatResponses);
+    const familyStrategy = evaluateFuseStrategy(query, familyFuseResults, fallbackSuggestions, runtimeConfig);
+    if (familyStrategy.mode === 'answer' || familyStrategy.mode === 'guided-fallback') {
+      return {
+        ...familyStrategy,
+        family,
+        cascade: true,
+        fuseResults: familyFuseResults,
+      };
+    }
+  }
+
+  return null;
+}
+
 function resolveResponseStrategy(query, directResponses = respuestas, fuseResults = [], fallbackSuggestions = getFallbackSuggestionPool(), runtimeConfig = getFuseRuntimeConfig()) {
   const directMatch = findDirectResponse(query, directResponses);
   if (directMatch) {
@@ -1202,15 +1787,32 @@ function buildResponsePayload(item, queryKey) {
 // ---- Motor de respuestas ----
 async function responder(q) {
   const safeQuery = sanitizeUserQuery(q);
-  const temporalAnswer = getTemporalAnswer(safeQuery);
+  const temporalAnswer = getTemporalAnswer(safeQuery, currentLanguage);
   if (temporalAnswer) return temporalAnswer;
 
   const queryKey = safeQuery.toLowerCase();
   repeatCount[queryKey] = (repeatCount[queryKey] || 0) + 1;
 
   const fallbackSuggestions = getFallbackSuggestionPool();
-  const fuseResults = buscarConFuse(safeQuery);
   const runtimeConfig = getFuseRuntimeConfig();
+  const cascadeStrategy = resolveCascadeStrategy(
+    safeQuery,
+    respuestas,
+    respuestasPlanas,
+    currentLanguage,
+    fallbackSuggestions,
+    runtimeConfig
+  );
+
+  if (cascadeStrategy) {
+    if (cascadeStrategy.mode === 'direct' || cascadeStrategy.mode === 'answer') {
+      return buildResponsePayload(cascadeStrategy.item, queryKey);
+    }
+
+    return cascadeStrategy.response;
+  }
+
+  const fuseResults = buscarConFuse(safeQuery);
   const strategy = resolveResponseStrategy(safeQuery, respuestas, fuseResults, fallbackSuggestions, runtimeConfig);
 
   recordFuseDebugEntry(safeQuery, fuseResults, strategy, runtimeConfig);
@@ -1259,11 +1861,15 @@ async function handleQuestion(q) {
       if (imagen) {
         const imgs = Array.isArray(imagen) ? imagen : [imagen];
         imgs.forEach((url) => {
-          const imgEl = document.createElement('img');
-          imgEl.src = url;
-          imgEl.alt = 'Imagen de respuesta';
-          imgEl.className = 'message__image';
-          messagesEl.appendChild(imgEl);
+          const mediaEl = createResponsiveImageElement(url, {
+            alt: 'Imagen de respuesta',
+            imgClassName: 'message__image',
+            pictureClassName: 'message__picture',
+          });
+
+          if (mediaEl) {
+            messagesEl.appendChild(mediaEl);
+          }
         });
         messagesEl.scrollTop = messagesEl.scrollHeight;
       }
@@ -1340,6 +1946,12 @@ if (typeof module !== 'undefined' && module.exports) {
     buscarConFuse,
     sanitizeUserQuery,
     getTemporalAnswer,
+    detectCascadeFamilies,
+    inferResponseFamilies,
+    searchFuseInDataset,
+    resolveCascadeStrategy,
+    buildModernImageSources,
+    createResponsiveImageElement,
     resolveLanguageKey,
     resolveLanguageData,
     buildLanguageResponseState,

@@ -55,6 +55,10 @@
     }
   }
 
+  &__picture {
+    display: block;
+  }
+
   // .message__image (imágenes en respuestas)
   &__image {
     max-width: 100%;

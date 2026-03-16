@@ -24,7 +24,11 @@
     <section class="chatbot chatbot--static" aria-label="Chat con Masclet Bot" role="complementary">
       <div class="chatbot__header" role="banner">
         <div class="chatbot__avatar-wrapper">
-          <img class="chatbot__avatar" src="img/masclet.png" alt="Masclet Bot avatar" />
+          <picture class="chatbot__avatar-picture">
+            <source srcset="img/masclet.avif" type="image/avif" />
+            <source srcset="img/masclet.webp" type="image/webp" />
+            <img class="chatbot__avatar" src="img/masclet.png" alt="Masclet Bot avatar" />
+          </picture>
           <span class="chatbot__status-indicator" aria-hidden="true"></span>
         </div>
         <span class="chatbot__title">Masclet Bot</span>

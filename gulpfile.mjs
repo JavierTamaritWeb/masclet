@@ -9,10 +9,15 @@ import autoprefixer from 'gulp-autoprefixer';
 import cleanCSS from 'gulp-clean-css';
 import rename from 'gulp-rename';
 import browserSync from 'browser-sync';
-import { rm } from 'node:fs/promises';
+import path from 'node:path';
+import sharp from 'sharp';
+import { rm, mkdir, readdir } from 'node:fs/promises';
 
 const sass = gulpSass(dartSass);
 const bs = browserSync.create();
+const MODERN_IMAGE_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg']);
+const WEBP_OPTIONS = { quality: 55, effort: 6 };
+const AVIF_OPTIONS = { quality: 38, effort: 9 };
 
 // ---- Rutas ----
 const paths = {
@@ -32,6 +37,7 @@ const paths = {
   },
   img: {
     src: 'src/img/**/*',
+    sourceRoot: 'src/img',
     dest: 'dist/img',
   },
   data: {
@@ -69,13 +75,80 @@ function copyImg() {
   return gulp.src(paths.img.src, { encoding: false }).pipe(gulp.dest(paths.img.dest));
 }
 
+async function collectConvertibleImages(directoryPath) {
+  try {
+    const entries = await readdir(directoryPath, { withFileTypes: true });
+    const nestedFiles = await Promise.all(entries.map(async (entry) => {
+      const entryPath = path.join(directoryPath, entry.name);
+
+      if (entry.isDirectory()) {
+        return collectConvertibleImages(entryPath);
+      }
+
+      if (!entry.isFile()) {
+        return [];
+      }
+
+      return MODERN_IMAGE_EXTENSIONS.has(path.extname(entry.name).toLowerCase())
+        ? [entryPath]
+        : [];
+    }));
+
+    return nestedFiles.flat();
+  } catch (error) {
+    if (error?.code === 'ENOENT') {
+      return [];
+    }
+
+    throw error;
+  }
+}
+
+function getDerivedImageOutputPath(sourceFilePath, extension) {
+  const relativePath = path.relative(path.resolve(paths.img.sourceRoot), sourceFilePath);
+  const outputRelativePath = relativePath.replace(/\.(png|jpe?g)$/i, `.${extension}`);
+
+  return path.join(path.resolve(paths.img.dest), outputRelativePath);
+}
+
+async function convertImage(sourceFilePath, format) {
+  const outputFilePath = getDerivedImageOutputPath(sourceFilePath, format);
+
+  await mkdir(path.dirname(outputFilePath), { recursive: true });
+
+  if (format === 'webp') {
+    await sharp(sourceFilePath).webp(WEBP_OPTIONS).toFile(outputFilePath);
+    return;
+  }
+
+  await sharp(sourceFilePath).avif(AVIF_OPTIONS).toFile(outputFilePath);
+}
+
+async function generateModernImgFormats() {
+  const imageFiles = await collectConvertibleImages(path.resolve(paths.img.sourceRoot));
+
+  await Promise.all(
+    imageFiles.flatMap((sourceFilePath) => [
+      convertImage(sourceFilePath, 'webp'),
+      convertImage(sourceFilePath, 'avif'),
+    ])
+  );
+}
+
+async function cleanDistImg() {
+  await rm(paths.img.dest, { recursive: true, force: true });
+}
+
 // ---- Copiar Data ----
 function copyData() {
   return gulp.src(paths.data.src, { encoding: false }).pipe(gulp.dest(paths.data.dest));
 }
 
 // ---- Tarea unificada de copiado de estáticos ----
-const copyStatic = gulp.parallel(copyHTML, copyJS, copyImg, copyData);
+const buildImages = gulp.series(copyImg, generateModernImgFormats);
+const refreshImages = gulp.series(cleanDistImg, buildImages);
+const copyStatic = gulp.parallel(copyHTML, copyJS, copyData);
+const copy = gulp.parallel(copyStatic, buildImages);
 
 // ---- Limpiar dist para evitar artefactos obsoletos ----
 async function cleanDist() {
@@ -104,14 +177,14 @@ function watchFiles(cb) {
   gulp.watch(paths.scss.src, compileSass);
   gulp.watch(paths.html.src, gulp.series(copyHTML, reload));
   gulp.watch(paths.js.src, gulp.series(copyJS, reload));
-  gulp.watch(paths.img.src, { encoding: false }, gulp.series(copyImg, reload));
+  gulp.watch(paths.img.src, { encoding: false }, gulp.series(refreshImages, reload));
   gulp.watch(paths.data.src, { encoding: false }, gulp.series(copyData, reload));
   cb();
 }
 
 // ---- Tareas exportadas ----
-const build = gulp.series(cleanDist, copyStatic, compileSass);
+const build = gulp.series(cleanDist, copy, compileSass);
 const dev = gulp.series(build, serve, watchFiles);
 
-export { compileSass as sass, copyStatic as copy, build };
+export { compileSass as sass, copy, build };
 export default dev;
