@@ -19,6 +19,14 @@ const {
   buildFuseDebugEntry,
   evaluateFuseStrategy,
   resolveResponseStrategy,
+  expandSynonyms,
+  isAnaphoricQuery,
+  maybeAddColetilla,
+  STOP_WORDS_BY_LANGUAGE,
+  PERSONALITY_COLETILLAS,
+  CONTEXTUAL_FALLBACK_SUGGESTIONS,
+  SYNONYM_TABLE,
+  ANAPHORIC_PATTERNS,
 } = require('../src/js/app.js');
 const fs = require('fs');
 const path = require('path');
@@ -1398,6 +1406,415 @@ describe('NLP Engine & Three-Layer Search', () => {
 
     test('informal: "de que estan hechas las joyas de la fallera"', () => {
       expectMatch('de que estan hechas las joyas de la fallera', 'latón');
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Fase 1: Diacríticos en matching directo
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  describe('Fase 1: Diacritics-insensitive direct matching', () => {
+    let directResponses;
+
+    beforeAll(() => {
+      directResponses = buildDirectResponses('es');
+    });
+
+    test('"musica" without accent should match triggers with "música"', () => {
+      const result = findDirectResponse('banda de musica', directResponses);
+      expect(result).not.toBeNull();
+      const text = Array.isArray(result.text) ? result.text.join(' ') : String(result.text);
+      expect(text.toLowerCase()).toContain('banda');
+    });
+
+    test('"reposteria" without accent should match trigger "repostería"', () => {
+      const result = findDirectResponse('reposteria', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('"cuando es la crema" should still match cremà trigger', () => {
+      const result = findDirectResponse('cuando es la crema', directResponses);
+      expect(result).not.toBeNull();
+      const text = Array.isArray(result.text) ? result.text.join(' ') : String(result.text);
+      expect(text.toLowerCase()).toContain('19 de marzo');
+    });
+
+    test('original accented queries still work normally', () => {
+      const result = findDirectResponse('¿Qué son las Fallas?', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('"paella valenciana" with no accents still matches', () => {
+      const result = findDirectResponse('paella valenciana', directResponses);
+      expect(result).not.toBeNull();
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Fase 2: CASCADE cleanup patterns
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  describe('Fase 2: Extended CASCADE cleanup patterns', () => {
+    test('resolveCascadeStrategy should clean "qué es la mascletà" through new patterns', () => {
+      const runtimeConfig = resolveFuseRuntimeConfig({
+        directResponseScore: '0.6',
+        guidanceScore: '0.78',
+      });
+      const esState = buildLanguageResponseState(kb.es, 'es');
+
+      const strategy = resolveCascadeStrategy(
+        'qué es la mascletà',
+        esState.responses,
+        esState.responsesFlat,
+        'es',
+        esState.defaultFollowUps,
+        runtimeConfig
+      );
+
+      expect(strategy).not.toBeNull();
+      expect(['direct', 'answer']).toContain(strategy.mode);
+    });
+
+    test('resolveCascadeStrategy should handle "cuándo es la cremà"', () => {
+      const runtimeConfig = resolveFuseRuntimeConfig({
+        directResponseScore: '0.6',
+        guidanceScore: '0.78',
+      });
+      const esState = buildLanguageResponseState(kb.es, 'es');
+
+      const strategy = resolveCascadeStrategy(
+        'cuándo es la cremà',
+        esState.responses,
+        esState.responsesFlat,
+        'es',
+        esState.defaultFollowUps,
+        runtimeConfig
+      );
+
+      expect(strategy).not.toBeNull();
+    });
+
+    test('EN cleanup: "what is the mascleta" should work through CASCADE', () => {
+      const runtimeConfig = resolveFuseRuntimeConfig({
+        directResponseScore: '0.6',
+        guidanceScore: '0.78',
+      });
+      const enState = buildLanguageResponseState(kb.en, 'en');
+
+      const strategy = resolveCascadeStrategy(
+        'what is the mascleta',
+        enState.responses,
+        enState.responsesFlat,
+        'en',
+        enState.defaultFollowUps,
+        runtimeConfig
+      );
+
+      expect(strategy).not.toBeNull();
+    });
+
+    test('"cómo se prepara la paella" should work through CASCADE', () => {
+      const runtimeConfig = resolveFuseRuntimeConfig({
+        directResponseScore: '0.6',
+        guidanceScore: '0.78',
+      });
+      const esState = buildLanguageResponseState(kb.es, 'es');
+
+      const strategy = resolveCascadeStrategy(
+        'cómo se prepara la paella',
+        esState.responses,
+        esState.responsesFlat,
+        'es',
+        esState.defaultFollowUps,
+        runtimeConfig
+      );
+
+      expect(strategy).not.toBeNull();
+    });
+
+    test('"dónde está la ofrenda" should work through CASCADE', () => {
+      const runtimeConfig = resolveFuseRuntimeConfig({
+        directResponseScore: '0.6',
+        guidanceScore: '0.78',
+      });
+      const esState = buildLanguageResponseState(kb.es, 'es');
+
+      const strategy = resolveCascadeStrategy(
+        'dónde está la ofrenda',
+        esState.responses,
+        esState.responsesFlat,
+        'es',
+        esState.defaultFollowUps,
+        runtimeConfig
+      );
+
+      expect(strategy).not.toBeNull();
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Fase 3: Triggers amplios corregidos
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  describe('Fase 3: Broad triggers are now scoped', () => {
+    let directResponses;
+
+    beforeAll(() => {
+      directResponses = buildDirectResponses('es');
+    });
+
+    test('"fuego" alone should NOT match cremà', () => {
+      const result = findDirectResponse('fuego', directResponses);
+      expect(result).toBeNull();
+    });
+
+    test('"fuego de fallas" should match cremà', () => {
+      const result = findDirectResponse('fuego de fallas', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('"la cremà" should match', () => {
+      const result = findDirectResponse('la cremà', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('"banda" alone should NOT match music', () => {
+      const result = findDirectResponse('banda', directResponses);
+      expect(result).toBeNull();
+    });
+
+    test('"banda de musica" should match', () => {
+      const result = findDirectResponse('banda de musica', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('"música fallera" should match', () => {
+      const result = findDirectResponse('música fallera', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('"quemar fallas" still matches cremà', () => {
+      const result = findDirectResponse('quemar fallas', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('"19 marzo" still matches cremà', () => {
+      const result = findDirectResponse('19 marzo', directResponses);
+      expect(result).not.toBeNull();
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Fase 4: Stop words por idioma
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  describe('Fase 4: Language-specific stop words', () => {
+    test('cleanText with EN language filters "the" and "of"', () => {
+      const cleaned = cleanText('the offering of flowers', 'en');
+      expect(cleaned).not.toContain('the');
+      expect(cleaned).not.toContain(' of ');
+      expect(cleaned).toContain('offering');
+      expect(cleaned).toContain('flowers');
+    });
+
+    test('cleanText with FR language filters "le" and "des"', () => {
+      const cleaned = cleanText('le festival des fallas', 'fr');
+      expect(cleaned).not.toMatch(/\ble\b/);
+      expect(cleaned).not.toMatch(/\bdes\b/);
+      expect(cleaned).toContain('festival');
+      expect(cleaned).toContain('fallas');
+    });
+
+    test('cleanText with VA language filters "els" and "amb"', () => {
+      const cleaned = cleanText('els monuments amb foc', 'va');
+      expect(cleaned).not.toMatch(/\bels\b/);
+      expect(cleaned).not.toMatch(/\bamb\b/);
+      expect(cleaned).toContain('monuments');
+    });
+
+    test('STOP_WORDS_BY_LANGUAGE has entries for all 4 languages', () => {
+      expect(STOP_WORDS_BY_LANGUAGE.es.length).toBeGreaterThan(10);
+      expect(STOP_WORDS_BY_LANGUAGE.va.length).toBeGreaterThan(10);
+      expect(STOP_WORDS_BY_LANGUAGE.en.length).toBeGreaterThan(10);
+      expect(STOP_WORDS_BY_LANGUAGE.fr.length).toBeGreaterThan(10);
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Fase 5: Sinónimos para Fuse.js
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  describe('Fase 5: Synonym expansion', () => {
+    test('expandSynonyms adds mascleta synonyms for "pirotecnia"', () => {
+      const expanded = expandSynonyms('pirotecnia valenciana', 'es');
+      expect(expanded).not.toBeNull();
+      expect(expanded).toContain('mascleta');
+    });
+
+    test('expandSynonyms adds paella for "comida"', () => {
+      const expanded = expandSynonyms('comida tipica', 'es');
+      expect(expanded).not.toBeNull();
+      expect(expanded).toContain('paella');
+    });
+
+    test('expandSynonyms returns null when no synonyms found', () => {
+      const expanded = expandSynonyms('xyz zzz', 'es');
+      expect(expanded).toBeNull();
+    });
+
+    test('SYNONYM_TABLE has entries for all 4 languages', () => {
+      expect(Object.keys(SYNONYM_TABLE.es).length).toBeGreaterThan(10);
+      expect(Object.keys(SYNONYM_TABLE.va).length).toBeGreaterThan(5);
+      expect(Object.keys(SYNONYM_TABLE.en).length).toBeGreaterThan(5);
+      expect(Object.keys(SYNONYM_TABLE.fr).length).toBeGreaterThan(5);
+    });
+
+    test('Fuse search for "pirotecnia valenciana" finds mascleta content', () => {
+      actualizarFuse(flattenKnowledgeBase(kb.es));
+      const results = buscarConFuse('pirotecnia valenciana');
+      expect(results.length).toBeGreaterThan(0);
+      const texts = results.map((r) => cleanText(Array.isArray(r.item.text) ? r.item.text.join(' ') : String(r.item.text)));
+      expect(texts.some((t) => t.includes('mascleta'))).toBe(true);
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Fase 6: Personalidad y coletillas
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  describe('Fase 6: Personality coletillas', () => {
+    test('maybeAddColetilla does not modify text for non-passionate families', () => {
+      const item = { families: ['conversation'] };
+      const result = maybeAddColetilla('Hola mundo', item, 'es');
+      expect(result).toBe('Hola mundo');
+    });
+
+    test('PERSONALITY_COLETILLAS has entries for all 4 supported languages', () => {
+      expect(PERSONALITY_COLETILLAS.es.length).toBeGreaterThan(3);
+      expect(PERSONALITY_COLETILLAS.va.length).toBeGreaterThan(3);
+      expect(PERSONALITY_COLETILLAS.en.length).toBeGreaterThan(3);
+      expect(PERSONALITY_COLETILLAS.fr.length).toBeGreaterThan(3);
+    });
+
+    test('maybeAddColetilla can add coletilla for passionate families (with forced random)', () => {
+      const item = { families: ['events'] };
+      const originalRandom = Math.random;
+      Math.random = () => 0.1; // force probability under 0.25
+      try {
+        const result = maybeAddColetilla('Respuesta', item, 'es');
+        expect(result.length).toBeGreaterThan('Respuesta'.length);
+      } finally {
+        Math.random = originalRandom;
+      }
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Fase 7: Easter eggs
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  describe('Fase 7: Easter eggs', () => {
+    test('ES: "eres una IA?" matches easter egg', () => {
+      const directResponses = buildDirectResponses('es');
+      const result = findDirectResponse('eres una ia?', directResponses);
+      expect(result).not.toBeNull();
+      const text = Array.isArray(result.text) ? result.text.join(' ') : String(result.text);
+      expect(text.toLowerCase()).toContain('masclet');
+    });
+
+    test('ES: "cuéntame un chiste" matches joke', () => {
+      const directResponses = buildDirectResponses('es');
+      const result = findDirectResponse('cuéntame un chiste', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('ES: "cuál es tu comida favorita" matches paella answer', () => {
+      const directResponses = buildDirectResponses('es');
+      const result = findDirectResponse('cuál es tu comida favorita', directResponses);
+      expect(result).not.toBeNull();
+      const text = Array.isArray(result.text) ? result.text.join(' ') : String(result.text);
+      expect(text.toLowerCase()).toContain('paella');
+    });
+
+    test('ES: "cuál es tu falla favorita" matches', () => {
+      const directResponses = buildDirectResponses('es');
+      const result = findDirectResponse('cuál es tu falla favorita', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('ES: "llueve en fallas" matches', () => {
+      const directResponses = buildDirectResponses('es');
+      const result = findDirectResponse('llueve en fallas', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('EN: "are you a robot?" matches', () => {
+      const directResponses = buildDirectResponses('en');
+      const result = findDirectResponse('are you a robot?', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('VA: "ets una ia?" matches', () => {
+      const directResponses = buildDirectResponses('va');
+      const result = findDirectResponse('ets una ia?', directResponses);
+      expect(result).not.toBeNull();
+    });
+
+    test('FR: "es-tu un robot?" matches', () => {
+      const directResponses = buildDirectResponses('fr');
+      const result = findDirectResponse('es-tu un robot?', directResponses);
+      expect(result).not.toBeNull();
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Fase 8: Anaphoric patterns
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  describe('Fase 8: Anaphoric pattern detection', () => {
+    test('"dime más" is detected as anaphoric in ES', () => {
+      expect(isAnaphoricQuery('dime más', 'es')).toBe(true);
+    });
+
+    test('"cuéntame más" is detected as anaphoric in ES', () => {
+      expect(isAnaphoricQuery('cuéntame más', 'es')).toBe(true);
+    });
+
+    test('"tell me more" is detected as anaphoric in EN', () => {
+      expect(isAnaphoricQuery('tell me more', 'en')).toBe(true);
+    });
+
+    test('"más" alone is detected as anaphoric', () => {
+      expect(isAnaphoricQuery('más', 'es')).toBe(true);
+    });
+
+    test('a normal question is NOT anaphoric', () => {
+      expect(isAnaphoricQuery('qué es la mascletà', 'es')).toBe(false);
+    });
+  });
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // Fase 9: Contextual fallback suggestions
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  describe('Fase 9: Contextual fallback suggestions', () => {
+    test('CONTEXTUAL_FALLBACK_SUGGESTIONS has entries for all languages', () => {
+      expect(Object.keys(CONTEXTUAL_FALLBACK_SUGGESTIONS.es).length).toBeGreaterThan(5);
+      expect(Object.keys(CONTEXTUAL_FALLBACK_SUGGESTIONS.en).length).toBeGreaterThan(3);
+      expect(Object.keys(CONTEXTUAL_FALLBACK_SUGGESTIONS.va).length).toBeGreaterThan(3);
+      expect(Object.keys(CONTEXTUAL_FALLBACK_SUGGESTIONS.fr).length).toBeGreaterThan(3);
+    });
+
+    test('ES events family has relevant suggestions', () => {
+      const suggestions = CONTEXTUAL_FALLBACK_SUGGESTIONS.es.events;
+      expect(suggestions).toContain('Mascletà');
+      expect(suggestions).toContain('Cremà');
+    });
+
+    test('ES gastronomy family has relevant suggestions', () => {
+      const suggestions = CONTEXTUAL_FALLBACK_SUGGESTIONS.es.gastronomy;
+      expect(suggestions).toContain('Paella');
+      expect(suggestions).toContain('Buñuelos');
     });
   });
 });

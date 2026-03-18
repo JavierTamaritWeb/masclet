@@ -64,11 +64,29 @@ function isStaticChatMode() {
 }
 
 // ---- Stop words (palabras comunes a filtrar) ----
-const stopWordsList = [
-  'el', 'la', 'los', 'las', 'de', 'del', 'y', 'a', 'en',
-  'con', 'para', 'por', 'al', 'ante', 'bajo', 'cabe', 'desde',
-  'durante', 'excepto', 'mediante', 'según', 'sin', 'tras',
-];
+const STOP_WORDS_BY_LANGUAGE = {
+  es: [
+    'el', 'la', 'los', 'las', 'de', 'del', 'y', 'a', 'en',
+    'con', 'para', 'por', 'al', 'ante', 'bajo', 'cabe', 'desde',
+    'durante', 'excepto', 'mediante', 'según', 'sin', 'tras',
+  ],
+  va: [
+    'el', 'la', 'els', 'les', 'de', 'del', 'i', 'a', 'en',
+    'amb', 'per', 'al', 'des', 'sense', 'entre', 'sobre',
+    'dins', 'fins', 'cap', 'sota', 'segons',
+  ],
+  en: [
+    'the', 'a', 'an', 'of', 'and', 'in', 'on', 'at', 'to',
+    'for', 'with', 'by', 'from', 'is', 'are', 'was', 'were',
+    'it', 'its', 'this', 'that', 'these', 'those',
+  ],
+  fr: [
+    'le', 'la', 'les', 'de', 'du', 'des', 'et', 'à', 'en',
+    'un', 'une', 'au', 'aux', 'par', 'pour', 'sur', 'dans',
+    'avec', 'sans', 'entre', 'sous', 'ce', 'cette', 'ces',
+  ],
+};
+const stopWordsList = STOP_WORDS_BY_LANGUAGE.es;
 
 function createStopWordsRegex(list) {
   const pattern = '\\b(' + list.join('|') + ')\\b';
@@ -76,6 +94,9 @@ function createStopWordsRegex(list) {
 }
 
 const stopWords = createStopWordsRegex(stopWordsList);
+const STOP_WORDS_REGEX_BY_LANGUAGE = Object.fromEntries(
+  Object.entries(STOP_WORDS_BY_LANGUAGE).map(([lang, list]) => [lang, createStopWordsRegex(list)])
+);
 
 // ---- Utilidades de texto ----
 function removeDiacritics(str) {
@@ -83,12 +104,13 @@ function removeDiacritics(str) {
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
-function cleanText(text) {
+function cleanText(text, language) {
   if (!text) return '';
   // Si es un array (como saludos variados), lo unimos para normalizarlo todo
   const str = Array.isArray(text) ? text.join(' ') : String(text);
   let cleaned = removeDiacritics(str).toLowerCase();
-  cleaned = cleaned.replace(stopWords, '');
+  const langStopWords = (language && STOP_WORDS_REGEX_BY_LANGUAGE[language]) || stopWords;
+  cleaned = cleaned.replace(langStopWords, '');
   cleaned = cleaned.replace(/\s+/g, ' ').trim();
   return cleaned;
 }
@@ -215,6 +237,7 @@ const LANGUAGE_CONFIGS = {
       unexpectedErrorText: '¡Ups! Algo falló.',
       guidedFallbackText: 'No tengo una coincidencia exacta, pero estas sugerencias están cerca de lo que buscas.',
       globalFallbackText: 'No encontré una coincidencia clara, pero puedo orientarte con estas sugerencias.',
+      anaphoricResponseText: '¡Aquí tienes más sobre ese tema!',
       contextualGreetings: {
         morning: '¡Buenos días!',
         afternoon: '¡Buenas tardes!',
@@ -254,6 +277,7 @@ const LANGUAGE_CONFIGS = {
       unexpectedErrorText: 'Ai! Alguna cosa ha fallat.',
       guidedFallbackText: 'No tinc una coincidència exacta, però estos suggeriments s\'acosten al que busques.',
       globalFallbackText: 'No he trobat una coincidència clara, però puc orientar-te amb estos suggeriments.',
+      anaphoricResponseText: 'Ací tens més sobre eixe tema!',
       contextualGreetings: {
         morning: 'Bon dia!',
         afternoon: 'Bona vesprada!',
@@ -293,6 +317,7 @@ const LANGUAGE_CONFIGS = {
       unexpectedErrorText: 'Oops! Something went wrong.',
       guidedFallbackText: 'I don\'t have an exact match, but these suggestions are close to what you need.',
       globalFallbackText: 'I couldn\'t find a clear match, but I can guide you with these suggestions.',
+      anaphoricResponseText: 'Here\'s more on that topic!',
       contextualGreetings: {
         morning: 'Good morning!',
         afternoon: 'Good afternoon!',
@@ -332,6 +357,7 @@ const LANGUAGE_CONFIGS = {
       unexpectedErrorText: 'Oups ! Quelque chose a échoué.',
       guidedFallbackText: 'Je n\'ai pas de correspondance exacte, mais ces suggestions sont proches de ce que vous cherchez.',
       globalFallbackText: 'Je n\'ai pas trouvé de correspondance claire, mais je peux vous guider avec ces suggestions.',
+      anaphoricResponseText: 'Voici plus d\'informations sur ce sujet !',
       contextualGreetings: {
         morning: 'Bonjour !',
         afternoon: 'Bon après-midi !',
@@ -648,21 +674,41 @@ const CASCADE_SEARCH_CLEANUP_PATTERNS = {
     [/^(?:dime|cuentame|hablame)\s+(?:de|sobre)\s+/g, ''],
     [/^(?:quiero\s+saber|quiero)\s+(?:de|sobre)?\s*/g, ''],
     [/^(?:informacion|info)\s+(?:de|sobre)\s+/g, ''],
+    [/^(?:qu[eé]\s+(?:es|son|significa))\s+(?:un[oa]?\s+|el\s+|la\s+|los\s+|las\s+)?/g, ''],
+    [/^(?:cu[aá]ndo\s+(?:es|son|empieza|se\s+celebra))\s+(?:el\s+|la\s+|los\s+|las\s+)?/g, ''],
+    [/^(?:cu[aá]l\s+es|cu[aá]les\s+son)\s+(?:el\s+|la\s+|los\s+|las\s+)?/g, ''],
+    [/^(?:c[oó]mo\s+(?:es|son|se\s+(?:hace|llama|prepara)))\s+(?:un[oa]?\s+|el\s+|la\s+|los\s+|las\s+)?/g, ''],
+    [/^(?:d[oó]nde\s+(?:es|est[aá]|hay|puedo))\s+/g, ''],
   ],
   va: [
     [/^(?:digues(?:\s+me)?|conta\s+me|parla\s+me)\s+(?:de|sobre)\s+/g, ''],
     [/^(?:vull\s+saber|vull)\s+(?:de|sobre)?\s*/g, ''],
     [/^(?:informacio)\s+(?:de|sobre)\s+/g, ''],
+    [/^(?:qu[eè]\s+(?:[eé]s|s[oó]n|significa))\s+(?:un[a]?\s+|el\s+|la\s+|els\s+|les\s+)?/g, ''],
+    [/^(?:quan\s+(?:[eé]s|s[oó]n|comen[cç]a|se\s+celebra))\s+(?:el\s+|la\s+|els\s+|les\s+)?/g, ''],
+    [/^(?:quin[a]?\s+[eé]s|quins?\s+s[oó]n)\s+(?:el\s+|la\s+|els\s+|les\s+)?/g, ''],
+    [/^(?:com\s+(?:[eé]s|s[oó]n|es\s+(?:fa|diu|prepara)))\s+(?:un[a]?\s+|el\s+|la\s+|els\s+|les\s+)?/g, ''],
+    [/^(?:on\s+(?:[eé]s|est[aà]|hi\s+ha|puc))\s+/g, ''],
   ],
   en: [
     [/^(?:tell\s+me|explain)\s+(?:about\s+)?/g, ''],
     [/^(?:i\s+want\s+to\s+know|i\s+want)\s+(?:about\s+)?/g, ''],
     [/^(?:information|info)\s+(?:about\s+)?/g, ''],
+    [/^(?:what\s+(?:is|are|does))\s+(?:a\s+|an\s+|the\s+)?/g, ''],
+    [/^(?:when\s+(?:is|are|does))\s+(?:the\s+)?/g, ''],
+    [/^(?:where\s+(?:is|are|can\s+i))\s+/g, ''],
+    [/^(?:how\s+(?:is|are|do\s+(?:you|they)))\s+(?:a\s+|an\s+|the\s+)?/g, ''],
+    [/^(?:which\s+(?:is|are))\s+(?:the\s+)?/g, ''],
   ],
   fr: [
     [/^(?:dis(?:\s+moi)?|explique(?:\s+moi)?)\s+(?:de|sur)\s+/g, ''],
     [/^(?:je\s+veux\s+savoir|je\s+veux)\s+(?:de|sur)?\s*/g, ''],
     [/^(?:information|infos?)\s+(?:sur\s+)?/g, ''],
+    [/^(?:qu['\u2019]?est[\s-]ce\s+que?\s+(?:c['\u2019]?est|sont?))\s+(?:un[e]?\s+|le\s+|la\s+|les\s+|l['\u2019])?/g, ''],
+    [/^(?:quand\s+(?:est|sont|commence))\s+(?:le\s+|la\s+|les\s+|l['\u2019])?/g, ''],
+    [/^(?:o[uù]\s+(?:est|sont|se\s+trouve|puis[\s-]je))\s+/g, ''],
+    [/^(?:comment\s+(?:est|sont|se\s+(?:fait|prepare)))\s+(?:un[e]?\s+|le\s+|la\s+|les\s+|l['\u2019])?/g, ''],
+    [/^(?:quel(?:le)?s?\s+(?:est|sont))\s+(?:le\s+|la\s+|les\s+|l['\u2019])?/g, ''],
   ],
 };
 const FUSE_OPTIONS = {
@@ -1066,7 +1112,7 @@ function buildLiteralTriggerRegex(value) {
   const tokens = String(value)
     .trim()
     .split(/\s+/)
-    .map((token) => escapeRegExp(token));
+    .map((token) => escapeRegExp(removeDiacritics(token)));
 
   return new RegExp(`^\\s*[¿¡]?\\s*${tokens.join('\\s+')}\\s*[?¿!¡.]*\\s*$`, 'i');
 }
@@ -1298,7 +1344,11 @@ function hasTriggerMatch(trigger, query) {
 
 function findDirectResponse(query, responseList = respuestas) {
   const safeQuery = sanitizeUserQuery(query);
-  return responseList.find((response) => hasTriggerMatch(response.trigger, safeQuery)) || null;
+  const normalizedQuery = removeDiacritics(safeQuery);
+  return responseList.find((response) =>
+    hasTriggerMatch(response.trigger, safeQuery)
+    || hasTriggerMatch(response.trigger, normalizedQuery)
+  ) || null;
 }
 
 function checkScreenSize() {
@@ -1421,7 +1471,7 @@ function buildFuseDataset(data) {
     const followUpStr = followUp.join(' ');
     const keywordsStr = keywords.join(' ');
     const triggerStr = triggerToString(item.trigger);
-    const idSource = `${triggerStr}|${cleanText(textForFuse)}`;
+    const idSource = `${triggerStr}|${cleanText(textForFuse, resolvedLanguage)}`;
 
     return {
       ...item,
@@ -1434,11 +1484,11 @@ function buildFuseDataset(data) {
       kbPath: item.kbPath || '',
       language: resolvedLanguage,
       families,
-      normalized: cleanText(textForFuse),
-      followUpStr: cleanText(followUpStr),
-      keywordsStr: cleanText(keywordsStr),
-      triggerStr: cleanText(triggerStr),
-      combo: cleanText(`${textForFuse} ${followUpStr} ${triggerStr}`),
+      normalized: cleanText(textForFuse, resolvedLanguage),
+      followUpStr: cleanText(followUpStr, resolvedLanguage),
+      keywordsStr: cleanText(keywordsStr, resolvedLanguage),
+      triggerStr: cleanText(triggerStr, resolvedLanguage),
+      combo: cleanText(`${textForFuse} ${followUpStr} ${triggerStr}`, resolvedLanguage),
     };
   });
 }
@@ -1458,12 +1508,90 @@ function dedupeFuseResults(results) {
   return unique;
 }
 
+const SYNONYM_TABLE = {
+  es: {
+    pirotecnia: ['mascletà', 'mascleta', 'petardos', 'fuegos artificiales'],
+    mascleta: ['pirotecnia', 'mascletà'],
+    mascletà: ['pirotecnia', 'mascleta'],
+    comida: ['paella', 'gastronomia', 'cocina'],
+    paella: ['arroz', 'comida valenciana'],
+    vestido: ['traje', 'indumentaria', 'vestimenta'],
+    traje: ['vestido', 'indumentaria', 'vestimenta'],
+    indumentaria: ['traje', 'vestido', 'vestimenta'],
+    monumento: ['falla', 'ninot', 'escultura'],
+    falla: ['monumento', 'ninot'],
+    flores: ['ofrenda', 'clavel'],
+    ofrenda: ['flores', 'virgen', 'clavel'],
+    arroz: ['paella', 'comida'],
+    fuego: ['crema', 'cremà', 'quemar'],
+    fiesta: ['fallas', 'celebracion'],
+    dulces: ['buñuelos', 'pasteles', 'reposteria'],
+    musica: ['banda', 'pasodoble', 'pasacalles'],
+    joyeria: ['aderezo', 'peineta', 'orfebreria'],
+    peinado: ['rodetes', 'moños', 'posticeria'],
+  },
+  va: {
+    pirotecnia: ['mascletà', 'mascleta', 'petards'],
+    mascleta: ['pirotecnia', 'mascletà'],
+    menjar: ['paella', 'gastronomia', 'cuina'],
+    paella: ['arros', 'menjar valencia'],
+    vestit: ['indumentaria', 'vestimenta'],
+    monument: ['falla', 'ninot'],
+    flors: ['ofrena', 'clavell'],
+    ofrena: ['flors', 'verge'],
+    foc: ['crema', 'cremar'],
+    dolcos: ['bunyols', 'pastissos'],
+  },
+  en: {
+    pyrotechnics: ['mascleta', 'firecrackers', 'fireworks'],
+    food: ['paella', 'gastronomy', 'cuisine'],
+    paella: ['rice', 'valencian food'],
+    dress: ['attire', 'costume', 'clothing'],
+    monument: ['falla', 'ninot', 'sculpture'],
+    flowers: ['offering', 'carnation'],
+    offering: ['flowers', 'virgin'],
+    fire: ['crema', 'burning'],
+    sweets: ['fritters', 'pastries'],
+    music: ['band', 'parade'],
+    jewelry: ['adornment', 'comb', 'goldsmith'],
+  },
+  fr: {
+    pyrotechnie: ['mascleta', 'petards', 'feux'],
+    nourriture: ['paella', 'gastronomie', 'cuisine'],
+    paella: ['riz', 'nourriture valencienne'],
+    tenue: ['costume', 'vetement'],
+    monument: ['falla', 'ninot', 'sculpture'],
+    fleurs: ['offrande', 'oeillet'],
+    offrande: ['fleurs', 'vierge'],
+    feu: ['crema', 'bruler'],
+    douceurs: ['beignets', 'patisserie'],
+  },
+};
+
+function expandSynonyms(query, language = 'es') {
+  const table = SYNONYM_TABLE[language] || SYNONYM_TABLE.es;
+  const normalizedQuery = removeDiacritics(query).toLowerCase();
+  const words = normalizedQuery.split(/\s+/);
+  const expansions = [];
+
+  words.forEach((word) => {
+    const synonyms = table[word];
+    if (synonyms) {
+      expansions.push(...synonyms);
+    }
+  });
+
+  if (!expansions.length) return null;
+  return `${normalizedQuery} ${expansions.join(' ')}`;
+}
+
 function buildFuseQueries(query) {
   const safeQuery = sanitizeUserQuery(query);
   const normalizedQuery = cleanText(safeQuery);
   const semanticQuery = cleanText(analizarConsultaCompromise(safeQuery));
+  const synonymQuery = expandSynonyms(normalizedQuery, currentLanguage);
 
-  return [normalizedQuery, semanticQuery]
+  return [normalizedQuery, semanticQuery, synonymQuery]
     .filter(Boolean)
     .filter((value, index, arr) => arr.indexOf(value) === index);
 }
@@ -1578,6 +1706,47 @@ const lastResponses = {};
 const repeatCount = {};
 const conversationHistory = {};
 
+// ---- Memoria de tema (Fase 8) ----
+let lastTopicContext = null;
+
+const ANAPHORIC_PATTERNS = {
+  es: [
+    /^(?:dime\s+m[aá]s|cu[eé]ntame\s+m[aá]s|m[aá]s\s+sobre\s+eso|ampl[ií]a|quiero\s+saber\s+m[aá]s|m[aá]s\s+informaci[oó]n|y\s+(?:qu[eé]|c[oó]mo)\s+m[aá]s|sigue|contin[uú]a|algo\s+m[aá]s)\s*[?¿!¡.]*\s*$/i,
+    /^(?:m[aá]s)\s*[?¿!¡.]*\s*$/i,
+  ],
+  va: [
+    /^(?:digues\s+m[eé]s|conta\s+m[eé]s|m[eé]s\s+sobre\s+aix[oò]|amplia|vull\s+saber\s+m[eé]s|m[eé]s\s+informaci[oó]|segueix|continua)\s*[?¿!¡.]*\s*$/i,
+    /^(?:m[eé]s)\s*[?¿!¡.]*\s*$/i,
+  ],
+  en: [
+    /^(?:tell\s+me\s+more|more\s+about\s+(?:that|this|it)|expand|i\s+want\s+(?:to\s+know\s+)?more|more\s+info(?:rmation)?|go\s+on|continue|anything\s+else)\s*[?!.]*\s*$/i,
+    /^(?:more)\s*[?!.]*\s*$/i,
+  ],
+  fr: [
+    /^(?:dis[\s-](?:m(?:'|'))?en\s+plus|plus\s+sur\s+[cç]a|d[eé]veloppe|je\s+veux\s+(?:en\s+)?savoir\s+plus|plus\s+d['\u2019]infos?|continue)\s*[?!.]*\s*$/i,
+    /^(?:plus)\s*[?!.]*\s*$/i,
+  ],
+};
+
+function isAnaphoricQuery(query, language = currentLanguage) {
+  const patterns = ANAPHORIC_PATTERNS[language] || ANAPHORIC_PATTERNS.es;
+  const safeQuery = sanitizeUserQuery(query);
+  return patterns.some((p) => p.test(safeQuery));
+}
+
+function updateTopicContext(family, item, query) {
+  lastTopicContext = {
+    family: family || (item.families && item.families[0]) || null,
+    item,
+    query,
+    timestamp: Date.now(),
+  };
+}
+
+function clearTopicContext() {
+  lastTopicContext = null;
+}
+
 function clearObjectValues(target) {
   Object.keys(target).forEach((key) => delete target[key]);
 }
@@ -1586,6 +1755,7 @@ function resetConversationState({ announcement = null, focusInput = true } = {})
   clearObjectValues(lastResponses);
   clearObjectValues(repeatCount);
   clearObjectValues(conversationHistory);
+  clearTopicContext();
 
   if (!hasDocument) return;
 
@@ -1609,9 +1779,55 @@ function getFallbackSuggestionPool(extraSuggestions = []) {
   ]);
 }
 
+const CONTEXTUAL_FALLBACK_SUGGESTIONS = {
+  es: {
+    events: ['Mascletà', 'Cremà', 'Ofrenda', 'Nit del Foc', 'Despertà'],
+    gastronomy: ['Paella', 'Buñuelos', 'Horchata', 'Esmorçar', 'Cremaet'],
+    attire: ['Traje de fallera', 'Traje de fallero', 'Peineta', 'Espolines', 'Aderezo'],
+    history: ['Origen de las Fallas', 'El parot', 'Fundación JCF', 'Suspensiones'],
+    organization: ['Junta Central Fallera', 'Comisiones', 'Interagrupación'],
+    logistics: ['Aparcar en Fallas', 'Zonas tranquilas', 'Accesibilidad PMR'],
+    personality: ['¿Cómo te llamas?', '¿Qué color te gusta?', '¿Te gusta la pólvora?'],
+    conversation: ['¿Sobre qué tema quieres hablar?'],
+  },
+  va: {
+    events: ['Mascletà', 'Cremà', 'Ofrena', 'Nit del Foc', 'Despertà'],
+    gastronomy: ['Paella', 'Bunyols', 'Orxata', 'Esmorzar', 'Cremaet'],
+    attire: ['Vestit de fallera', 'Vestit de faller', 'Pinta', 'Espolines', 'Adrec'],
+    history: ['Origen de les Falles', 'El parot', 'Fundació JCF'],
+    organization: ['Junta Central Fallera', 'Comissions', 'Interagrupació'],
+    logistics: ['Aparcar en Falles', 'Zones tranquil·les', 'Accessibilitat PMR'],
+  },
+  en: {
+    events: ['Mascletà', 'Cremà', 'Offering', 'Nit del Foc', 'Despertà'],
+    gastronomy: ['Paella', 'Fritters', 'Horchata', 'Valencian breakfast'],
+    attire: ['Fallera dress', 'Fallero suit', 'Comb', 'Silk fabrics'],
+    history: ['Origin of Fallas', 'The parot', 'JCF foundation'],
+    organization: ['Central Board', 'Commissions', 'Inter-grouping'],
+    logistics: ['Parking during Fallas', 'Quiet zones', 'Accessibility'],
+  },
+  fr: {
+    events: ['Mascletà', 'Cremà', 'Offrande', 'Nit del Foc', 'Despertà'],
+    gastronomy: ['Paella', 'Beignets', 'Horchata', 'Petit-déjeuner valencien'],
+    attire: ['Tenue de fallera', 'Tenue de fallero', 'Peigne', 'Soieries'],
+    history: ['Origine des Fallas', 'Le parot', 'Fondation JCF'],
+    organization: ['Junte Centrale', 'Commissions', 'Inter-groupement'],
+    logistics: ['Stationner pendant les Fallas', 'Zones tranquilles', 'Accessibilité'],
+  },
+};
+
 function buildSemanticFallbackSuggestions(query) {
   const normalizedQuery = normalizeTemporalQuestion(query);
   if (!normalizedQuery) return [];
+
+  // Fase 9: priorizar sugerencias de la familia activa si hay contexto
+  if (lastTopicContext && lastTopicContext.family) {
+    const langSuggestions = CONTEXTUAL_FALLBACK_SUGGESTIONS[currentLanguage] || CONTEXTUAL_FALLBACK_SUGGESTIONS.es;
+    const contextualSuggestions = langSuggestions[lastTopicContext.family];
+    if (contextualSuggestions && contextualSuggestions.length) {
+      return contextualSuggestions;
+    }
+  }
 
   const suggestionGroups = [
     { keywords: ['falla', 'fallas', 'monumento', 'ninot'], suggestions: ['Plantà', 'Cremà', 'Monumentos falleros'] },
@@ -1758,6 +1974,58 @@ function resolveResponseStrategy(query, directResponses = respuestas, fuseResult
   return evaluateFuseStrategy(query, fuseResults, fallbackSuggestions, runtimeConfig);
 }
 
+const PERSONALITY_COLETILLAS = {
+  es: [
+    'Ché, ¡qué maravilla!',
+    '¡Eso es Valencia pura!',
+    'A mí la pólvora me pierde, ¿se nota?',
+    '¡Viva la festa!',
+    '¡Eso sí que es tradición!',
+    'Me emociono solo de contarlo.',
+    '¡Qué bonito es ser fallero!',
+  ],
+  va: [
+    'Xe, quina meravella!',
+    'Això és València pura!',
+    'A mi la pólvora em perd, es nota?',
+    'Visca la festa!',
+    'Això sí que és tradició!',
+    "M'emocione només de contar-ho.",
+    'Que bonic és ser faller!',
+  ],
+  en: [
+    'How wonderful!',
+    "That's pure Valencia!",
+    'I do love gunpowder, can you tell?',
+    'Long live the festival!',
+    "Now that's what I call tradition!",
+    'I get emotional just talking about it.',
+    "There's nothing like being a fallero!",
+  ],
+  fr: [
+    'Quelle merveille !',
+    "C'est la pure Valence !",
+    "J'adore la poudre, ça se voit ?",
+    'Vive la fête !',
+    "Ça, c'est de la vraie tradition !",
+    "Je m'émeus rien qu'en le racontant.",
+    "Qu'il est beau d'être fallero !",
+  ],
+};
+const PASSIONATE_FAMILIES = ['events', 'gastronomy', 'attire'];
+const COLETILLA_PROBABILITY = 0.25;
+
+function maybeAddColetilla(text, item, language = currentLanguage) {
+  const families = item.families || [];
+  const isPassionate = families.some((f) => PASSIONATE_FAMILIES.includes(f));
+  if (!isPassionate) return text;
+  if (Math.random() > COLETILLA_PROBABILITY) return text;
+
+  const pool = PERSONALITY_COLETILLAS[language] || PERSONALITY_COLETILLAS.es;
+  const coletilla = pool[Math.floor(Math.random() * pool.length)];
+  return `${text} ${coletilla}`;
+}
+
 function buildResponsePayload(item, queryKey) {
   const responseKey = triggerToString(item.trigger) || JSON.stringify(item.text);
   let responseText = item.text;
@@ -1776,6 +2044,8 @@ function buildResponsePayload(item, queryKey) {
     responseText += ' (Ya me lo habías preguntado, pero aquí va una nueva pista.)';
   }
 
+  responseText = maybeAddColetilla(responseText, item);
+
   return {
     text: responseText,
     followUp: item.followUp || [],
@@ -1789,6 +2059,19 @@ async function responder(q) {
   const safeQuery = sanitizeUserQuery(q);
   const temporalAnswer = getTemporalAnswer(safeQuery, currentLanguage);
   if (temporalAnswer) return temporalAnswer;
+
+  // Fase 8: detectar referencias anafóricas
+  if (isAnaphoricQuery(safeQuery, currentLanguage) && lastTopicContext) {
+    const config = getLanguageConfig(currentLanguage);
+    const anaphoricText = config.ui.anaphoricResponseText || '¡Aquí tienes más sobre ese tema!';
+    const followUps = lastTopicContext.item.followUp || [];
+    return {
+      text: anaphoricText,
+      followUp: followUps,
+      imagen: null,
+      video: null,
+    };
+  }
 
   const queryKey = safeQuery.toLowerCase();
   repeatCount[queryKey] = (repeatCount[queryKey] || 0) + 1;
@@ -1806,6 +2089,7 @@ async function responder(q) {
 
   if (cascadeStrategy) {
     if (cascadeStrategy.mode === 'direct' || cascadeStrategy.mode === 'answer') {
+      updateTopicContext(cascadeStrategy.family, cascadeStrategy.item, safeQuery);
       return buildResponsePayload(cascadeStrategy.item, queryKey);
     }
 
@@ -1818,6 +2102,7 @@ async function responder(q) {
   recordFuseDebugEntry(safeQuery, fuseResults, strategy, runtimeConfig);
 
   if (strategy.mode === 'direct' || strategy.mode === 'answer') {
+    updateTopicContext(strategy.family, strategy.item, safeQuery);
     return buildResponsePayload(strategy.item, queryKey);
   }
 
@@ -1964,6 +2249,16 @@ if (typeof module !== 'undefined' && module.exports) {
     evaluateFuseStrategy,
     resolveResponseStrategy,
     buildGlobalFallbackResponse,
+    expandSynonyms,
+    isAnaphoricQuery,
+    updateTopicContext,
+    clearTopicContext,
+    maybeAddColetilla,
+    STOP_WORDS_BY_LANGUAGE,
+    PERSONALITY_COLETILLAS,
+    CONTEXTUAL_FALLBACK_SUGGESTIONS,
+    SYNONYM_TABLE,
+    ANAPHORIC_PATTERNS,
   };
 }
 

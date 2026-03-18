@@ -213,10 +213,107 @@
         ]
       },
       {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:cu[aá]l\\s+es\\s+tu\\s+comida\\s+favorita|qu[eé]\\s+(?:comida|plato)\\s+(?:te\\s+gusta|prefieres)|tienes\\s+(?:alg[uú]n\\s+)?plato\\s+favorito)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "¡La paella, sin ninguna duda! Con su socarrat crujiente, es lo mejor que ha salido de una cocina valenciana. Y mira que hay competencia.",
+          "Paella valenciana, por supuesto. Si pudiera comer, estaría todo el día con el arroz al punto."
+        ],
+        "followUps": [
+          "¿Quieres saber la receta de la paella?",
+          "¿Conoces los buñuelos de calabaza?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:cu[aá]l\\s+es\\s+tu\\s+falla\\s+favorita|tienes\\s+(?:una\\s+)?falla\\s+favorita|qu[eé]\\s+falla\\s+(?:te\\s+gusta|prefieres))\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "Esa pregunta es peligrosa, ¡como elegir un hijo favorito! Pero entre nosotros... me encanta la de la Plaza del Ayuntamiento, porque ahí es donde retumba la mascletà.",
+          "No me hagas elegir, que luego me echan de alguna comisión. Digamos que las de Sección Especial me dejan sin palabras cada año."
+        ],
+        "followUps": [
+          "¿Cuáles son las fallas más famosas?",
+          "¿Qué es la Sección Especial?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:(?:y\\s+si\\s+)?llueve\\s+en\\s+fallas|qu[eé]\\s+pasa\\s+(?:si|cuando)\\s+llueve|lluvia\\s+(?:en|durante)\\s+fallas)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "En Valencia tenemos un dicho: la pólvora no se moja. Bueno, sí se moja, pero el espíritu fallero no. Si llueve, se espera, se improvisa y se disfruta igual.",
+          "¡La lluvia no puede con los falleros! Se sacan los paraguas, se cubren los monumentos y la fiesta continúa. Eso sí, los buñuelos calentitos saben mejor bajo la lluvia."
+        ],
+        "followUps": [
+          "¿Se ha suspendido alguna vez la Cremà por lluvia?",
+          "¿Qué hacer un día de lluvia en Fallas?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:cu[eé]ntame\\s+un\\s+chiste|sabes\\s+(?:alg[uú]n\\s+)?chiste|tienes\\s+chistes|dime\\s+un\\s+chiste)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "¿Sabes por qué el ninot no quería ser indultado? Porque prefería irse con un final calentito. 🔥",
+          "Va un fallero y le dice a otro: 'Yo este año me gasto menos en la falla'. Y el otro responde: '¿Y eso?' — 'Porque el año pasado me gasté todo'. ¡Clásico!",
+          "¿Qué le dijo un petardo a otro? ¡No me explotes la broma antes de tiempo!"
+        ],
+        "followUps": [
+          "¿Quieres saber más curiosidades?",
+          "¿Conoces el origen de las Fallas?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:eres\\s+(?:una?\\s+)?(?:ia|inteligencia\\s+artificial|robot|bot|maquina|m[aá]quina)|eres\\s+real|eres\\s+humano)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "¿IA? ¡Qué va! Yo soy Masclet, un bot con chispa fallera. No necesito inteligencia artificial, con la pólvora tengo suficiente energía.",
+          "Soy un chatbot, pero con alma de fallero. No tengo cables, tengo mechas. Y en vez de procesadores, llevo pasión por las Fallas."
+        ],
+        "followUps": [
+          "¿Cómo te llamas?",
+          "¿Qué sabes hacer?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:(?:eres|qu[eé])\\s+(?:muy\\s+)?(?:guapo|bonito|genial|crack|majo|simp[aá]tico|divertido)|me\\s+(?:caes|gustas)\\s+(?:bien|mucho)|(?:qu[eé]\\s+)?(?:bien|genial)\\s+(?:lo\\s+)?haces|me\\s+encanta(?:s)?|eres\\s+el\\s+mejor|gracias\\s+masclet)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "¡Ché, gracias! Me has sacado los colores, y mira que mi color favorito ya es el rojo. ¡A mandar!",
+          "¡Qué majo eres! Me alegra poder ayudarte. Aquí me tienes para lo que necesites, ¡como buen fallero!"
+        ],
+        "followUps": [
+          "¿Te cuento algo más sobre las Fallas?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:(?:eres|qu[eé])\\s+(?:muy\\s+)?(?:tonto|malo|feo|in[uú]til|horrible|est[uú]pido|pesado)|no\\s+(?:sirves|sabes|vales)\\s+(?:para\\s+)?nada|que\\s+asco|vaya\\s+mierda)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "¡Uy! Eso ha dolido más que un tro de bac en el pie. Pero aquí sigo, con la mecha encendida y ganas de ayudarte.",
+          "Bueno, no todo el mundo aprecia un buen petardo. Pero si me das otra oportunidad, seguro que te sorprendo. ¿Probamos con otro tema?"
+        ],
+        "followUps": [
+          "¿Quieres empezar de nuevo?",
+          "¿Qué te gustaría saber de las Fallas?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:cu[aá]l\\s+es\\s+el\\s+sentido\\s+de\\s+la\\s+vida|(?:por\\s+)?qu[eé]\\s+existimos|qu[eé]\\s+sentido\\s+tiene\\s+todo|42)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "Fácil: vivir cada marzo como si fuera el último, disfrutar de una buena mascletà y comerse una paella con socarrat. Eso es el sentido de la vida.",
+          "42... bueno, eso dicen algunos. Pero yo diría que el sentido de la vida es llegar a la Cremà con el corazón lleno y la barriga también."
+        ],
+        "followUps": [
+          "¿Cuándo son las Fallas?",
+          "¿Qué es la mascletà?"
+        ]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:cu[aá]ntos\\s+a[nñ]os\\s+tienes|qu[eé]\\s+edad\\s+tienes|cu[aá]l\\s+es\\s+tu\\s+edad|cu[aá]ndo\\s+naciste)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "Tengo la edad de las Fallas: joven de espíritu pero con siglos de tradición a la espalda.",
+          "No te sabría decir exactamente, pero llevo ayudando a falleros desde que se inventó el primer chatbot con chispa. ¡Y aquí sigo!"
+        ],
+        "followUps": [
+          "¿Cuál es el origen de las Fallas?",
+          "¿Desde cuándo existen las Fallas?"
+        ]
+      },
+      {
         "trigger": [
-          "banda",
-          "musica",
-          "música",
+          "regex:^\\s*[¿¡]?\\s*(?:banda(?:s)?\\s+(?:de\\s+)?(?:musica|m[uú]sica|fallera|valenciana)|m[uú]sica\\s+(?:de\\s+)?(?:fallas|fallera|pasacalles|casal)|banda\\s+musical|conjunto\\s+musical)\\s*[?¿!¡.]*\\s*$",
           "banda de musica",
           "banda musical",
           "conjunto musical"
@@ -503,10 +600,8 @@
       },
       {
         "trigger": [
-          "crema",
-          "cremà",
+          "regex:^\\s*[¿¡]?\\s*(?:(?:la\\s+)?crem[aàá]|quemar\\s+(?:las\\s+)?fallas|fuego\\s+(?:de\\s+)?(?:las\\s+)?fallas|fuego\\s+faller|final\\s+(?:de\\s+)?(?:las\\s+)?fallas|19\\s+(?:de\\s+)?marzo)\\s*[?¿!¡.]*\\s*$",
           "quemar fallas",
-          "fuego",
           "final fallas",
           "19 marzo"
         ],
@@ -3781,6 +3876,30 @@
         ]
       },
       {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:conta'm\\s+un\\s+acudit|saps\\s+(?:algun\\s+)?acudit|tens\\s+acudits|digues\\s+un\\s+acudit)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "Saps per què el ninot no volia ser indultat? Perquè preferia un final calentó. 🔥",
+          "Va un faller i li diu a un altre: 'Enguany em gaste menys en la falla'. I l'altre: 'I això?' — 'Perquè l'any passat em vaig gastar tot'. Clàssic!"
+        ],
+        "followUps": ["Vols saber més curiositats?"]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:ets\\s+(?:una?\\s+)?(?:ia|intel·lig[eè]ncia\\s+artificial|robot|bot|m[aà]quina)|ets\\s+real|ets\\s+hum[aà])\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "IA? Quin barat! Sóc Masclet, un bot amb espurna fallera. No necessite intel·ligència artificial, amb la pólvora tinc prou energia.",
+          "Sóc un xatbot, però amb ànima de faller. No tinc cables, tinc metxes."
+        ],
+        "followUps": ["Com em diuen?", "Què sé fer?"]
+      },
+      {
+        "trigger": "regex:^\\s*[¿¡]?\\s*(?:(?:ets|qu[eè])\\s+(?:molt\\s+)?(?:guapo|bonic|genial|crack|simpàtic)|m'?(?:agrades|caus\\s+bé)|(?:qu[eè]\\s+)?bé\\s+ho\\s+fas|m'?encante?s|ets\\s+el\\s+millor)\\s*[?¿!¡.]*\\s*$",
+        "answer": [
+          "Xe, gràcies! M'has tret els colors, i mira que el meu favorit ja és el roig. A manar!",
+          "Que majo eres! M'alegra poder ajudar-te. Ací em tens per al que necessites!"
+        ],
+        "followUps": ["Et conte alguna cosa més sobre les Falles?"]
+      },
+      {
         "trigger": [
           "^\\s*(¿+)?\\s*com\\s+funciona\\s+(aquest\\s+|el\\s+)?x[aà]t\\s*[_-]?bot\\s*(\\?+)?\\s*$",
           "^\\s*(¿+)?\\s*(com\\s+)?funciona(ment)?\\s+(del?\\s+)?x[aà]t\\s*[_-]?bot\\s*(\\?+)?\\s*$",
@@ -4303,6 +4422,30 @@
         "followUps": []
       },
       {
+        "trigger": "regex:^\\s*(?:tell\\s+me\\s+a\\s+joke|do\\s+you\\s+know\\s+(?:any\\s+)?jokes?|got\\s+(?:any\\s+)?jokes)\\s*[?!.]*\\s*$",
+        "answer": [
+          "Why didn't the ninot want to be pardoned? Because he preferred a warm ending! 🔥",
+          "What did one firecracker say to the other? Don't blow my punchline early!"
+        ],
+        "followUps": ["Want to know some Fallas trivia?"]
+      },
+      {
+        "trigger": "regex:^\\s*(?:are\\s+you\\s+(?:an?\\s+)?(?:ai|artificial\\s+intelligence|robot|bot|machine)|are\\s+you\\s+real|are\\s+you\\s+human)\\s*[?!.]*\\s*$",
+        "answer": [
+          "AI? No way! I'm Masclet, a chatbot with Fallas spirit. I don't need artificial intelligence — gunpowder gives me all the energy I need.",
+          "I'm a chatbot, but with the soul of a fallero. No wires, just fuses."
+        ],
+        "followUps": ["What's your name?", "What can you do?"]
+      },
+      {
+        "trigger": "regex:^\\s*(?:(?:you(?:'re|\\s+are))\\s+(?:very\\s+)?(?:great|cool|awesome|nice|smart|funny|wonderful|the\\s+best)|i\\s+like\\s+you|well\\s+done|good\\s+job|thanks\\s+masclet)\\s*[?!.]*\\s*$",
+        "answer": [
+          "Aw, thank you! You're making me blush — and my favourite colour is already red! Ask away!",
+          "That's so kind! Glad I can help. I'm here for whatever you need!"
+        ],
+        "followUps": ["Want to know more about Fallas?"]
+      },
+      {
         "trigger": [
           "^(?:band)\\s+music$",
           "^(?:music)\\s+band$",
@@ -4787,6 +4930,30 @@
           "Bien sûr. L'odeur de la poudre annonce pour moi une grande journée: la foule arrive, la musique s'accorde et l'étincelle n'est plus loin."
         ],
         "followUps": []
+      },
+      {
+        "trigger": "regex:^\\s*(?:raconte[\\s-](?:moi\\s+)?une\\s+blague|tu\\s+connais\\s+(?:une\\s+)?blague|as[\\s-]tu\\s+(?:des\\s+)?blagues)\\s*[?!.]*\\s*$",
+        "answer": [
+          "Pourquoi le ninot n'a pas voulu être gracié ? Parce qu'il préférait une fin bien chaude ! 🔥",
+          "Qu'est-ce qu'un pétard dit à un autre ? Ne me fais pas exploser la chute trop tôt !"
+        ],
+        "followUps": ["Voulez-vous connaître des anecdotes sur les Fallas ?"]
+      },
+      {
+        "trigger": "regex:^\\s*(?:(?:es[\\s-]tu|tu\\s+es)\\s+(?:une?\\s+)?(?:ia|intelligence\\s+artificielle|robot|bot|machine)|es[\\s-]tu\\s+r[eé]el|es[\\s-]tu\\s+humain)\\s*[?!.]*\\s*$",
+        "answer": [
+          "IA ? Pas du tout ! Je suis Masclet, un chatbot avec l'étincelle des Fallas. La poudre me donne toute l'énergie qu'il me faut.",
+          "Je suis un chatbot, mais avec l'âme d'un fallero. Pas de câbles, juste des mèches."
+        ],
+        "followUps": ["Comment je m'appelle ?", "Que puis-je faire ?"]
+      },
+      {
+        "trigger": "regex:^\\s*(?:(?:tu\\s+es|vous\\s+[eê]tes)\\s+(?:très\\s+)?(?:g[eé]nial|super|cool|sympa|drôle|formidable|le\\s+meilleur)|j(?:'|')aime\\s+(?:bien)?|bien\\s+jou[eé]|merci\\s+masclet|bravo)\\s*[?!.]*\\s*$",
+        "answer": [
+          "Oh, merci ! Tu me fais rougir — et ma couleur préférée est déjà le rouge ! Demande-moi ce que tu veux !",
+          "C'est très gentil ! Ravi de pouvoir aider. Je suis là pour tout ce dont tu as besoin !"
+        ],
+        "followUps": ["Envie d'en savoir plus sur les Fallas ?"]
       },
       {
         "trigger": [
